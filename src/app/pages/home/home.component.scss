@@ -1,0 +1,27 @@
+.navbar-brand
+{
+    position: relative;
+    // background: url(assets/img/icon.png);
+    width: 170px;
+    height: 15px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.logo {
+    width: 50px;
+    border-radius: 50%;
+}
+
+.dropdown_div {
+    right: 0;
+    left: auto;
+}
+
+.container-fluid {
+    padding: 0;
+    .background {
+        width: 100%;
+    }
+}
