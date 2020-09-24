@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { ModalService } from '../../services/modal.service';
+import { CommonService } from '../../services/common.service';
 
 @Component({
 	selector: 'app-sign-up',
@@ -19,6 +20,7 @@ export class SignUpComponent implements OnInit {
 	constructor(
 		private authService: AuthService,
 		private modalService: ModalService,
+		private common: CommonService,
 		) { }
 
 	ngOnInit(): void {
@@ -45,6 +47,9 @@ export class SignUpComponent implements OnInit {
 		this.authService.signUp(data).subscribe((res) => {
 			if (res.success) {
 				this.modalService.close('sign-up');
+				localStorage.setItem('token', JSON.stringify(res.token));
+				localStorage.setItem('user', JSON.stringify(res.user));
+				this.common.publishData({login: res.user});
 			}
 		})
 	}

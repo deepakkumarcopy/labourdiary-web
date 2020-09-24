@@ -77,10 +77,10 @@ export class AuthService {
 
 	async linkedInLogin() {
 
-		// (window as any).popup = window.open(`https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=78b32kqcfmc0wv&redirect_uri=http://54.174.40.59/callback&scope=r_liteprofile%20r_emailaddress`, '_blank', 'location=yes');
-		// (window as any).popup.onload = function(event) {
-		// 	console.log(event)
-		// }
+		(window as any).popup = window.open(`https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=78b32kqcfmc0wv&redirect_uri=http://54.174.40.59/callback&scope=r_liteprofile%20r_emailaddress`, '_blank', 'location=yes');
+		(window as any).popup.onload = function(event) {
+			console.log(event)
+		}
 		// console.log(linkedIn)
 		// window.onload = (event)=> {
 		// 	console.log(event)

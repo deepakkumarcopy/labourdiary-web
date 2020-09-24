@@ -5,6 +5,7 @@ import { error } from 'protractor';
 // Services
 import { AuthService } from '../../services/auth.service';
 import { ModalService } from '../../services/modal.service';
+import { CommonService } from '../../services/common.service';
 
 @Component({
 	selector: 'app-login',
@@ -22,8 +23,10 @@ export class LoginComponent implements OnInit {
 		private modalService: ModalService,
 		private FormBuilder: FormBuilder,
 		private authService: AuthService,
-	) { }
-
+		private common: CommonService,
+	) {
+	}
+	
 	ngOnInit(): void {
 		let emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
 		this.loginForm = this.FormBuilder.group({
@@ -31,15 +34,17 @@ export class LoginComponent implements OnInit {
 			password: new FormControl('', [Validators.required, Validators.maxLength(30), Validators.minLength(6)]),
 		});
 	}
-
+	
 	onSubmit() {
 		this.isValidEmailPass = false;
 		this.isAccountActive = false;
 		this.authService.login(this.loginForm.value).subscribe((res) => {
 			if (res.success) {
 				if (res.user.active) {
-					console.log(res)
 					this.modalService.close('login')
+					localStorage.setItem('token', JSON.stringify(res.token));
+					localStorage.setItem('user', JSON.stringify(res.user));
+					this.common.publishData({login: res.user});
 				} else {
 					this.isAccountActive = true;
 				}
