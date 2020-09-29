@@ -7,11 +7,46 @@
 			<div class="dropdown_div dropdown-menu">
 				<a class="dropdown-item" *ngIf="!user" (click)="openModal('login')" href="#">Log In</a>
 				<a class="dropdown-item" *ngIf="!user" (click)="openModal('sign-up')" href="#">Sign Up</a>
+				<a class="dropdown-item" *ngIf="user" (click)="openModal('log-out')" href="#">Saved</a>
 				<a class="dropdown-item" *ngIf="user" (click)="openModal('log-out')" href="#">Log Out</a>
 			</div>
 		</div>
 	</nav>
 	<img class="background" src="assets/img/header-bg.jpg" alt="">
+	<br>
+	<br>
+	<br>
+	<div class="row m-0">
+		<div class="col-3 col-sm-3 col-lg-2 col-xl-1 colum-row text-center cursor-pointer category-card" *ngFor="let category of categories" (click)="selectCategory(category)">
+			<div class="h-100 box-shadow-box p-2 border-radius-10">
+				<img src="assets/img/{{category.name}}.png" alt="" width="60px">
+				<div class="font-12 text-capitalize">{{category.name}}</div>
+			</div>
+		</div>
+	</div>
+	<br>
+	<br>
+	<div class="container">
+		<div class="row">
+			<div class="col-6 col-md-3" *ngFor="let service of resentServices" (click)="selectService(service)">
+				<div class="rounded service-card cursor-pointer">
+					<img [src]="((service.user.imageUrl == '') || (service.user.imageUrl == 'null')) ? 'assets/img/personImg.jpg' : service.user.imageUrl" alt="" width="100%">
+					<div class="heart font-20 p-2">
+						<div class="fa fa-heart text-danger" *ngIf="checkSavedService(service.id)" (click)="removeSavedServiceProvider(service);$event.stopPropagation();"></div>
+						<div class="fa fa-heart-o" *ngIf="!checkSavedService(service.id)" (click)="saveServiceProvider(service);$event.stopPropagation();"></div>
+					</div>
+					<div class="p-2 font-14">
+						<div>
+							<i class="fa fa-star text-danger"></i> {{service.rating}}
+							<span class="dull-text text-capitalize">({{service.reviewers}}) · {{service.cityName}}</span>
+						</div>
+						<div><span class="text-capitalize">{{service.name}}</span></div>
+						<div class="font-weight-bold font-15">Form ${{service.price}}</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 <jw-modal id="log-out">

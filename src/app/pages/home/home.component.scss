@@ -1,5 +1,4 @@
-.navbar-brand
-{
+.navbar-brand {
     position: relative;
     // background: url(assets/img/icon.png);
     width: 170px;
@@ -21,7 +20,36 @@
 
 .container-fluid {
     padding: 0;
+
     .background {
         width: 100%;
     }
+}
+
+.service-card {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+}
+
+.service-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+    border: .5px solid #ccc;
+}
+
+.service-card .heart {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.colum-row {
+    padding: 5px;
+}
+
+.box-shadow-box:active {
+    border-radius: 10px;
+    box-shadow: none;
 }

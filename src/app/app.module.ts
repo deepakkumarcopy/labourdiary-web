@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
@@ -22,6 +22,9 @@ import { ModalComponent } from './modal/modal.component';
 //Services
 import { ModalService } from './services/modal.service';
 import { TranslateConfigService } from './services/translate-config.service';
+import { TokenInterceptorService } from './services/token-interceptor.service';
+import { SearchComponent } from './pages/search/search.component';
+import { FooterComponent } from './pages/footer/footer.component';
 
 @NgModule({
 	declarations: [
@@ -30,6 +33,8 @@ import { TranslateConfigService } from './services/translate-config.service';
 		HomeComponent,
 		SignUpComponent,
 		ModalComponent,
+		SearchComponent,
+		FooterComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -54,6 +59,11 @@ import { TranslateConfigService } from './services/translate-config.service';
 	providers: [
 		ModalService,
 		TranslateConfigService,
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: TokenInterceptorService,
+			multi: true
+		}
 	],
 	bootstrap: [AppComponent]
 })
