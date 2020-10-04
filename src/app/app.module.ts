@@ -15,7 +15,7 @@ import { environment } from '../environments/environment.prod';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
-import { HomeComponent } from './pages/home/home.component';
+import { HomeComponent } from './pages/user/home/home.component';
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { ModalComponent } from './modal/modal.component';
 
@@ -23,8 +23,12 @@ import { ModalComponent } from './modal/modal.component';
 import { ModalService } from './services/modal.service';
 import { TranslateConfigService } from './services/translate-config.service';
 import { TokenInterceptorService } from './services/token-interceptor.service';
-import { SearchComponent } from './pages/search/search.component';
+import { SearchComponent } from './pages/user/search/search.component';
 import { FooterComponent } from './pages/footer/footer.component';
+import { HeaderComponent } from './pages/user/header/header.component';
+import { CategoryComponent } from './pages/user/category/category.component';
+import { ErrorComponent } from './pages/error/error.component';
+import { ServiceComponent } from './pages/user/service/service.component';
 
 @NgModule({
 	declarations: [
@@ -35,6 +39,10 @@ import { FooterComponent } from './pages/footer/footer.component';
 		ModalComponent,
 		SearchComponent,
 		FooterComponent,
+		HeaderComponent,
+		CategoryComponent,
+		ErrorComponent,
+		ServiceComponent,
 	],
 	imports: [
 		BrowserModule,

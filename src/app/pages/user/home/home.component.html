@@ -1,23 +1,11 @@
 <div class="container-fluid">
-	<nav class="navbar bg-light">
-		<img class="logo" src="assets/img/icon.png" alt="">
-		<a class="navbar-brand" href="/"></a>
-		<div class="dropdown">
-			<img class="logo btn-primary dropdown-toggle" data-toggle="dropdown" id="selectedOption"  [src]="userImage ? userImage : 'assets/img/personImg1.jpg'" alt="">
-			<div class="dropdown_div dropdown-menu">
-				<a class="dropdown-item" *ngIf="!user" (click)="openModal('login')" href="#">Log In</a>
-				<a class="dropdown-item" *ngIf="!user" (click)="openModal('sign-up')" href="#">Sign Up</a>
-				<a class="dropdown-item" *ngIf="user" (click)="openModal('log-out')" href="#">Saved</a>
-				<a class="dropdown-item" *ngIf="user" (click)="openModal('log-out')" href="#">Log Out</a>
-			</div>
-		</div>
-	</nav>
+	<app-header></app-header>
 	<img class="background" src="assets/img/header-bg.jpg" alt="">
 	<br>
 	<br>
 	<br>
 	<div class="row m-0">
-		<div class="col-3 col-sm-3 col-lg-2 col-xl-1 colum-row text-center cursor-pointer category-card" *ngFor="let category of categories" (click)="selectCategory(category)">
+		<div class="col-3 col-sm-3 col-lg-2 col-xl-1 colum-row text-center cursor-pointer category-card" *ngFor="let category of categories" (click)="selectCategory(category)" [routerLink]="['/category', category.id]">
 			<div class="h-100 box-shadow-box p-2 border-radius-10">
 				<img src="assets/img/{{category.name}}.png" alt="" width="60px">
 				<div class="font-12 text-capitalize">{{category.name}}</div>
@@ -28,7 +16,7 @@
 	<br>
 	<div class="container">
 		<div class="row">
-			<div class="col-6 col-md-3" *ngFor="let service of resentServices" (click)="selectService(service)">
+			<div class="col-6 col-md-3" *ngFor="let service of resentServices"  (click)="selectService(service)">
 				<div class="rounded service-card cursor-pointer">
 					<img [src]="((service.user.imageUrl == '') || (service.user.imageUrl == 'null')) ? 'assets/img/personImg.jpg' : service.user.imageUrl" alt="" width="100%">
 					<div class="heart font-20 p-2">

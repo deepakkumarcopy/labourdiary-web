@@ -1,7 +1,11 @@
+// Component
 import { Component, OnInit } from '@angular/core';
-import { ModalService } from '../../services/modal.service';
-import { CommonService } from '../../services/common.service';
-import { ApiService } from '../../services/api.service';
+import { Router } from '@angular/router';
+
+// Services
+import { ModalService } from '../../../services/modal.service';
+import { CommonService } from '../../../services/common.service';
+import { ApiService } from '../../../services/api.service';
 
 @Component({
 	selector: 'app-home',
@@ -18,16 +22,11 @@ export class HomeComponent implements OnInit {
 	savedServiceList: any = [];
 
 	constructor(
+		private route: Router,
 		private api: ApiService,
 		private common: CommonService,
 		private modalService: ModalService,
 	) {
-		this.common.subscribeData().subscribe(res => {
-			if (!!res.login) {
-				this.user = res.login;
-				this.userImage = res.login.imageUrl;
-			}
-		});
 	}
 
 	ngOnInit(): void {
@@ -61,6 +60,7 @@ export class HomeComponent implements OnInit {
 	}
 
 	selectCategory(category: any) {
+		// this.route.navigate(['search', {state: { item : category}}]);
 		console.log(category)
 	}
 
