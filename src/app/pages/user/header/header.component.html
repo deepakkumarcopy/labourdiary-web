@@ -1,13 +1,17 @@
 <nav class="navbar bg-light">
-    <img class="logo" src="assets/img/icon.png" alt="">
-    <a class="navbar-brand" href="/"></a>
-    <div class="dropdown">
-        <img class="logo btn-primary dropdown-toggle" data-toggle="dropdown" id="selectedOption"  [src]="userImage ? userImage : 'assets/img/personImg1.jpg'" alt="">
-        <div class="dropdown_div dropdown-menu">
-            <a class="dropdown-item" *ngIf="!user" (click)="openModal('login')" href="#">Log In</a>
-            <a class="dropdown-item" *ngIf="!user" (click)="openModal('sign-up')" href="#">Sign Up</a>
-            <a class="dropdown-item" *ngIf="user" (click)="openModal('log-out')" href="#">Saved</a>
-            <a class="dropdown-item" *ngIf="user" (click)="openModal('log-out')" href="#">Log Out</a>
-        </div>
-    </div>
+	<img class="logo" src="assets/img/icon.png" alt="">
+	<a class="navbar-brand" href="/"></a>
+	<div class="dropdown">
+		<img class="logo btn-primary dropdown-toggle" data-toggle="dropdown" id="selectedOption"  [src]="userImage ? userImage : 'assets/img/personImg1.jpg'" alt="">
+		<div class="dropdown_div dropdown-menu">
+			<a class="dropdown-item" *ngIf="!user" (click)="openModal('login')" href="#">Log In</a>
+			<a class="dropdown-item" *ngIf="!user" (click)="openModal('sign-up')" href="#">Sign Up</a>
+			<a class="dropdown-item" *ngIf="user" (click)="openModal('log-out')" href="#">Saved</a>
+			<a class="dropdown-item" *ngIf="user" (click)="openModal('log-out')" href="#">Log Out</a>
+		</div>
+	</div>
 </nav>
+
+<app-login></app-login>
+
+<app-sign-up></app-sign-up>

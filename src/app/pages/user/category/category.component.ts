@@ -27,7 +27,7 @@ export class CategoryComponent implements OnInit, AfterContentInit {
 	) { }
 
 	ngOnInit(): void {
-		this.route.params.subscribe(params => {
+		this.route.params.subscribe((params) => {
 			console.log(params)
 			let data = {
 				catId: params.id,
