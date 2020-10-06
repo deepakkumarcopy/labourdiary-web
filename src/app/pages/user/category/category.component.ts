@@ -230,4 +230,8 @@ export class CategoryComponent implements OnInit, AfterContentInit {
 		});
 	}
 
+	serviceInfo(e) {
+		console.log(e, 'eeeeeeeeeeeeeeeeeeee');
+	}
+
 }
