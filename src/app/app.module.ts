@@ -29,6 +29,7 @@ import { HeaderComponent } from './pages/user/header/header.component';
 import { CategoryComponent } from './pages/user/category/category.component';
 import { ErrorComponent } from './pages/error/error.component';
 import { ServiceComponent } from './pages/user/service/service.component';
+import { UserComponent } from './layouts/user/user.component';
 
 @NgModule({
 	declarations: [
@@ -43,6 +44,7 @@ import { ServiceComponent } from './pages/user/service/service.component';
 		CategoryComponent,
 		ErrorComponent,
 		ServiceComponent,
+		UserComponent,
 	],
 	imports: [
 		BrowserModule,
