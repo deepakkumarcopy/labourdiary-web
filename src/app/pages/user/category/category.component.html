@@ -1,6 +1,6 @@
-<app-header></app-header>
+<!-- <app-header></app-header> -->
 <div class="row wholeDiv">
-	<div class="col-md-6 serviceDiv">
+	<div class="col-md-6 serviceDiv" *ngIf="services && services.length>0">
 		<div class="row border-top border-bottom services cursor-pointer" *ngFor="let service of services">
 			<div class="col-sm-5 images">
 				<img [src]="((service.user.imageUrl == '') || (service.user.imageUrl == 'null')) ? 'assets/img/personImg.jpg' : service.user.imageUrl" alt="" width="100%">

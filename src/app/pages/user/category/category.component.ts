@@ -129,15 +129,20 @@ export class CategoryComponent implements OnInit, AfterContentInit {
 					// The anchor for this image is the base of the flagpole at (0, 32).
 					anchor: new google.maps.Point(17, -1)
 				},
-				html: `<div id="content" style="position: relative;">
-				<img src=' ${this.locations[i].imageUrl} ' style="height : 50px;width :50px;left: 0;position: absolute; border-radius: 50%;">
-				<h4 style="padding: 13px 56px;white-space: nowrap;" id="firstHeading" class="firstHeading"> ${this.locations[i].name}</h4>
-				<div id="bodyContent">
-				<p> ${this.locations[i].about} </p>
-				<a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">
-				'https://en.wikipedia.org/w/index.php?title=Uluru</a>
-				</div>
-				</div>`,
+				html:
+					`	
+						<div id="content" style="position: relative;">
+							<div class="card" style="width:300px">
+						    <img class="card-img-top" src='${this.locations[i].imageUrl}' alt="Card image" style="width:100%; height:225px">
+						    <div class="card-body">
+						      <h4 class="card-title">${this.locations[i].name}</h4>
+						      <p> ${this.locations[i].about} </p>
+						      <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
+						      <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">
+									 'https://en.wikipedia.org/w/index.php?title=Uluru</a>
+						    </div>
+					  	</div>
+				  	</div>`,
 				id: i,
 			});
 
