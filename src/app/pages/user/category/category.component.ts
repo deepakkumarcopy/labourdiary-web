@@ -10,8 +10,8 @@ declare let google: any;
 })
 
 export class CategoryComponent implements OnInit, AfterContentInit {
-	
-	@ViewChild('mapElement', {static: true}) mapElement;
+
+	@ViewChild('mapElement', { static: true }) mapElement;
 	map;
 	locations: any = [];
 	markers = [];
@@ -46,7 +46,7 @@ export class CategoryComponent implements OnInit, AfterContentInit {
 					this.getValueInMap(res.services);
 				}
 				this.services.length ? this.noServices = false : this.noServices = true;
-			},(e) => {
+			}, (e) => {
 				this.noServices = true;
 			});
 		});
@@ -105,7 +105,7 @@ export class CategoryComponent implements OnInit, AfterContentInit {
 	ngAfterContentInit(): void {
 		console.log('map')
 		// this.geolocation.getCurrentPosition().then((resp) => {
-	  		this.loadMap();
+		this.loadMap();
 		// }).catch((error) => {
 		// 	console.log('Error getting location', error);
 		// });
@@ -133,16 +133,13 @@ export class CategoryComponent implements OnInit, AfterContentInit {
 					`	
 						<div id="content" style="position: relative;">
 							<div class="card" style="width:300px">
-						    <img class="card-img-top" src='${this.locations[i].imageUrl}' alt="Card image" style="width:100%; height:225px">
-						    <div class="card-body">
-						      <h4 class="card-title">${this.locations[i].name}</h4>
-						      <p> ${this.locations[i].about} </p>
-						      <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
-						      <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">
-									 'https://en.wikipedia.org/w/index.php?title=Uluru</a>
-						    </div>
-					  	</div>
-				  	</div>`,
+							<img class="card-img-top" src='${this.locations[i].imageUrl}' alt="Card image" style="width:100%; height:225px">
+							<div class="card-body">
+								<h4 class="card-title text-capitalize">${this.locations[i].name}</h4>
+								<p> ${this.locations[i].about} </p>
+							</div>
+						</div>
+					</div>`,
 				id: i,
 			});
 
