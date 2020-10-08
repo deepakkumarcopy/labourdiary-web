@@ -1,6 +1,46 @@
 <nav class="navbar bg-light">
 	<img class="logo" src="assets/img/icon.png" alt="">
 	<a class="navbar-brand" href="/"></a>
+	<div class="search-container">
+	    <form action="/action_page.php">
+	    	<div class ="search d-flex">
+	    		<!-- <label>Location</label> -->
+	    		<!-- <div>
+		    		<div>
+		    			<b>Location</b>
+		    		</div>
+		    		<div>
+		    			<b>Date</b>
+		    		</div>
+		    		<div>
+		    			<b>Category</b>
+		    		</div>
+	    		</div> -->
+	    		<!-- <br> -->
+	    		<div class="form-group mb-0">
+	    			<label for="usr" class="search-label mb-0">Location</label>
+	    			<br>
+		      	<input type="text" placeholder="Where are you going" name="search" class ="input-search" (click)="suggestionDropdown()">
+		      	<ul class="dropdown-menu" *ngIf="isDropdown">
+						  <li><a href="#">Action<span class=rem>x</span></a></li>
+						  <li><a href="#">Another action<span class=rem>x</span></a></li>
+						  <li><a href="#">Separated link<span class=rem>x</span></a></li>
+						</ul>
+	    		</div>
+	    		<div class="form-group mb-0" >
+	    			<label for="usr" class="search-label mb-0">Date</label>
+	    			<br>
+		      	<input type="text" placeholder="Date" name="search" class ="input-search">
+	    		</div>
+	    		<div class="form-group mb-0">
+	    			<label for="usr" class="search-label mb-0">Category</label>
+	    			<br>
+		      	<input type="text" placeholder="Category" name="search" class ="input-search">
+		    	</div>
+		      <button type="submit" class="search-icon"><i class="fa fa-search"></i></button>
+	    	</div>
+	    </form>
+  	</div>
 	<div class="dropdown">
 		<img class="logo btn-primary dropdown-toggle" data-toggle="dropdown" id="selectedOption"  [src]="userImage ? userImage : 'assets/img/personImg1.jpg'" alt="">
 		<div class="dropdown_div dropdown-menu">
