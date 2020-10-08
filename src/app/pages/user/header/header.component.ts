@@ -12,7 +12,7 @@ export class HeaderComponent implements OnInit {
 
 	user: any = JSON.parse(localStorage.getItem('user'));
 	userImage: any = this.user ? this.user.imageUrl : null;
-
+	isDropdown:boolean = false;
 	constructor(
 		private common: CommonService,
 		private modalService: ModalService,
@@ -35,5 +35,8 @@ export class HeaderComponent implements OnInit {
 	closeModal(id) {
 		this.modalService.close(id);
 	}
-
+	suggestionDropdown() {
+		console.log('ddddd')
+		this.isDropdown = true;
+	}
 }

@@ -30,6 +30,7 @@ import { CategoryComponent } from './pages/user/category/category.component';
 import { ErrorComponent } from './pages/error/error.component';
 import { ServiceComponent } from './pages/user/service/service.component';
 import { UserComponent } from './layouts/user/user.component';
+import { CommonLoaderComponent } from './shared/common-loader/common-loader.component';
 
 @NgModule({
 	declarations: [
@@ -45,6 +46,7 @@ import { UserComponent } from './layouts/user/user.component';
 		ErrorComponent,
 		ServiceComponent,
 		UserComponent,
+		CommonLoaderComponent,
 	],
 	imports: [
 		BrowserModule,
