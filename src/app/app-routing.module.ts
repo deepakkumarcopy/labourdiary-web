@@ -8,6 +8,7 @@ import { SearchComponent } from './pages/user/search/search.component';
 import { CategoryComponent } from './pages/user/category/category.component';
 import { ServiceComponent } from './pages/user/service/service.component';
 import { UserComponent } from './layouts/user/user.component';
+
 const routes: Routes = [
 	{
     path: 'user',

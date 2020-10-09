@@ -10,6 +10,11 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { AngularFireAuthModule } from "@angular/fire/auth";
 import { AngularFireModule } from "@angular/fire";
 import { environment } from '../environments/environment.prod';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // angular animation module
+
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
 
 //Component
 import { AppRoutingModule } from './app-routing.module';
@@ -31,6 +36,7 @@ import { ErrorComponent } from './pages/error/error.component';
 import { ServiceComponent } from './pages/user/service/service.component';
 import { UserComponent } from './layouts/user/user.component';
 import { CommonLoaderComponent } from './shared/common-loader/common-loader.component';
+import {DpDatePickerModule} from 'ng2-date-picker';
 
 @NgModule({
 	declarations: [
@@ -58,6 +64,11 @@ import { CommonLoaderComponent } from './shared/common-loader/common-loader.comp
 		TranslateModule,
 		InfiniteScrollModule,
 		NgSelectModule,
+		MatFormFieldModule,
+		MatAutocompleteModule,
+		MatInputModule,
+		BrowserAnimationsModule,
+		DpDatePickerModule,
 		TranslateModule.forRoot({
 			loader: {
 				provide: TranslateLoader,
