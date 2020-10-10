@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, FormBuilder, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { error } from 'protractor';
+import { ToastrService } from 'ngx-toastr';
 
 // Services
 import { AuthService } from '../../services/auth.service';
@@ -24,6 +25,7 @@ export class LoginComponent implements OnInit {
 		private FormBuilder: FormBuilder,
 		private authService: AuthService,
 		private common: CommonService,
+		private toastr: ToastrService
 	) {
 	}
 	
@@ -40,18 +42,22 @@ export class LoginComponent implements OnInit {
 		this.isAccountActive = false;
 		this.authService.login(this.loginForm.value).subscribe((res) => {
 			if (res.success) {
+				this.toastr.success('Successfully login!');
 				if (res.user.active) {
 					this.modalService.close('login')
 					localStorage.setItem('token', JSON.stringify(res.token));
 					localStorage.setItem('user', JSON.stringify(res.user));
 					this.common.publishData({login: res.user});
+
 				} else {
 					this.isAccountActive = true;
 				}
 			} else {
 				this.isValidEmailPass = true;
+				this.toastr.info('Credential are wrong!');
 			}
 		}, (error) => {
+			this.toastr.error('Something went wrong please try again later!');
 			this.isValidEmailPass = true;
 		})
 	}
