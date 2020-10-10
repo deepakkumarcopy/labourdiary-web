@@ -1,24 +1,29 @@
 <!-- <app-header></app-header> -->
 <div class="row wholeDiv">
-	<div class="col-md-6 serviceDiv" *ngIf="services && services.length>0">
-		<div class="row border-top border-bottom services cursor-pointer" *ngFor="let service of services">
-			<div class="col-sm-5 images">
-				<img [src]="((service.user.imageUrl == '') || (service.user.imageUrl == 'null')) ? 'assets/img/personImg.jpg' : service.user.imageUrl" alt="" width="100%">
-			</div>
-			<div class="col-sm-7 details service-card">
-				<div class="font-weight-bold text-capitalize">{{service.name}}</div>
-				<div>{{service.about}}</div>
-
-				<div class="heart font-20 p-2">
-					<div class="fa fa-heart text-danger" *ngIf="checkSavedService(service.id)" (click)="removeSavedServiceProvider(service);$event.stopPropagation();"></div>
-					<div class="fa fa-heart-o" *ngIf="!checkSavedService(service.id)" (click)="saveServiceProvider(service);$event.stopPropagation();"></div>
+	<div class="col-md-6 serviceDiv">
+		<div *ngIf="services && services.length>0; else noResultFound">
+			<div class="row border-top border-bottom services cursor-pointer" *ngFor="let service of services">
+				<div class="col-sm-5 images">
+					<img [src]="((service.user.imageUrl == '') || (service.user.imageUrl == 'null')) ? 'assets/img/personImg.jpg' : service.user.imageUrl" alt="" width="100%">
 				</div>
-				<div class="rating">
-					<i class="fa fa-star text-danger"></i> {{service.rating}}
-					<span class="dull-text text-capitalize">({{service.reviewers}}) · {{service.cityName}}</span>
+				<div class="col-sm-7 details service-card">
+					<div class="font-weight-bold text-capitalize">{{service.name}}</div>
+					<div>{{service.about}}</div>
+
+					<div class="heart font-20 p-2">
+						<div class="fa fa-heart text-danger" *ngIf="checkSavedService(service.id)" (click)="removeSavedServiceProvider(service);$event.stopPropagation();"></div>
+						<div class="fa fa-heart-o" *ngIf="!checkSavedService(service.id)" (click)="saveServiceProvider(service);$event.stopPropagation();"></div>
+					</div>
+					<div class="rating">
+						<i class="fa fa-star text-danger"></i> {{service.rating}}
+						<span class="dull-text text-capitalize">({{service.reviewers}}) · {{service.cityName}}</span>
+					</div>
 				</div>
 			</div>
 		</div>
+		<ng-template #noResultFound>
+			<img class="mx-auto d-block pt-5" src="assets/img/error-no-search-results.png">
+	    </ng-template>
 	</div>
 	<div class="col-md-6 mapCol">
 		<div #mapElement class="map" (click)="serviceInfo($event)"></div>
