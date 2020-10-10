@@ -28,8 +28,7 @@ export class CategoryComponent implements OnInit, AfterContentInit {
 
 	ngOnInit(): void {
 		this.route.params.subscribe((params) => {
-			console.log(params, 'paramssss')
-			if(!!params.lacation && !!params.category) {
+			if(!!params.location && !!params.category) {
 				this.searchedCategory(params);
 			}
 			let data = {
@@ -61,7 +60,6 @@ export class CategoryComponent implements OnInit, AfterContentInit {
 		});
 	}
 	searchedCategory(params) {
-
 		let data = {
 			keyWords: params.category,
 			jobSatisfaction: '',
@@ -73,11 +71,13 @@ export class CategoryComponent implements OnInit, AfterContentInit {
 			cityName: params.location
 		}
 		this.api.search(data).subscribe((res) => {
-			console.log(res, 'responseeee')
 			if (res.success) {
-
+				this.services = res.services;
+			} else {
+				this.services = [];
 			}
 			}, (e) => {
+				console.log('error')
 		});
 
 	}

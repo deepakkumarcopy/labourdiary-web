@@ -37,7 +37,7 @@ export class HeaderComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.getCategory()
+		this.getCategory();
 	}
 
 	openModal(id) {
@@ -49,9 +49,9 @@ export class HeaderComponent implements OnInit {
 	}
 	
 	getCategory() {
-		this.api.getCategory().subscribe((res)=>{
+		this.api.getCategory().subscribe((res) => {
 			if(!!res.success) {
-				this.categories = res.category
+				this.categories = res.category;
 			}
 		})
 	}
@@ -64,6 +64,6 @@ export class HeaderComponent implements OnInit {
 	}
 	
 	searchedCategory() {
-		this.router.navigate(['user/search',this.location,this.selectedCategory])
+		this.router.navigate(['user/search',this.location,this.selectedCategory]);
 	}
 }
