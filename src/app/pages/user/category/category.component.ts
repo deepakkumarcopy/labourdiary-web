@@ -28,7 +28,10 @@ export class CategoryComponent implements OnInit, AfterContentInit {
 
 	ngOnInit(): void {
 		this.route.params.subscribe((params) => {
-			console.log(params)
+			console.log(params, 'paramssss')
+			if(!!params.lacation && !!params.category) {
+				this.searchedCategory(params);
+			}
 			let data = {
 				catId: params.id,
 				cityName: 'kanpur'
@@ -57,7 +60,27 @@ export class CategoryComponent implements OnInit, AfterContentInit {
 			}
 		});
 	}
+	searchedCategory(params) {
 
+		let data = {
+			keyWords: params.category,
+			jobSatisfaction: '',
+			rating: '',
+			numberOfJobs: '',
+			employeeType: '',
+			englishLevel: '',
+			lastActive: '',
+			cityName: params.location
+		}
+		this.api.search(data).subscribe((res) => {
+			console.log(res, 'responseeee')
+			if (res.success) {
+
+			}
+			}, (e) => {
+		});
+
+	}
 	checkSavedService(id: string) {
 		return this.savedServiceList.find((item: any) => item == id);
 	}

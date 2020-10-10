@@ -27,7 +27,7 @@
 					    <option *ngFor="let category of categories"  [value]="category.name">{{category.name}}</option>
 					</datalist>
 		    	</div>
-		      <button type="submit" class="search-icon"><i class="fa fa-search"></i></button>
+		      <button type="submit" class="search-icon" (click)="searchedCategory()"><i class="fa fa-search"></i></button>
 	    	</div>
 	    </form>
   	</div>

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ModalService } from '../../../services/modal.service';
 import { CommonService } from '../../../services/common.service';
 import { ApiService } from '../../../services/api.service';
+import { ActivatedRoute, Router, RouterEvent, NavigationEnd } from '@angular/router';
+
 declare var $:any;
 @Component({
 	selector: 'app-header',
@@ -24,6 +26,7 @@ export class HeaderComponent implements OnInit {
 		private common: CommonService,
 		private modalService: ModalService,
 		private api: ApiService,
+		private router: Router,
 	) {
 		this.common.subscribeData().subscribe(res => {
 			if (!!res.login) {
@@ -60,5 +63,7 @@ export class HeaderComponent implements OnInit {
 		});
 	}
 	
-
+	searchedCategory() {
+		this.router.navigate(['user/search',this.location,this.selectedCategory])
+	}
 }
