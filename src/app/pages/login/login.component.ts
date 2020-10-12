@@ -98,8 +98,18 @@ export class LoginComponent implements OnInit {
 	}
 
 	facebookLogin() {
-		this.authService.facebookLogin().then((res) => {
-			console.log(res)
+		this.authService.facebookLogin().then((res: any) => {
+			if (res.success) {
+				if (res.user.active) {
+					localStorage.setItem('token', JSON.stringify(res.token));
+					localStorage.setItem('user', JSON.stringify(res.user));
+					this.modalService.close('login');
+				} else {
+					this.isAccountActive = true;
+				}
+			} else {
+				this.isValidEmailPass = true;
+			}
 		})
 	}
 
