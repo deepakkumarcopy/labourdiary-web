@@ -1,6 +1,7 @@
 // Component
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 // Services
 import { ModalService } from '../../../services/modal.service';
@@ -26,6 +27,7 @@ export class HomeComponent implements OnInit {
 		private api: ApiService,
 		private common: CommonService,
 		private modalService: ModalService,
+		private toastr: ToastrService
 	) {
 	}
 
@@ -119,6 +121,7 @@ export class HomeComponent implements OnInit {
 	logout(id) {
 		this.modalService.close(id);
 		localStorage.clear();
+		this.toastr.success('Sucessfully logout!')
 		this.user = null;
 		this.userImage = null;
 	}

@@ -10,6 +10,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { AngularFireAuthModule } from "@angular/fire/auth";
 import { AngularFireModule } from "@angular/fire";
 import { environment } from '../environments/environment.prod';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 //Component
 import { AppRoutingModule } from './app-routing.module';
@@ -52,9 +53,10 @@ import { CommonLoaderComponent } from './shared/common-loader/common-loader.comp
 		BrowserModule,
 		AppRoutingModule,
 		HttpClientModule,
+		BrowserAnimationsModule,
 		FormsModule,
 		ReactiveFormsModule,
-		ToastrModule,
+		ToastrModule.forRoot({ preventDuplicates: true, positionClass: 'toast-top-right' }),
 		TranslateModule,
 		InfiniteScrollModule,
 		NgSelectModule,

@@ -14,17 +14,18 @@ import { switchMap } from "rxjs/operators";
 @Injectable({
 	providedIn: 'root'
 })
+
 export class AuthService {
 
 	baseUrl = environment.baseUrl;
-	
+
 	constructor(
 		private http: HttpClient,
 		private angularFire: AngularFireAuth,
-        // @Inject("window") private _window: any,
+		// @Inject("window") private _window: any,
 
-		) {
-			(window as any).fbAsyncInit = function () {
+	) {
+		(window as any).fbAsyncInit = function () {
 			FB.init({
 				appId: '3161590723853934',
 				cookie: true,
@@ -59,14 +60,17 @@ export class AuthService {
 	}
 
 	facebookLogin() {
+		let self = this;
 		return new Promise((resolve, rejects) => {
 			FB.login(function (response) {
-				console.log(response)
 				if (response.authResponse) {
-					resolve(response)
 					console.log('Welcome!  Fetching your information.... ');
-					FB.api('/me', function (response) {
-						console.log('Good to see you, ' + response.name + '.');
+					FB.api("/me?fields=name,first_name,last_name,email,picture.width(720).height(720).as(picture_large)", function (user) {
+						self.socialLoginProcess(user.first_name, user.last_name, user.picture_large.data.url, user.email, user.email.substring(0, user.email.indexOf("@")), user.id, 0, 0).then(res => {
+							resolve(res)
+						}).catch((error) => {
+							rejects(error)
+						});;
 					});
 				} else {
 					console.log('User cancelled login or did not fully authorize.');
@@ -78,7 +82,7 @@ export class AuthService {
 	async linkedInLogin() {
 
 		(window as any).popup = window.open(`https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=78b32kqcfmc0wv&redirect_uri=http://54.174.40.59/callback&scope=r_liteprofile%20r_emailaddress`, '_blank', 'location=yes');
-		(window as any).popup.onload = function(event) {
+		(window as any).popup.onload = function (event) {
 			console.log(event)
 		}
 		// console.log(linkedIn)
