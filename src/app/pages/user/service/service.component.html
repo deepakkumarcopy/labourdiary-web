@@ -5,7 +5,7 @@
         <div class="pb-2">
             <i class="fa fa-star text-danger"></i> {{service.rating}}
             <span class="dull-text text-capitalize">({{service.reviewers}}) · {{service.cityName}}</span>
-            <span class="float-right">
+            <span class="float-right cursor-pointer">
                 <div class="heart font-20 p-2">
                     <div class="fa fa-heart text-danger" *ngIf="checkSavedService(service.id)" (click)="removeSavedServiceProvider(service);$event.stopPropagation();">Saved</div>
                     <div class="fa fa-heart-o pr" *ngIf="!checkSavedService(service.id)" (click)="saveServiceProvider(service);$event.stopPropagation();">Unsave</div>
@@ -87,7 +87,7 @@
                                 <div class="font-12">{{review.user.createdAt | date}}</div>
                             </div>
                         </div>
-                        <p class="pt-3">{{review.comment}}</p>
+                        <p class="pt-3">{{review.comments}}</p>
                     </div>
                 </div>
             </div>

@@ -11,11 +11,12 @@ import { ApiService } from '../../../services/api.service';
 export class ServiceComponent implements OnInit {
 
 	service: any;
-	userBusinessInfo:any;
-	userComments:any;
-	userProfile:any;
+	userBusinessInfo: any;
+	userComments: any;
+	userProfile: any;
 	savedServiceList = []
 	user: any = JSON.parse(localStorage.getItem('user'));
+
 	constructor(
 		private api: ApiService,
 		private route: ActivatedRoute,
@@ -27,20 +28,28 @@ export class ServiceComponent implements OnInit {
 				this.getService(params.id);
 				this.getBusinessInfo(params.id)
 				this.getUserComment(params.id);
-				this.getUserProfile(params.id)
+				this.getUserProfile(params.id);
+				this.getListOfSavedServicesByUserId();
 			}
 		})
+	}
+	
+	getListOfSavedServicesByUserId() {
+		this.api.getListOfSavedServicesByUserId(this.user.id).subscribe((res) => {
+			if (res.success) {
+				this.savedServiceList = res.savedServiceList;
+			}
+		});
 	}
 
 	getService(id) {
 		this.api.getService(id).subscribe((res) => {
 			if (!!res.success) {
 				this.service = res.services[0];
-			} 
-		}, error =>{
+			}
+		}, error => {
 			console.log(error)
 		});
-
 	}
 
 	getBusinessInfo(id) {
@@ -48,10 +57,9 @@ export class ServiceComponent implements OnInit {
 			if (!!res.success) {
 				this.userBusinessInfo = res.business;
 			}
-		}, error =>{
+		}, error => {
 			console.log(error)
 		});
-
 	}
 
 	getUserProfile(id) {
@@ -59,22 +67,21 @@ export class ServiceComponent implements OnInit {
 			if (!!res.success) {
 				this.userProfile = res.profile[0];
 			}
-		}, error =>{
+		}, error => {
 			console.log(error)
 		});
-
 	}
 
 	getUserComment(id) {
 		this.api.getUserComments(id).subscribe((res) => {
 			if (!!res.success) {
 				this.userComments = res.reviews;
-			} 
-		}, error =>{
+			}
+		}, error => {
 			console.log(error)
 		});
-
 	}
+
 	saveServiceProvider(service) {
 		let data = {
 			serviceId: service.id,

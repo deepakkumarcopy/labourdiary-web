@@ -23,3 +23,100 @@
     width: 100%;
     z-index: 2;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.footer-md::before {
+	background-image: none;
+}
+
+.map {
+	height: 100%;
+	width: 100%;
+	vertical-align: top;
+	position: fixed !important;
+}
+
+.loginbutton {
+	width: 100%;
+	padding: 10px;
+	color: white;
+	font-size: 17px;
+	border-radius: 3px;
+	font-weight: bold;
+	font-family: sans-serif;
+	background: #8F1E3D !important;
+	box-shadow: 0px 0px 16px 0px #90323d9e;
+}
+
+.headerGrid {
+	width: 94%;
+	z-index: 1;
+	margin: 10px;
+	position: fixed;
+	border-radius: 20px;
+	background: white;
+	box-shadow: 0px 0px 5px 0px gray;
+
+	.iconBack {
+		i {
+			font-size: 20px;
+			margin-left: 10px;
+		}
+	}
+}
+
+.locationDrop {
+	overflow: hidden;
+	white-space: nowrap;
+	visibility: inherit;
+	text-overflow: ellipsis;
+}
+
+#pac-input {
+	font-size: 16px;
+	font-weight: 300;
+	margin-left: 32px;
+	padding: 0 11px 0 13px;
+	text-overflow: ellipsis;
+	width: 85vw;
+	margin-top: 20px;
+	height: 6vh;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+}
+
+#pac-input:focus {
+	border-color: #4d90fe;
+}
+
+.back-arrow {
+	position: absolute;
+	top: 30px;
+	left: 10px;
+	z-index: 10;
+	font-size: 18px;
+	color: #8f1e3d;
+}
