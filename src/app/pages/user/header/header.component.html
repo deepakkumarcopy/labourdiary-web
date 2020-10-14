@@ -5,30 +5,30 @@
 	    <form action="/action_page.php">
 	    	<div class ="search d-flex">
 
-	    		<div class="form-group mb-0">
+	    		<div class="form-group mb-0 dropdown">
 	    			<label for="usr" class="search-label mb-0">Location</label>
-					<br>
-				<!-- <input id="pac-input" class="controls" type="text" [(ngModel)]="locationDrop" placeholder="Search" /> -->
-				<!-- <div #mapElement id="map" class="map"></div> -->
-					
-		      	<input type="text" placeholder="Where are you going" name="search" class ="input-search" (click)="suggestionDropdown()">
-		      	<ul class="dropdown-menu" *ngIf="isDropdown">
-						  <li><a href="#">Action<span class=rem>x</span></a></li>
-						  <li><a href="#">Another action<span class=rem>x</span></a></li>
-						  <li><a href="#">Separated link<span class=rem>x</span></a></li>
-						</ul>
+	    			<br>
+	    			<!-- <input id="pac-input" class="controls input-search" type="text" [(ngModel)]="location" placeholder="Where are you going" /> -->
+			      	<input type="text" placeholder="Where are you going" name="search" class ="input-search" data-toggle="dropdown" list="location" [(ngModel)]="location" class ="input-search" [ngModelOptions]="{standalone: true}">
+			      	<datalist id="location"  *ngIf="categories && categories.length>0">
+					    <option *ngFor="let item of categories" [value]="item.name">{{item.name}}</option>
+					</datalist>
 	    		</div>
-	    		<div class="form-group mb-0" >
+	    		<div class="form-group mb-0" id="date-picker-example" class="md-form md-outline input-with-post-icon datepicker date-style"  inline="true">
 	    			<label for="usr" class="search-label mb-0">Date</label>
 	    			<br>
-		      	<input type="text" placeholder="Date" name="search" class ="input-search">
+	    			<!-- <dp-month-calendar [(ngModel)]="selectedDate" class ="input-search" [ngModelOptions]="{standalone: true}"></dp-month-calendar>   -->
+		      		<input type="text" placeholder="Date" [(ngModel)]="selectedDate"  [ngModelOptions]="{standalone: true}" class ="input-search" (click)="datepicker()">
 	    		</div>
-	    		<div class="form-group mb-0">
-	    			<label for="usr" class="search-label mb-0">Category</label>
+	    		<div class="form-group mb-0 dropdown">
+	    			<label for="usr" class="search-label mb-0 ">Category</label>
 	    			<br>
-		      	<input type="text" placeholder="Category" name="search" class ="input-search">
+			      	<input type="text" placeholder="Category" name="search" [(ngModel)]="selectedCategory" class ="input-search" [ngModelOptions]="{standalone: true}" data-toggle="dropdown" list="category">
+			      	<datalist id="category"  *ngIf="categories && categories.length>0">
+					    <option *ngFor="let category of categories"  [value]="category.name">{{category.name}}</option>
+					</datalist>
 		    	</div>
-		      <button type="submit" class="search-icon"><i class="fa fa-search"></i></button>
+		      <button type="submit" class="search-icon" (click)="searchedCategory()"><i class="fa fa-search"></i></button>
 	    	</div>
 	    </form>
   	</div>
@@ -44,5 +44,4 @@
 </nav>
 
 <app-login></app-login>
-
 <app-sign-up></app-sign-up>

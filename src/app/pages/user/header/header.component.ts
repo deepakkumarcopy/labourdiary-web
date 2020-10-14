@@ -2,6 +2,9 @@ import { Component, OnInit,  ViewChild , ChangeDetectorRef} from '@angular/core'
 import { ModalService } from '../../../services/modal.service';
 import { CommonService } from '../../../services/common.service';
 declare let google: any;
+import { ApiService } from '../../../services/api.service';
+import { ActivatedRoute, Router, RouterEvent, NavigationEnd } from '@angular/router';
+declare var $:any;
 
 @Component({
 	selector: 'app-header',
@@ -10,19 +13,28 @@ declare let google: any;
 })
 
 export class HeaderComponent implements OnInit {
+
 	@ViewChild('mapElement', { static: true }) mapElement;
 
 	user: any = JSON.parse(localStorage.getItem('user'));
 	userImage: any = this.user ? this.user.imageUrl : null;
 	isDropdown:boolean = false;
 	map;
-
 	locationDrop: any;
 	lagLatDrpoed: any;
+	categories:any;
+	lacations:any = ['Kanpur','delhi','mumbai']
+	showDatalist:boolean = false;
+	selectedDate:any;
+	selectedCategory:any;
+	location:any;
+
 	constructor(
 		private common: CommonService,
 		private modalService: ModalService,
 		private changeDetectorRef: ChangeDetectorRef,
+		private api: ApiService,
+		private router: Router,
 		) {
 		this.common.subscribeData().subscribe(res => {
 			if (!!res.login) {
@@ -33,6 +45,7 @@ export class HeaderComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+		this.getCategory();
 	}
 
 	openModal(id) {
@@ -42,9 +55,24 @@ export class HeaderComponent implements OnInit {
 	closeModal(id) {
 		this.modalService.close(id);
 	}
-	suggestionDropdown() {
-		console.log('ddddd')
-		this.isDropdown = true;
+	
+	getCategory() {
+		this.api.getCategory().subscribe((res) => {
+			if(!!res.success) {
+				this.categories = res.category;
+			}
+		})
+	}
+
+	datepicker(){
+		$('#date-picker-example').datepicker({
+		  format: 'mm/dd',
+		  autoclose: true
+		});
+	}
+	
+	searchedCategory() {
+		this.router.navigate(['user/search',this.location,this.selectedCategory]);
 	}
 	loadMap(location) {
 		let self = this;

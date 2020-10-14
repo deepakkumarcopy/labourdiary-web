@@ -11,6 +11,9 @@ import { AngularFireAuthModule } from "@angular/fire/auth";
 import { AngularFireModule } from "@angular/fire";
 import { environment } from '../environments/environment.prod';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 //Component
 import { AppRoutingModule } from './app-routing.module';
@@ -33,6 +36,7 @@ import { ServiceComponent } from './pages/user/service/service.component';
 import { UserComponent } from './layouts/user/user.component';
 import { CommonLoaderComponent } from './shared/common-loader/common-loader.component';
 import { OrderConfirmationComponent } from './pages/user/order-confirmation/order-confirmation.component';
+import { DpDatePickerModule } from 'ng2-date-picker';
 
 @NgModule({
 	declarations: [
@@ -62,6 +66,11 @@ import { OrderConfirmationComponent } from './pages/user/order-confirmation/orde
 		TranslateModule,
 		InfiniteScrollModule,
 		NgSelectModule,
+		MatFormFieldModule,
+		MatAutocompleteModule,
+		MatInputModule,
+		BrowserAnimationsModule,
+		DpDatePickerModule,
 		TranslateModule.forRoot({
 			loader: {
 				provide: TranslateLoader,
