@@ -2,16 +2,17 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
+
 export class EventService {
 
-  constructor() { }
+	constructor() { }
 
-  private showLoaderEvent = new Subject<boolean>();
-  showLoader$ = this.showLoaderEvent.asObservable();
+	private showLoaderEvent = new Subject<boolean>();
+	showLoader$ = this.showLoaderEvent.asObservable();
 
-  showLoader(isLoading: boolean) {
-    this.showLoaderEvent.next(isLoading);
-  }
+	showLoader(isLoading: boolean) {
+		this.showLoaderEvent.next(isLoading);
+	}
 }
