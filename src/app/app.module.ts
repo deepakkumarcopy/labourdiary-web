@@ -32,6 +32,7 @@ import { ErrorComponent } from './pages/error/error.component';
 import { ServiceComponent } from './pages/user/service/service.component';
 import { UserComponent } from './layouts/user/user.component';
 import { CommonLoaderComponent } from './shared/common-loader/common-loader.component';
+import { OrderConfirmationComponent } from './pages/user/order-confirmation/order-confirmation.component';
 
 @NgModule({
 	declarations: [
@@ -48,6 +49,7 @@ import { CommonLoaderComponent } from './shared/common-loader/common-loader.comp
 		ServiceComponent,
 		UserComponent,
 		CommonLoaderComponent,
+		OrderConfirmationComponent,
 	],
 	imports: [
 		BrowserModule,

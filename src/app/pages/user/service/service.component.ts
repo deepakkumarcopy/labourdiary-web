@@ -33,7 +33,7 @@ export class ServiceComponent implements OnInit {
 			}
 		})
 	}
-	
+
 	getListOfSavedServicesByUserId() {
 		this.api.getListOfSavedServicesByUserId(this.user.id).subscribe((res) => {
 			if (res.success) {

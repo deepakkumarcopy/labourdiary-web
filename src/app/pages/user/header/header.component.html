@@ -4,26 +4,14 @@
 	<div class="search-container">
 	    <form action="/action_page.php">
 	    	<div class ="search d-flex">
-	    		<!-- <label>Location</label> -->
-	    		<!-- <div>
-		    		<div>
-		    			<b>Location</b>
-		    		</div>
-		    		<div>
-		    			<b>Date</b>
-		    		</div>
-		    		<div>
-		    			<b>Category</b>
-		    		</div>
-	    		</div> -->
-	    		<!-- <br> -->
+
 	    		<div class="form-group mb-0">
 	    			<label for="usr" class="search-label mb-0">Location</label>
 					<br>
-				<input id="pac-input" class="controls" type="text" [(ngModel)]="locationDrop" placeholder="Search" />
-				<div #mapElement id="map" class="map"></div>
+				<!-- <input id="pac-input" class="controls" type="text" [(ngModel)]="locationDrop" placeholder="Search" /> -->
+				<!-- <div #mapElement id="map" class="map"></div> -->
 					
-		      	<!-- <input type="text" placeholder="Where are you going" name="search" class ="input-search" (click)="suggestionDropdown()"> -->
+		      	<input type="text" placeholder="Where are you going" name="search" class ="input-search" (click)="suggestionDropdown()">
 		      	<ul class="dropdown-menu" *ngIf="isDropdown">
 						  <li><a href="#">Action<span class=rem>x</span></a></li>
 						  <li><a href="#">Another action<span class=rem>x</span></a></li>
