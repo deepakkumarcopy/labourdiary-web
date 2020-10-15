@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterEvent, NavigationEnd } from '@angular/router';
 import { ApiService } from '../../../services/api.service';
-
+declare var $:any;
 @Component({
 	selector: 'app-service',
 	templateUrl: './service.component.html',
@@ -14,7 +14,7 @@ export class ServiceComponent implements OnInit {
 	userBusinessInfo: any;
 	userComments: any;
 	userProfile: any;
-	savedServiceList = []
+	savedServiceList = [];
 	user: any = JSON.parse(localStorage.getItem('user'));
 
 	constructor(
@@ -46,6 +46,7 @@ export class ServiceComponent implements OnInit {
 		this.api.getService(id).subscribe((res) => {
 			if (!!res.success) {
 				this.service = res.services[0];
+				// console.log(this.service, 'serviceeeeeeee')
 			}
 		}, error => {
 			console.log(error)
@@ -125,5 +126,13 @@ export class ServiceComponent implements OnInit {
 		}, (e) => {
 			this.savedServiceList.push(service.id)
 		});
+	}
+
+	parseDate(dateString: string) {
+		console.log(new Date(dateString))
+    // if (dateString) {
+    //     return new Date(dateString);
+    // }
+    // return null;
 	}
 }

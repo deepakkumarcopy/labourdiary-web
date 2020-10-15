@@ -37,7 +37,7 @@
 		<div class="dropdown_div dropdown-menu">
 			<a class="dropdown-item" *ngIf="!user" (click)="openModal('login')" href="#">Log In</a>
 			<a class="dropdown-item" *ngIf="!user" (click)="openModal('sign-up')" href="#">Sign Up</a>
-			<a class="dropdown-item" *ngIf="user" (click)="openModal('log-out')" href="#">Saved</a>
+			<a class="dropdown-item" *ngIf="user" (click)="getUserSavedService()" href="javascript:void(0)">Saved</a>
 			<a class="dropdown-item" *ngIf="user" (click)="openModal('log-out')" href="#">Log Out</a>
 		</div>
 	</div>

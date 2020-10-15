@@ -16,7 +16,8 @@ const routes: Routes = [
 		component: UserComponent,
 		children: [
 			{ path: 'category/:id', component: CategoryComponent },
-			{ path: 'search/:location/:category', component: CategoryComponent }
+			{ path: 'search/:location/:category', component: CategoryComponent },
+			{ path: 'saved/service/:userId', component: CategoryComponent }
 		]
 	},
 	{ path: "", component: HomeComponent },
