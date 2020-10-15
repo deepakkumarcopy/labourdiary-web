@@ -38,6 +38,7 @@ import { CommonLoaderComponent } from './shared/common-loader/common-loader.comp
 import { OrderConfirmationComponent } from './pages/user/order-confirmation/order-confirmation.component';
 import { DpDatePickerModule } from 'ng2-date-picker';
 import { PaymentComponent } from './pages/user/payment/payment.component';
+import { MessagesComponent } from './pages/user/messages/messages.component';
 
 @NgModule({
 	declarations: [
@@ -56,6 +57,7 @@ import { PaymentComponent } from './pages/user/payment/payment.component';
 		CommonLoaderComponent,
 		OrderConfirmationComponent,
 		PaymentComponent,
+		MessagesComponent,
 	],
 	imports: [
 		BrowserModule,

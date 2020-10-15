@@ -1,0 +1,58 @@
+.item_list {
+	margin: 0px;
+
+	.allMessage {
+		width: 100%;
+
+		.messageTime {
+			text-align: center;
+			font-size: 10px;
+		}
+
+		.self {
+			float: right;
+			max-width: 80%;
+			margin-right: 12px;
+
+			.body {
+				background-color: #8F1E3D;
+				color: white;
+				padding: 6px 20px 6px 16px;
+				border-radius: 5px 5px 0px 5px;
+			}
+
+			.profile-divider {
+				width: 0;
+				height: 0;
+				border-bottom: 10px solid #8F1E3D;
+				border-right: 10px solid #d96c6c00;
+				position: absolute;
+				bottom: 8px;
+				right: 5px;
+			}
+		}
+
+		.other {
+			float: left;
+			max-width: 80%;
+			margin-left: 12px;
+
+			.body {
+				background-color: #e3e3e3;
+				color: black;
+				padding: 6px 16px;
+				border-radius: 5px 5px 5px 0px;
+			}
+
+			.profile-divider {
+				width: 0;
+				height: 0;
+				border-bottom: 10px solid #e3e3e3;
+				border-left: 10px solid transparent;
+				position: absolute;
+				bottom: 8px;
+				left: 4px;
+			}
+		}
+	}
+}

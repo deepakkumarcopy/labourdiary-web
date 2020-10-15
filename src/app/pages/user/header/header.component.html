@@ -8,7 +8,7 @@
 	    		<div class="form-group mb-0 dropdown">
 	    			<label for="usr" class="search-label mb-0">Location</label>
 	    			<br>
-	    			<!-- <input id="pac-input" class="controls input-search" type="text" [(ngModel)]="location" placeholder="Where are you going" /> -->
+
 			      	<input type="text" placeholder="Where are you going" name="search" class ="input-search" data-toggle="dropdown" list="location" [(ngModel)]="location" class ="input-search" [ngModelOptions]="{standalone: true}">
 			      	<datalist id="location"  *ngIf="categories && categories.length>0">
 					    <option *ngFor="let item of categories" [value]="item.name">{{item.name}}</option>
@@ -17,7 +17,6 @@
 	    		<div class="form-group mb-0" id="date-picker-example" class="md-form md-outline input-with-post-icon datepicker date-style"  inline="true">
 	    			<label for="usr" class="search-label mb-0">Date</label>
 	    			<br>
-	    			<!-- <dp-month-calendar [(ngModel)]="selectedDate" class ="input-search" [ngModelOptions]="{standalone: true}"></dp-month-calendar>   -->
 		      		<input type="text" placeholder="Date" [(ngModel)]="selectedDate"  [ngModelOptions]="{standalone: true}" class ="input-search" (click)="datepicker()">
 	    		</div>
 	    		<div class="form-group mb-0 dropdown">
@@ -37,6 +36,7 @@
 		<div class="dropdown_div dropdown-menu">
 			<a class="dropdown-item" *ngIf="!user" (click)="openModal('login')" href="#">Log In</a>
 			<a class="dropdown-item" *ngIf="!user" (click)="openModal('sign-up')" href="#">Sign Up</a>
+			<a class="dropdown-item" *ngIf="user" href="/message">Message</a>
 			<a class="dropdown-item" *ngIf="user" (click)="openModal('log-out')" href="#">Saved</a>
 			<a class="dropdown-item" *ngIf="user" (click)="openModal('log-out')" href="#">Log Out</a>
 		</div>
