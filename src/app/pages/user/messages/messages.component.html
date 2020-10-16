@@ -1,0 +1,37 @@
+<section>
+    <div class="row">
+        <div class="col-4">
+            <div class="p-3">
+                <div class="d-flex pt-2 pb-2">
+                    <img class="rounded-circle mr-3" src="assets/img/personImg1.jpg" alt="" width="48px" height="48px">
+                    <div class="w-100">
+                        <div>Deepak</div>
+                        <div>Hello</div>
+                    </div>
+                    <div class="font-12">12PM</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div id="messageBox">
+                <ion-item *ngFor="let message of messages; index as i;" lines="none" class="item_list">
+                    <label class="allMessage">
+                        <div [ngClass]="{'self': sender, 'other': !sender}">
+                            <div class="profile-divider"></div>
+                            <div class="body">{{ message.texts }}
+                                <!-- <span class="messageStatus" *ngIf="user.id == message.sender" class="sent">
+                                    <i *ngIf="message.deliveryStatus == 'Sending'" class="far fa-clock"></i>
+                                    <i *ngIf="message.deliveryStatus == 'Sent'" class="fa fa-check"></i>
+                                    <i *ngIf="message.deliveryStatus == 'Unread'" class='fas fa-check-double'></i>
+                                    <span class="read">
+                                        <i *ngIf="message.deliveryStatus == 'Read'" class='fas fa-check-double'></i>
+                                    </span>
+                                </span> -->
+                            </div>
+                        </div>
+                    </label>
+                </ion-item>
+            </div>
+        </div>
+    </div>
+</section>

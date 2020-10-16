@@ -7,6 +7,8 @@ import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { SearchComponent } from './pages/user/search/search.component';
 import { CategoryComponent } from './pages/user/category/category.component';
 import { ServiceComponent } from './pages/user/service/service.component';
+import { PaymentComponent } from './pages/user/payment/payment.component';
+import { MessagesComponent } from './pages/user/messages/messages.component';
 import { OrderConfirmationComponent } from './pages/user/order-confirmation/order-confirmation.component';
 import { UserComponent } from './layouts/user/user.component';
 
@@ -22,11 +24,13 @@ const routes: Routes = [
 	},
 	{ path: "", component: HomeComponent },
 	{ path: "login", component: LoginComponent },
+	{ path: "payment/:serviceId/:orderId/:totalAmount", component: PaymentComponent },
+	{ path: "message", component: MessagesComponent },
 	{ path: "sign-up", component: SignUpComponent },
 	{ path: "search/:id", component: SearchComponent },
 	// { path: "category/:id", component: CategoryComponent },
 	{ path: "service/:id", component: ServiceComponent },
-	{ path: "order-confirmation", component: OrderConfirmationComponent },
+	{ path: 'order-confirmation/:serviceId/:reserveDate', component: OrderConfirmationComponent },
 	{ path: "**", component: ErrorComponent },
 ];
 

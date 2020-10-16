@@ -37,6 +37,8 @@ import { UserComponent } from './layouts/user/user.component';
 import { CommonLoaderComponent } from './shared/common-loader/common-loader.component';
 import { OrderConfirmationComponent } from './pages/user/order-confirmation/order-confirmation.component';
 import { DpDatePickerModule } from 'ng2-date-picker';
+import { PaymentComponent } from './pages/user/payment/payment.component';
+import { MessagesComponent } from './pages/user/messages/messages.component';
 
 @NgModule({
 	declarations: [
@@ -54,6 +56,8 @@ import { DpDatePickerModule } from 'ng2-date-picker';
 		UserComponent,
 		CommonLoaderComponent,
 		OrderConfirmationComponent,
+		PaymentComponent,
+		MessagesComponent,
 	],
 	imports: [
 		BrowserModule,

@@ -70,7 +70,7 @@
                         <input (input)="parseDate($event.target.value)" type="date" class ="input-search" >
                     </div>
                     <!-- <div class="card p-4 font-20" id="date-picker-example" class="md-form md-outline input-with-post-icon datepicker date-style"  inline="true">Date/Time</div> -->
-                    <input [routerLink]="['/order-confirmation']" class="btn-theme ln-40  text-center btn-block font-14 text-uppercase nowrap mt-4 caret-transparent" type="submit" value="Reserve">
+                    <input  class="btn-theme ln-40  text-center btn-block font-14 text-uppercase nowrap mt-4 caret-transparent" type="submit" value="Reserve" (click)="goToOrderConfirmation()">
                 </div>
 
             </div>

@@ -16,19 +16,18 @@ export class ServiceComponent implements OnInit {
 	userProfile: any;
 	savedServiceList = [];
 	user: any = JSON.parse(localStorage.getItem('user'));
-
+	selectedDate:any;
+	serviceUserId:any;
 	constructor(
 		private api: ApiService,
 		private route: ActivatedRoute,
+		private router: Router
 	) { }
 
 	ngOnInit(): void {
 		this.route.params.subscribe((params) => {
 			if (!!params.id) {
 				this.getService(params.id);
-				this.getBusinessInfo(params.id)
-				this.getUserComment(params.id);
-				this.getUserProfile(params.id);
 				this.getListOfSavedServicesByUserId();
 			}
 		})
@@ -46,15 +45,21 @@ export class ServiceComponent implements OnInit {
 		this.api.getService(id).subscribe((res) => {
 			if (!!res.success) {
 				this.service = res.services[0];
-				// console.log(this.service, 'serviceeeeeeee')
+				if(!!this.service.user) {
+					this.serviceUserId = this.service.user.id
+					this.getBusinessInfo()
+					this.getUserComment();
+					this.getUserProfile();
+				}
+				console.log(this.service, 'serviceeeeeeee')
 			}
 		}, error => {
 			console.log(error)
 		});
 	}
 
-	getBusinessInfo(id) {
-		this.api.getbusinessInformation(this.user.id).subscribe((res) => {
+	getBusinessInfo() {
+		this.api.getbusinessInformation(this.service.user.id).subscribe((res) => {
 			if (!!res.success) {
 				this.userBusinessInfo = res.business;
 			}
@@ -63,8 +68,8 @@ export class ServiceComponent implements OnInit {
 		});
 	}
 
-	getUserProfile(id) {
-		this.api.getUserProfile(this.user.id).subscribe((res) => {
+	getUserProfile() {
+		this.api.getUserProfile(this.serviceUserId).subscribe((res) => {
 			if (!!res.success) {
 				this.userProfile = res.profile[0];
 			}
@@ -73,8 +78,8 @@ export class ServiceComponent implements OnInit {
 		});
 	}
 
-	getUserComment(id) {
-		this.api.getUserComments(id).subscribe((res) => {
+	getUserComment() {
+		this.api.getUserComments(this.serviceUserId).subscribe((res) => {
 			if (!!res.success) {
 				this.userComments = res.reviews;
 			}
@@ -129,10 +134,19 @@ export class ServiceComponent implements OnInit {
 	}
 
 	parseDate(dateString: string) {
+
 		console.log(new Date(dateString))
-    // if (dateString) {
-    //     return new Date(dateString);
-    // }
+	    if (dateString) {
+	        this.selectedDate = dateString
+	        console.log(this.selectedDate, 'selectedDate')
+	    }
     // return null;
+	}
+
+	goToOrderConfirmation() {
+		console.log(this.selectedDate)
+      this.router.navigate(['order-confirmation',this.service.id,this.selectedDate]);
+
+		// this.router.navigate(['order-confirmation',this.service.id,this.selectedDate])
 	}
 }

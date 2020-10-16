@@ -1,5 +1,46 @@
 <app-header></app-header>
-<div class="container">
-    <div>Order Confirmation</div>
-    <div>Item total</div>
+<div class="container" *ngIf="service && appointmentDate">
+    <br>
+    <div class="font-30 font-weight-bold">Order Confirmation</div>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col">Item total</div>
+        <div class="col">{{service.price}}</div>
+    </div>
+    <div class="row">
+        <div class="col">Service charge (6%)</div>
+        <div class="col">{{serviceCharge}}</div>
+    </div>
+    <div class="row">
+        <div class="col">Total</div>
+        <div class="col">{{totalAmount}}</div>
+    </div>
+    <hr>
+    <div class="font-weight-bold">View Detail</div>
+    <div class="row">
+        <div class="col">Sub category</div>
+        <div class="col">{{service.name}}</div>
+    </div>
+    <div class="row" *ngIf="userProfile">
+        <div class="col">Spoken language</div>
+        <div class="col">{{userProfile.spokenLanguages}}</div>
+    </div>
+    <div class="row">
+        <div class="col">Schedule Appointment</div>
+        <div class="col">{{appointmentDate}}</div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col">Address</div>
+        <div class="col">{{service.cityName}}</div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <input (click)="proceedToPayment()" class="btn-theme ln-40  text-center btn-block font-14 text-uppercase nowrap mt-4 caret-transparent" type="submit" value="Proceed to Payment">
+    <br>
+    <br>
+    <br>
+    <br>
 </div>
