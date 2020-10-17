@@ -16,7 +16,7 @@
 	<br>
 	<div class="container">
 		<div class="row" *ngIf="resentServices && resentServices.length>0">
-			<div class="col-6 col-md-3" *ngFor="let service of resentServices" [routerLink]="['/service', service.id]" (click)="selectService(service)">
+			<div class="col-6 col-md-3" *ngFor="let service of resentServices" [routerLink]="['user/service', service.id]" (click)="selectService(service)">
 				<div class="rounded service-card cursor-pointer">
 					<img [src]="((service.user.imageUrl == '') || (service.user.imageUrl == 'null')) ? 'assets/img/personImg.jpg' : service.user.imageUrl" alt="" width="100%">
 					<div class="heart font-20 p-2">

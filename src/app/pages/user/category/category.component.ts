@@ -110,7 +110,9 @@ export class CategoryComponent implements OnInit, AfterContentInit {
 		this.api.getSavedServices(id).subscribe((res) => {
 			if (res.success) {
 				res.savedservices.forEach((service) => {
-					this.services.push(service.services);
+					if(!!service.services) {
+						this.services.push(service.services);
+					}
 				});
 			} else {
 				this.services = [];

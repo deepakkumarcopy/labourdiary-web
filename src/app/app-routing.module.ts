@@ -13,30 +13,35 @@ import { OrderConfirmationComponent } from './pages/user/order-confirmation/orde
 import { UserComponent } from './layouts/user/user.component';
 
 const routes: Routes = [
-	{
-		path: 'user',
-		component: UserComponent,
-		children: [
-			{ path: 'category/:id', component: CategoryComponent },
-			{ path: 'search/:location/:category', component: CategoryComponent },
-			{ path: 'saved/service/:userId', component: CategoryComponent }
-		]
-	},
-	{ path: "", component: HomeComponent },
-	{ path: "login", component: LoginComponent },
-	{ path: "payment/:serviceId/:orderId/:totalAmount", component: PaymentComponent },
-	{ path: "message", component: MessagesComponent },
-	{ path: "sign-up", component: SignUpComponent },
-	{ path: "search/:id", component: SearchComponent },
-	// { path: "category/:id", component: CategoryComponent },
-	{ path: "service/:id", component: ServiceComponent },
-	{ path: 'order-confirmation/:serviceId/:reserveDate', component: OrderConfirmationComponent },
-	{ path: "**", component: ErrorComponent },
+    {
+      path: 'user',
+      component: UserComponent,
+      children: [
+        { path: 'category/:id', component: CategoryComponent },
+        { path: 'search/:location/:category', component: CategoryComponent },
+        { path: 'saved/service/:userId', component: CategoryComponent },
+        { path: "search/:id", component: SearchComponent },
+        { path: "payment/:serviceId/:orderId/:totalAmount", component: PaymentComponent },
+        { path: 'order-confirmation/:serviceId/:reserveDate', component: OrderConfirmationComponent },
+        { path: "service/:id", component: ServiceComponent },
+
+      ]
+    },
+    { path: "", component: HomeComponent },
+    { path: "login", component: LoginComponent },
+    { path: "payment/:serviceId/:orderId/:totalAmount", component: PaymentComponent },
+    { path: "message", component: MessagesComponent },
+    { path: "sign-up", component: SignUpComponent },
+    { path: "search/:id", component: SearchComponent },
+    // { path: "category/:id", component: CategoryComponent },
+    { path: "service/:id", component: ServiceComponent },
+    { path: 'order-confirmation/:serviceId/:reserveDate', component: OrderConfirmationComponent },
+    { path: "**", component: ErrorComponent },
 ];
 
 @NgModule({
-	imports: [RouterModule.forRoot(routes)],
-	exports: [RouterModule]
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
 })
 
 export class AppRoutingModule { }

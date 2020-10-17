@@ -145,7 +145,7 @@ export class ServiceComponent implements OnInit {
 
 	goToOrderConfirmation() {
 		console.log(this.selectedDate)
-      this.router.navigate(['order-confirmation',this.service.id,this.selectedDate]);
+      this.router.navigate(['user/order-confirmation',this.service.id,this.selectedDate]);
 
 		// this.router.navigate(['order-confirmation',this.service.id,this.selectedDate])
 	}

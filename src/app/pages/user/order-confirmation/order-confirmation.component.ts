@@ -71,7 +71,7 @@ export class OrderConfirmationComponent implements OnInit {
       this.api.createOrder(data).subscribe((res: any) => {
         console.log(res);
         if (res.success) {
-          this.router.navigate(['/payment', res.order.service, res.order.id,res.order.totalAmount]);
+          this.router.navigate(['user/payment', res.order.service, res.order.id,res.order.totalAmount]);
           // this.getClientToken(res.order);
           // this.order = res.order;
         } else {
