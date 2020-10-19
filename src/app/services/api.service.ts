@@ -200,7 +200,7 @@ export class ApiService {
   }
 
   getAllOrder(data) {
-    return this.http.get(`${this.baseUrl}/api/getAllOrdersByUserId?userId=${data.id}&page_num=${data.page_num}&skips=${data.skips}&status=${data.status}&serviceUserId=${data.serviceUserId}`)
+    return this.http.get(`${this.baseUrl}/api/getAllOrdersByUserId?userId=${data.id}&page_num=${data.page_num}&skips=${data.skips}`)
       .pipe(map((res: any) => res),
         catchError(error => throwError(error.error || 'Server Error')));
   }

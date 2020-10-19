@@ -11,6 +11,7 @@ import { PaymentComponent } from './pages/user/payment/payment.component';
 import { MessagesComponent } from './pages/user/messages/messages.component';
 import { OrderConfirmationComponent } from './pages/user/order-confirmation/order-confirmation.component';
 import { UserComponent } from './layouts/user/user.component';
+import { MyOrderComponent } from './pages/user/my-order/my-order.component';
 
 const routes: Routes = [
     {
@@ -24,6 +25,7 @@ const routes: Routes = [
         { path: "payment/:serviceId/:orderId/:totalAmount", component: PaymentComponent },
         { path: 'order-confirmation/:serviceId/:reserveDate', component: OrderConfirmationComponent },
         { path: "service/:id", component: ServiceComponent },
+        {path: "orders", component: MyOrderComponent}
 
       ]
     },
