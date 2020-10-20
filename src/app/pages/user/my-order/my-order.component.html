@@ -3,24 +3,31 @@
 	<div *ngIf="isLoading; else showData">Loading..
 	</div>
 	<ng-template #showData>
-		<div *ngIf="!!orders && orders.length>0">
-			<div class="card mb-3" *ngFor="let order of orders;">
-				<div class="card-body">
-					<div class="row">
-						<div class="col-4">
-							<div *ngIf="order.user">
-								<img   class="float-right rounded-circle position-absolute" [src]="((order.user.imageUrl == '') || (order.user.imageUrl == 'null')) ? 'assets/img/personImg.jpg' : order.user.imageUrl" alt="" width="48px" height="48px">
-								<p class="pl-57">{{order.user.firstName}} {{order.user.lastName}}</p>
+		<div  infiniteScroll
+            [infiniteScrollDistance]="0"
+            [infiniteScrollThrottle]="50"
+            (scrolled)="getUserOrders()"
+            [scrollWindow]="true"
+         >
+			<div *ngIf="!!orders && orders.length>0; else noDataFound">
+				<div class="card mb-3" *ngFor="let order of orders;">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-4">
+								<div *ngIf="order.user">
+									<img   class="float-right rounded-circle position-absolute" [src]="((order.user.imageUrl == '') || (order.user.imageUrl == 'null')) ? 'assets/img/personImg.jpg' : order.user.imageUrl" alt="" width="48px" height="48px">
+									<p class="pl-57">{{order.user.firstName}} {{order.user.lastName}}</p>
+								</div>
+								<div *ngIf="order.service">
+									<p class="pl-57">{{order.service.name}}</p>
+								</div>
 							</div>
-							<div *ngIf="order.service">
-								<p class="pl-57">{{order.service.name}}</p>
+							<div class="col-4">
+								{{order.totalAmount}}
 							</div>
-						</div>
-						<div class="col-4">
-							{{order.totalAmount}}
-						</div>
-						<div class="col-4">
-							{{order.orderStatus}}
+							<div class="col-4">
+								{{order.orderStatus}}
+							</div>
 						</div>
 					</div>
 				</div>
@@ -28,7 +35,7 @@
 		</div>
 		<br>
 	</ng-template>
-	<ng-teamplate #noDataFound>
+	<ng-template #noDataFound>
 		No order available.
-	</ng-teamplate>
+	</ng-template>
 </div>

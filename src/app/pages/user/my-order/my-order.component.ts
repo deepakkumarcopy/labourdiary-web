@@ -8,9 +8,9 @@ import { ApiService } from '../../../services/api.service';
 })
 export class MyOrderComponent implements OnInit {
   user: any = JSON.parse(localStorage.getItem('user'));
-  page_num: any = 0;
-  page_size: any = 10;
-  orders: any
+  page_num: any = 10;
+  page_size: any = 0;
+  orders: any = [];
   isLoading:boolean = true;
   constructor(private api: ApiService,
     private route: ActivatedRoute,
@@ -29,10 +29,12 @@ export class MyOrderComponent implements OnInit {
     this.api.getAllOrder(data).subscribe((res) => {
       if (res.success) {
         this.isLoading = false;
-        this.orders = res.order;
+        this.orders = this.orders.concat(res.order);
+        this.page_size++;
       } else {
+        this.page_size = 0;
         this.isLoading = false;
-        this.orders = [];
+        // this.orders = [];
       }
     },err=>{
         this.isLoading = false;
