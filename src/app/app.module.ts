@@ -39,6 +39,8 @@ import { OrderConfirmationComponent } from './pages/user/order-confirmation/orde
 import { DpDatePickerModule } from 'ng2-date-picker';
 import { PaymentComponent } from './pages/user/payment/payment.component';
 import { MessagesComponent } from './pages/user/messages/messages.component';
+import { ServiceProviderComponent } from './layouts/service-provider/service-provider.component';
+import { StatsComponent } from './pages/service-provider/stats/stats.component';
 
 @NgModule({
 	declarations: [
@@ -58,6 +60,8 @@ import { MessagesComponent } from './pages/user/messages/messages.component';
 		OrderConfirmationComponent,
 		PaymentComponent,
 		MessagesComponent,
+		ServiceProviderComponent,
+		StatsComponent,
 	],
 	imports: [
 		BrowserModule,

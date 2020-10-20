@@ -38,6 +38,7 @@
 			<a class="dropdown-item" *ngIf="!user" (click)="openModal('sign-up')" href="#">Sign Up</a>
 			<a class="dropdown-item" *ngIf="user" href="/message">Message</a>
 			<a class="dropdown-item" *ngIf="user" (click)="openModal('log-out')" href="#">Saved</a>
+			<a class="dropdown-item" *ngIf="user" [routerLink]="['service-provider/stats']">Stats</a>
 			<a class="dropdown-item" *ngIf="user" (click)="openModal('log-out')" href="#">Log Out</a>
 		</div>
 	</div>
