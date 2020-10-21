@@ -16,35 +16,43 @@
 				<div class="col-12">
 					<div class="card mt-4">
 				    	<div class="card-body">
-				    		<h5>Stats</h5>
-				    		<div class="row pt-3 pb-3">
-				    			<div class="col-4">
-					    			<h6 class="margin-bottom"> 4.6</h6>
-					    			<span class="f-14">Overall rating</span>
+				    		<div *ngIf="isLoading; else showStats">Loading..</div>
+				    		<ng-template #showStats>
+				    			<div *ngIf="stats; else noDataFound">
+						    		<h5>Stats</h5>
+						    		<div class="row pt-3 pb-3">
+						    			<div class="col-4">
+							    			<h6 class="margin-bottom">{{stats.rating.toFixed(2)}}</h6>
+							    			<span class="f-14">Overall rating</span>
+						    			</div>
+						    			<div class="col-4">
+						    				<h6 class="margin-bottom">{{stats.reviewsCount}}</h6>
+							    			<span class="f-14">Total reviews</span>
+						    			</div>
+						    			<div class="col-4">
+						    				<h6 class="margin-bottom">{{stats.jobSatisfaction ? stats.jobSatisfaction : 0}}%</h6>
+							    			<span class="f-14">Response rate</span>
+						    			</div>
+						    		</div>
+						    		<div class="row border-top  pt-3 pb-3">
+						    			<div class="col-4">
+							    			<h6 class="margin-bottom">${{stats.earning}}</h6>
+							    			<span class="f-14">{{currDate}} earings</span>
+						    			</div>
+						    			<div class="col-4">
+						    				<h6 class="margin-bottom">{{stats.viewsCount}}</h6>
+							    			<span class="f-14">30-day views</span>
+						    			</div>
+						    			<div class="col-4">
+						    				<h6 class="margin-bottom">{{stats.noOfBooking}}</h6>
+							    			<span class="f-14">30-day bookings</span>
+						    			</div>
+						    		</div>
 				    			</div>
-				    			<div class="col-4">
-				    				<h6 class="margin-bottom"> 41</h6>
-					    			<span class="f-14">Total reviews</span>
-				    			</div>
-				    			<div class="col-4">
-				    				<h6 class="margin-bottom">0%</h6>
-					    			<span class="f-14">Response rate</span>
-				    			</div>
-				    		</div>
-				    		<div class="row border-top  pt-3 pb-3">
-				    			<div class="col-4">
-					    			<h6 class="margin-bottom">$0.00</h6>
-					    			<span class="f-14">October earings</span>
-				    			</div>
-				    			<div class="col-4">
-				    				<h6 class="margin-bottom">0</h6>
-					    			<span class="f-14">30-day views</span>
-				    			</div>
-				    			<div class="col-4">
-				    				<h6 class="margin-bottom">0</h6>
-					    			<span class="f-14">30-day bookings</span>
-				    			</div>
-				    		</div>
+				    		</ng-template>
+				    		<ng-template #noDataFound>
+				    			No data found
+				    		</ng-template>
 				    	</div>
 				  	</div>
 				</div>

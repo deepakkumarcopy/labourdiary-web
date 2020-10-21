@@ -41,6 +41,10 @@ import { PaymentComponent } from './pages/user/payment/payment.component';
 import { MessagesComponent } from './pages/user/messages/messages.component';
 import { ServiceProviderComponent } from './layouts/service-provider/service-provider.component';
 import { StatsComponent } from './pages/service-provider/stats/stats.component';
+import { ServiceHeaderComponent } from './pages/service-provider/service-header/service-header.component';
+import { InboxComponent } from './pages/service-provider/inbox/inbox.component';
+import { ListingComponent } from './pages/service-provider/listing/listing.component';
+import { CalenderComponent } from './pages/service-provider/calender/calender.component';
 
 @NgModule({
 	declarations: [
@@ -62,6 +66,10 @@ import { StatsComponent } from './pages/service-provider/stats/stats.component';
 		MessagesComponent,
 		ServiceProviderComponent,
 		StatsComponent,
+		ServiceHeaderComponent,
+		InboxComponent,
+		ListingComponent,
+		CalenderComponent,
 	],
 	imports: [
 		BrowserModule,

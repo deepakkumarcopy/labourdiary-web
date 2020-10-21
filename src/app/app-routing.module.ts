@@ -13,7 +13,9 @@ import { OrderConfirmationComponent } from './pages/user/order-confirmation/orde
 import { UserComponent } from './layouts/user/user.component';
 import { StatsComponent } from './pages/service-provider/stats/stats.component';
 import { ServiceProviderComponent } from './layouts/service-provider/service-provider.component';
-
+import { InboxComponent } from './pages/service-provider/inbox/inbox.component';
+import { ListingComponent } from './pages/service-provider/listing/listing.component';
+import { CalenderComponent } from './pages/service-provider/calender/calender.component';
 const routes: Routes = [
   {
     path: 'user',
@@ -28,6 +30,9 @@ const routes: Routes = [
     component: ServiceProviderComponent,
     children: [
       { path: 'stats', component: StatsComponent },
+      { path: 'inbox', component: InboxComponent },
+      { path: 'listing', component: ListingComponent },
+      { path: 'calender', component: CalenderComponent },
     ]
   },
   { path: "", component: HomeComponent },
