@@ -39,12 +39,14 @@ import { OrderConfirmationComponent } from './pages/user/order-confirmation/orde
 import { DpDatePickerModule } from 'ng2-date-picker';
 import { PaymentComponent } from './pages/user/payment/payment.component';
 import { MessagesComponent } from './pages/user/messages/messages.component';
+import { MyOrderComponent } from './pages/user/my-order/my-order.component';
 import { ServiceProviderComponent } from './layouts/service-provider/service-provider.component';
 import { StatsComponent } from './pages/service-provider/stats/stats.component';
 import { ServiceHeaderComponent } from './pages/service-provider/service-header/service-header.component';
 import { InboxComponent } from './pages/service-provider/inbox/inbox.component';
 import { ListingComponent } from './pages/service-provider/listing/listing.component';
 import { CalenderComponent } from './pages/service-provider/calender/calender.component';
+import { JobsComponent } from './pages/service-provider/jobs/jobs.component';
 
 @NgModule({
 	declarations: [
@@ -64,12 +66,14 @@ import { CalenderComponent } from './pages/service-provider/calender/calender.co
 		OrderConfirmationComponent,
 		PaymentComponent,
 		MessagesComponent,
+		MyOrderComponent,
 		ServiceProviderComponent,
 		StatsComponent,
 		ServiceHeaderComponent,
 		InboxComponent,
 		ListingComponent,
 		CalenderComponent,
+		JobsComponent,
 	],
 	imports: [
 		BrowserModule,

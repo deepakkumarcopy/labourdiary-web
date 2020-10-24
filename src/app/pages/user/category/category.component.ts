@@ -28,29 +28,32 @@ export class CategoryComponent implements OnInit, AfterContentInit {
 
 	ngOnInit(): void {
 		this.route.params.subscribe((params) => {
-			if(!!params.location && !!params.category) {
+			if(!!params.userId) {
+				this.getUserSavedService(params.userId)
+			}else if(!!params.location && !!params.category) {
 				this.searchedCategory(params);
-			}
-			let data = {
-				catId: params.id,
-				cityName: 'kanpur'
-			}
-			this.api.getAllServiceByCategory(data).subscribe((res) => {
-				console.log(res)
-				if (res.success) {
-					this.services = res.services;
-					res.services.forEach(element => {
-						this.services.push(element)
-					});
-					res.services.forEach(element => {
-						this.services.push(element)
-					});
-					this.getValueInMap(res.services);
+			} else {
+				let data = {
+					catId: params.id,
+					cityName: 'kanpur'
 				}
-				this.services.length ? this.noServices = false : this.noServices = true;
-			}, (e) => {
-				this.noServices = true;
-			});
+				this.api.getAllServiceByCategory(data).subscribe((res) => {
+					console.log(res)
+					if (res.success) {
+						this.services = res.services;
+						res.services.forEach(element => {
+							this.services.push(element)
+						});
+						res.services.forEach(element => {
+							this.services.push(element)
+						});
+						this.getValueInMap(res.services);
+					}
+					this.services.length ? this.noServices = false : this.noServices = true;
+				}, (e) => {
+					this.noServices = true;
+				});
+			}
 		});
 
 		this.api.getListOfSavedServicesByUserId(this.user.id).subscribe((res) => {
@@ -71,6 +74,8 @@ export class CategoryComponent implements OnInit, AfterContentInit {
 			cityName: params.location
 		}
 		this.api.search(data).subscribe((res) => {
+			console.log(res, 'get searched service')
+
 			if (res.success) {
 				this.services = res.services;
 			} else {
@@ -99,6 +104,22 @@ export class CategoryComponent implements OnInit, AfterContentInit {
 		}, (e) => {
 			this.removeFromSaved(service.id);
 		})
+	}
+
+	getUserSavedService(id) {
+		this.api.getSavedServices(id).subscribe((res) => {
+			if (res.success) {
+				res.savedservices.forEach((service) => {
+					if(!!service.services) {
+						this.services.push(service.services);
+					}
+				});
+			} else {
+				this.services = [];
+			}
+			}, (e) => {
+				console.log('error')
+		});
 	}
 
 	removeFromSaved(serviceId: string) {

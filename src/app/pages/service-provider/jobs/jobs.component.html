@@ -1,0 +1,41 @@
+<div class="container" >
+	<h5 class="pt-4 pb-3">My Jobs</h5>
+	<div *ngIf="isLoading; else showData">Loading..
+	</div>
+	<ng-template #showData>
+		<div  infiniteScroll
+            [infiniteScrollDistance]="0"
+            [infiniteScrollThrottle]="50"
+            (scrolled)="getUserOrders()"
+            [scrollWindow]="true"
+         >
+			<div *ngIf="!!jobs && jobs.length>0; else noDataFound">
+				<div class="card mb-3" *ngFor="let job of jobs;">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-4">
+								<div *ngIf="job.user">
+									<img   class="float-right rounded-circle position-absolute" [src]="((job.user.imageUrl == '') || (job.user.imageUrl == 'null')) ? 'assets/img/personImg.jpg' : job.user.imageUrl" alt="" width="48px" height="48px">
+									<p class="pl-57">{{job.user.firstName}} {{job.user.lastName}}</p>
+								</div>
+								<div *ngIf="job.service">
+									<p class="pl-57">{{job.service.name}}</p>
+								</div>
+							</div>
+							<div class="col-4">
+								{{job.totalAmount}}
+							</div>
+							<div class="col-4">
+								{{job.orderStatus}}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br>
+	</ng-template>
+	<ng-template #noDataFound>
+		No order available.
+	</ng-template>
+</div>
