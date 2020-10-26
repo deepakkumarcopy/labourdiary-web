@@ -24,6 +24,7 @@ export class StatsComponent implements OnInit {
   }
   getUserStats() {
     this.api.progressStats(this.user.id).subscribe((res) => {
+      console.log(res, 'responseeee')
       if (res.success) {
         this.isLoading = false;
         this.stats = res;

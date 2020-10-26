@@ -18,6 +18,10 @@ import { InboxComponent } from './pages/service-provider/inbox/inbox.component';
 import { ListingComponent } from './pages/service-provider/listing/listing.component';
 import { CalenderComponent } from './pages/service-provider/calender/calender.component';
 import { JobsComponent } from './pages/service-provider/jobs/jobs.component';
+import { ViewsAndBookingsComponent } from './pages/service-provider/performance-header/views-and-bookings/views-and-bookings.component';
+import { EarningComponent } from './pages/service-provider/performance-header/earning/earning.component';
+import { ReviewsComponent } from './pages/service-provider/performance-header/reviews/reviews.component';
+import { PerformanceComponent } from './layouts/performance/performance.component';
 
 const routes: Routes = [
   {
@@ -43,6 +47,14 @@ const routes: Routes = [
       { path: 'listing', component: ListingComponent },
       { path: 'calender', component: CalenderComponent },
       { path: 'jobs', component: JobsComponent },
+      {path: 'performance', 
+      component: PerformanceComponent,
+        children: [
+          { path: 'reviews', component: ReviewsComponent },
+          { path: 'earning', component: EarningComponent },
+          { path: 'views-and-bookings', component: ViewsAndBookingsComponent }
+        ]
+      }
     ]
   },
   { path: "", component: HomeComponent },

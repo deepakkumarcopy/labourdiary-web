@@ -47,6 +47,11 @@ import { InboxComponent } from './pages/service-provider/inbox/inbox.component';
 import { ListingComponent } from './pages/service-provider/listing/listing.component';
 import { CalenderComponent } from './pages/service-provider/calender/calender.component';
 import { JobsComponent } from './pages/service-provider/jobs/jobs.component';
+import { PerformanceComponent } from './layouts/performance/performance.component';
+import { ViewsAndBookingsComponent } from './pages/service-provider/performance-header/views-and-bookings/views-and-bookings.component';
+import { EarningComponent } from './pages/service-provider/performance-header/earning/earning.component';
+import { ReviewsComponent } from './pages/service-provider/performance-header/reviews/reviews.component';
+import { PerformanceHeaderComponent } from './pages/service-provider/performance-header/performance-header.component';
 
 @NgModule({
 	declarations: [
@@ -74,6 +79,11 @@ import { JobsComponent } from './pages/service-provider/jobs/jobs.component';
 		ListingComponent,
 		CalenderComponent,
 		JobsComponent,
+		PerformanceComponent,
+		ReviewsComponent,
+		ViewsAndBookingsComponent,
+		EarningComponent,
+		PerformanceHeaderComponent,
 	],
 	imports: [
 		BrowserModule,
