@@ -1,1 +1,18 @@
-<p>views-and-bookings works!</p>
+<div class="container">
+	<div *ngIf="isLoading; else showData">Loading..</div>
+	<ng-template #showData>
+		<div style="display: block;" *ngIf="!!viewsAndBookings && viewsAndBookings.length>0;else noDataFound">
+		  <canvas baseChart 
+		    [datasets]="barChartData"
+		    [labels]="barChartLabels"
+		    [options]="barChartOptions"
+		    [plugins]="barChartPlugins"
+		    [legend]="barChartLegend"
+		    [chartType]="barChartType">
+		  </canvas>
+		</div>
+	</ng-template>
+	<ng-template #noDataFound>
+		No data found
+	</ng-template>
+</div>

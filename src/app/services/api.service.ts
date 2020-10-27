@@ -392,7 +392,7 @@ export class ApiService {
   }
 
   serviceViewsAndBookings(id: string) {
-    return this.http.get(`${this.baseUrl}/api/serviceViewsAndBookings?user=${id}`)
+    return this.http.get(`${this.baseUrl}/api/serviceViewsAndBookingsEarning?user=${id}`)
       .pipe(map((res: any) => res),
         catchError(error => throwError(error.error || 'Server Error')));
   }

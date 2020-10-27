@@ -14,7 +14,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-
+import { ChartsModule } from 'ng2-charts';
 //Component
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -101,6 +101,7 @@ import { PerformanceHeaderComponent } from './pages/service-provider/performance
 		MatInputModule,
 		BrowserAnimationsModule,
 		DpDatePickerModule,
+		ChartsModule,
 		TranslateModule.forRoot({
 			loader: {
 				provide: TranslateLoader,

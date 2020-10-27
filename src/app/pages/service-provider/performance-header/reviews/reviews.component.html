@@ -1,54 +1,37 @@
 <div class="container" >
 	<h5 class="pt-4 pb-3">Reviews</h5>
-        	<div class="row">
-        		<div class="col-12">
-					<div *ngIf="isLoading; else showStats">Loading..</div>
-					<ng-template #showStats>
-						<div *ngIf="reviews && reviews.length>0; else noDataFound">
-	        				<div class="card mt-4" *ngFor="let review of reviews">
-	        					<div class="card-body" >
-        							<!-- <h5>Stats</h5> -->
-        							<div class="row pb-3" >
-        								<div class="col-6">
-        									<h6 class="margin-bottom">Jayantheeswaran</h6>
-        									<span class="f-14">Oct17-Oct-21,2-17 Clean in Evere-close to BRU Airport</span>
-        								</div>
-        								<div class="col-6" *ngIf="review.user">
-        									<img class="float-right rounded-circle" id="selectedOption" [src]="((review.user.imageUrl == '') || (review.user.imageUrl == 'null')) ? 'assets/img/personImg.jpg' : review.user.imageUrl" alt="" width="48px" height="48px">
-        									<!-- <span class="f-14">Total reviews</span> -->
-        								</div>
-        								<!-- <div class="col-4">
-        									<h6 class="margin-bottom">{{stats.jobSatisfaction ? stats.jobSatisfaction : 0}}%</h6>
-        									<span class="f-14">Response rate</span>
-        								</div> -->
-        							</div>
-        							<div class="row border-top  pt-3 pb-3">
-        								<div class="col-12">
-        									<h6 class="margin-bottom">Overall rating: {{review.star}}</h6>
-        									<span class="f-14">{{review.comments}}</span>
-        								</div>
-        								<!-- <div class="col-4">
-        									<h6 class="margin-bottom">{{stats.viewsCount}}</h6>
-        									<span class="f-14">30-day views</span>
-        								</div>
-        								<div class="col-4">
-        									<h6 class="margin-bottom">{{stats.noOfBooking}}</h6>
-        									<span class="f-14">30-day bookings</span>
-        								</div> -->
-        							</div>
-        						</div>
-					    	</div>
-					    </div>
-					</ng-template>
-		    		<ng-template #noDataFound>
-		    			No data found
-		    		</ng-template>
-				</div>
-			</div>
-			<!-- </div> -->
-			<br>
-			<!-- </ng-template> -->
-	<!-- <ng-template #noDataFound>
-		No order available.
-	</ng-template> -->
+  <div class="row">
+    <div class="col-12">
+      <div *ngIf="isLoading; else showReview">Loading..</div>
+      <ng-template #showReview>
+        <div *ngIf="reviews && reviews.length>0; else noDataFound">
+          <div class="card mt-4" *ngFor="let review of reviews">
+            <div class="card-body" >
+                           <!-- <h5>Stats</h5> -->
+              <div class="row pb-3" >
+                <div class="col-6">
+                  <h6 class="margin-bottom">Jayantheeswaran</h6>
+                  <span class="f-14">Oct17-Oct-21,2-17 Clean in Evere-close to BRU Airport</span>
+                </div>
+                <div class="col-6" *ngIf="review.user">
+                  <img class="float-right rounded-circle" id="selectedOption" [src]="((review.user.imageUrl == '') || (review.user.imageUrl == 'null')) ? 'assets/img/personImg.jpg' : review.user.imageUrl" alt="" width="48px" height="48px">
+                       <!-- <span class="f-14">Total reviews</span> -->
+                </div>
+				      </div>
+				      <div class="row border-top  pt-3 pb-3">
+      					<div class="col-12">
+      						<h6 class="margin-bottom">Overall rating: {{review.star}}</h6>
+      						<span class="f-14">{{review.comments}}</span>
+      					</div>
+  				    </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template #noDataFound>
+        No data found
+      </ng-template>
+    </div>
+  </div>
+  <br>
 </div>
