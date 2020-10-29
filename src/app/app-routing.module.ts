@@ -22,6 +22,7 @@ import { ViewsAndBookingsComponent } from './pages/service-provider/performance-
 import { EarningComponent } from './pages/service-provider/performance-header/earning/earning.component';
 import { ReviewsComponent } from './pages/service-provider/performance-header/reviews/reviews.component';
 import { PerformanceComponent } from './layouts/performance/performance.component';
+import { PrivateInformationComponent } from './pages/service-provider/private-information/private-information.component';
 
 const routes: Routes = [
   {
@@ -47,6 +48,7 @@ const routes: Routes = [
       { path: 'listing', component: ListingComponent },
       { path: 'calender', component: CalenderComponent },
       { path: 'jobs', component: JobsComponent },
+      { path: 'private-information', component: PrivateInformationComponent },
       {path: 'performance', 
       component: PerformanceComponent,
         children: [

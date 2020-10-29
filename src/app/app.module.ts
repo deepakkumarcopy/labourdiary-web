@@ -52,6 +52,7 @@ import { ViewsAndBookingsComponent } from './pages/service-provider/performance-
 import { EarningComponent } from './pages/service-provider/performance-header/earning/earning.component';
 import { ReviewsComponent } from './pages/service-provider/performance-header/reviews/reviews.component';
 import { PerformanceHeaderComponent } from './pages/service-provider/performance-header/performance-header.component';
+import { PrivateInformationComponent } from './pages/service-provider/private-information/private-information.component';
 
 @NgModule({
 	declarations: [
@@ -84,6 +85,7 @@ import { PerformanceHeaderComponent } from './pages/service-provider/performance
 		ViewsAndBookingsComponent,
 		EarningComponent,
 		PerformanceHeaderComponent,
+		PrivateInformationComponent,
 	],
 	imports: [
 		BrowserModule,
