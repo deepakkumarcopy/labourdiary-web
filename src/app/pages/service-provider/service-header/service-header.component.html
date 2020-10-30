@@ -1,22 +1,24 @@
-<nav class="navbar navbar-expand-sm bg-light">
+<nav class="navbar navbar-expand-sm bg-light pt-0 pb-0 border-bottom">
 	<img [routerLink]="['/']" class="logo" src="assets/img/icon.png" alt="" width="50px" height="50px">
-	<ul class="navbar-nav">
-		<li class="nav-item">
-			<a class="nav-link"[routerLink]="['stats']">Home</a>
+	<ul class="navbar-nav pl-4 w-100">
+		<li class="nav-item" [routerLinkActive]="['routeActive']">
+			<a class="nav-link font-20 text-muted font-weight-bold" [routerLink]="['stats']">Home</a>
 		</li>
-		<li class="nav-item">
-			<a class="nav-link" [routerLink]="['inbox']">Inbox</a>
+		<li class="nav-item" [routerLinkActive]="['routeActive']">
+			<a class="nav-link font-20 text-muted font-weight-bold" [routerLink]="['inbox']">Inbox</a>
 		</li>
-		<li class="nav-item">
-			<a class="nav-link" [routerLink]="['listing']">Listing</a>
+		<li class="nav-item" [routerLinkActive]="['routeActive']">
+			<a class="nav-link font-20 text-muted font-weight-bold" [routerLink]="['listing']">Listing</a>
 		</li>
-		<li class="nav-item">
-			<a class="nav-link" [routerLink]="['calender']">Calender</a>
+		<li class="nav-item" [routerLinkActive]="['routeActive']">
+			<a class="nav-link font-20 text-muted font-weight-bold" [routerLink]="['calender']">Calender</a>
 		</li>
-		<li class="nav-item">
-			<a class="nav-link" [routerLink]="['jobs']">Jobs</a>
+		<li class="nav-item" [routerLinkActive]="['routeActive']">
+			<a class="nav-link font-20 text-muted font-weight-bold" [routerLink]="['jobs']">Jobs</a>
 		</li>
 	</ul>
+	<input class="btn-theme-labour" type="button" value="Create new listing">
+	<img class="image btn-primary dropdown-toggle" data-toggle="dropdown" id="selectedOption"  [src]="userImage ? userImage : 'assets/img/personImg1.jpg'" alt="">
 </nav>
 
 <app-login></app-login>

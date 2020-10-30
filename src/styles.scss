@@ -2057,3 +2057,17 @@ a:hover {
 .right-addon .glyphicon {
     right: 0px;
 }
+
+.btn-theme-labour {
+    border: none;
+    color: white;
+    border-radius: 15px;
+    padding: 5px 15px;
+    background-image: linear-gradient(5deg, #474AD9, #6F8FEA);
+}
+.btn-theme-labour:hover {
+    background-image: linear-gradient(5deg, #6F8FEA, #474AD9);
+}
+.btn-theme-labour:active {
+    background-image: linear-gradient(5deg, #474AD9, #6F8FEA);
+}
