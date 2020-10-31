@@ -1,0 +1,66 @@
+<div class = "container">
+	<form class="form-in-centre mb-5" [formGroup]="workInformationForm">
+		<h5 class="pt-5 pb-3">Work Information</h5>
+		<div class="form-border">
+			<div class = "form-row">
+				<div class = "form-group col-md-12">
+					<input type = "text" class= "form-control" 
+					id = "inputPassword4" placeholder = "Please select service location" formControlName="location">
+				</div>
+			</div>
+			<div class = "form-row">
+				<div class = "form-group col-md-12">
+					<label>Work Category</label>
+					<input type = "text" class= "form-control" 
+					id = "inputPassword4" placeholder = "Search Category.." formControlName="category">
+				</div>
+			</div>
+			<div class = "form-row">
+				<div class = "form-group col-md-12">
+					<label>Experienced in</label>
+					<input type = "text" class= "form-control" 
+					id = "inputPassword4" placeholder = "Search Subcategory.." formControlName="subCategory">
+				</div>
+			</div>
+			<div class = "form-row">
+				<div class = "form-group col-md-12">
+					<label>Consultation Fee</label>
+					<input type = "text" class= "form-control" 
+					id = "inputPassword4" placeholder = "Enter consultation fee" formControlName="fee">
+				</div>
+			</div>
+			<div class = "form-group">
+				<label >English Level</label>
+				<select id = "inputState" class = "form-control" formControlName="englishLevel">
+					<option selected disabled>English Level</option>
+					<option>Native</option>
+					<option>Basic</option>
+					<option>Advance</option>
+					<option>Fluent</option>
+				</select>
+			</div>
+			<div class = "form-group">
+				<label >Employee Type</label>
+				<select id = "inputState" class = "form-control" formControlName="employeType">
+					<option selected disabled>Employee Type</option>
+					<option>Free Lancer</option>
+					<option>Agencies</option>
+				</select>
+			</div>
+			<div class = "form-row">
+				<div class = "form-group col-md-12">
+					<label>About you</label>
+					<br>
+					<textarea   class="w-100 textarea" row= "5" name="text" placeholder = "Enter more about you..." formControlName="about">
+					</textarea>
+				</div>
+			</div>
+			<div class = "form-group">
+				<label for = "inputAddress">Work Photos</label>
+				<input type = "file" class = "form-control" id = "inputAddress" 
+				placeholder = "ID proof" formControlName="photo">
+			</div>
+			<button  type = "submit" class = "btn btn-primary w-100" (click)="savedWorkInformation()">Submit</button>
+		</div>
+	</form>
+</div>

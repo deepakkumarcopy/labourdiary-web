@@ -23,6 +23,9 @@ import { EarningComponent } from './pages/service-provider/performance-header/ea
 import { ReviewsComponent } from './pages/service-provider/performance-header/reviews/reviews.component';
 import { PerformanceComponent } from './layouts/performance/performance.component';
 import { PrivateInformationComponent } from './pages/service-provider/private-information/private-information.component';
+import { EmergencyContactComponent } from './pages/service-provider/emergency-contact/emergency-contact.component';
+import { WorkInformationComponent } from './pages/service-provider/work-information/work-information.component';
+import { BusinessInformationComponent } from './pages/service-provider/business-information/business-information.component';
 
 const routes: Routes = [
   {
@@ -49,6 +52,11 @@ const routes: Routes = [
       { path: 'calender', component: CalenderComponent },
       { path: 'jobs', component: JobsComponent },
       { path: 'private-information', component: PrivateInformationComponent },
+      { path: 'emergency-contact', component: EmergencyContactComponent },
+      { path: 'work-information', component: WorkInformationComponent },
+      { path: 'business-information', component: BusinessInformationComponent },
+
+
       {path: 'performance', 
       component: PerformanceComponent,
         children: [

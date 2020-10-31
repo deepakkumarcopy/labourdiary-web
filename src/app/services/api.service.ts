@@ -17,6 +17,18 @@ export class ApiService {
     private http: HttpClient,
   ) { }
 
+  formatCountryList(countries){
+    return countries.map(function (item) {
+      return {
+        id: item.dial_code,
+        text: item.name,
+        additional: {
+          flagUrl: item.flag
+        }
+      }
+    })
+
+  }
 
   checkEmail(email) {
     return this.http.post(`${this.baseUrl}/api/checkEmail`, { email: email })

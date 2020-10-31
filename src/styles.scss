@@ -5,6 +5,40 @@
 // Common style
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
+#upload {
+    opacity: 0;
+}
+
+#upload-label {
+    position: absolute;
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
+}
+
+.image-area {
+    border: 2px dashed rgba(255, 255, 255, 0.7);
+    padding: 1rem;
+    position: relative;
+}
+
+.image-area::before {
+    content: 'Uploaded image result';
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.8rem;
+    z-index: 1;
+}
+
+.image-area img {
+    z-index: 2;
+    position: relative;
+}
 .intl-tel-input {
   display: table-cell;
 }
@@ -28,9 +62,50 @@
   width:86px;
   
 }
+.textarea {
+    border-radius: 8px;
+    padding: 15px;
+    border: 1px solid #ced4da !important;
+}
+.select2-container--default .select2-selection--single {
+    background-color: #fff;
+    border: 1px solid #ced4da !important;
+    border-radius: 7px !important;
+    padding-top: 4px !important;
+    padding-bottom: 32px !important;
+}
+.select2-selection__arrow{
+    padding-top: 33px !important;
+}
+
+.readonly-select {
+  select.select2-hidden-accessible + .select2-container {
+    pointer-events: none!important;
+    touch-action: none!important;
+
+    .select2-selection {
+      background: #f7f7f7;
+      box-shadow: none;
+    }
+
+    .select2-selection__arrow,
+    .select2-selection__clear {
+      display: none;
+    }
+  }
+}
+.f-13{
+    font-size: 13px;
+}
+.color-grey{
+    color: grey;
+}
 .form-border {
     border: 1px solid;
     padding: 38px;
+}
+.modal-scroll{
+    overflow: auto;
 }
 .social-icon{
   position: absolute;

@@ -1,0 +1,2 @@
+<ng-select2 *ngIf="countries" [ngClass]="{'readonly-select': readOnly}" [ngModelOptions]="{standalone: true}" (valueChanged)="valueChanged($event)" [(ngModel)]="countryCode"  [options]="options" [data]="formattedCountryList" [placeholder]="'Choose your country'">
+</ng-select2>

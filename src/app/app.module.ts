@@ -15,6 +15,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ChartsModule } from 'ng2-charts';
+import { NgSelect2Module } from 'ng-select2';
+// import { NgSelect2Module } from 'ng-select2';
 //Component
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -53,6 +55,10 @@ import { EarningComponent } from './pages/service-provider/performance-header/ea
 import { ReviewsComponent } from './pages/service-provider/performance-header/reviews/reviews.component';
 import { PerformanceHeaderComponent } from './pages/service-provider/performance-header/performance-header.component';
 import { PrivateInformationComponent } from './pages/service-provider/private-information/private-information.component';
+import { EmergencyContactComponent } from './pages/service-provider/emergency-contact/emergency-contact.component';
+import { CountryInputComponent } from './pages/country-input/country-input.component';
+import { WorkInformationComponent } from './pages/service-provider/work-information/work-information.component';
+import { BusinessInformationComponent } from './pages/service-provider/business-information/business-information.component';
 
 @NgModule({
 	declarations: [
@@ -86,6 +92,10 @@ import { PrivateInformationComponent } from './pages/service-provider/private-in
 		EarningComponent,
 		PerformanceHeaderComponent,
 		PrivateInformationComponent,
+		EmergencyContactComponent,
+		CountryInputComponent,
+		WorkInformationComponent,
+		BusinessInformationComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -104,6 +114,7 @@ import { PrivateInformationComponent } from './pages/service-provider/private-in
 		BrowserAnimationsModule,
 		DpDatePickerModule,
 		ChartsModule,
+		NgSelect2Module,
 		TranslateModule.forRoot({
 			loader: {
 				provide: TranslateLoader,
