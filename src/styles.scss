@@ -21,7 +21,12 @@
     padding: 1rem;
     position: relative;
 }
-
+.fa-check-circle {
+    position: absolute;
+    right: 13px;
+    font-size: 22px;
+    color: green;
+}
 .image-area::before {
     content: 'Uploaded image result';
     color: #fff;
