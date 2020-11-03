@@ -223,9 +223,9 @@ export class HeaderComponent implements OnInit {
     switchToHost() {
       if (!!this.user && !this.user.role && this.user.role.name !='serviceprovider') {
 
-        this.router.navigate(['service-provider/stats']);
-      } else {
         this.router.navigate(['service-provider/private-information']);
+      } else {
+        this.router.navigate(['service-provider/stats']);
       }
       
     }
