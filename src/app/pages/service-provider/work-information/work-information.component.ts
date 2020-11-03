@@ -11,6 +11,7 @@ import { ApiService } from '../../../services/api.service';
 })
 export class WorkInformationComponent implements OnInit {
 	workInformationForm:any;
+  providerStage:any = 'work-information';
   constructor(private modalService: ModalService,
     private api: ApiService,
     private route: ActivatedRoute,
@@ -32,7 +33,7 @@ export class WorkInformationComponent implements OnInit {
     });
   }
   savedWorkInformation(){
-    this.router.navigate(['service-provider/business-information']);
+    this.router.navigate(['/business-information']);
 
   }
 }

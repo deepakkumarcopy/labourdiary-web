@@ -51,10 +51,10 @@ const routes: Routes = [
       { path: 'listing', component: ListingComponent },
       { path: 'calender', component: CalenderComponent },
       { path: 'jobs', component: JobsComponent },
-      { path: 'private-information', component: PrivateInformationComponent },
-      { path: 'emergency-contact', component: EmergencyContactComponent },
-      { path: 'work-information', component: WorkInformationComponent },
-      { path: 'business-information', component: BusinessInformationComponent },
+      // { path: 'private-information', component: PrivateInformationComponent },
+      // { path: 'emergency-contact', component: EmergencyContactComponent },
+      // { path: 'work-information', component: WorkInformationComponent },
+      // { path: 'business-information', component: BusinessInformationComponent },
 
 
       {path: 'performance', 
@@ -67,6 +67,10 @@ const routes: Routes = [
       }
     ]
   },
+  { path: 'private-information', component: PrivateInformationComponent },
+  { path: 'emergency-contact', component: EmergencyContactComponent },
+  { path: 'work-information', component: WorkInformationComponent },
+  { path: 'business-information', component: BusinessInformationComponent },
   { path: "", component: HomeComponent },
   { path: "login", component: LoginComponent },
   { path: "payment/:serviceId/:orderId/:totalAmount", component: PaymentComponent },

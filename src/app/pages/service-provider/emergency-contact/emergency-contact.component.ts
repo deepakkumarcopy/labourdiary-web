@@ -18,6 +18,7 @@ export class EmergencyContactComponent implements OnInit {
   emergencyContactForm:any;
   selectedCountry: any;
   countryDialCode: any = "0";
+  providerStage:any = 'emergency-contact'
   constructor(private modalService: ModalService,
     private api: ApiService,
     private route: ActivatedRoute,

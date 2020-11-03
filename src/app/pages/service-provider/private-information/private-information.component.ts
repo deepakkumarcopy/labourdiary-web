@@ -76,6 +76,7 @@ export class PrivateInformationComponent implements OnInit {
       console.log(res, 'get searched service')
       if (res.success) {
         this.toastr.success(res.message);
+        this.router.navigate(['/emergency-contact']);
       } else {
         this.toastr.info(res.message);
       }
@@ -84,7 +85,6 @@ export class PrivateInformationComponent implements OnInit {
         console.log('error')
     });
 
-    // this.router.navigate(['service-provider/emergency-contact']);
   }
   
   closeModal(id: string) {

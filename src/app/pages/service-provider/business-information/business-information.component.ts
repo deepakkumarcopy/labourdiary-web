@@ -16,6 +16,7 @@ export class BusinessInformationComponent implements OnInit {
   businessInfoForm:any;
   selectedCountry: any;
   countryDialCode: any = "0";
+  providerStage: any = 'business-information'
   constructor(private modalService: ModalService,
     private api: ApiService,
     private route: ActivatedRoute,
