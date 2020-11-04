@@ -11,8 +11,17 @@
 			<div class = "form-row">
 				<div class = "form-group col-md-12">
 					<label>Work Category</label>
-					<input type = "text" class= "form-control" 
-					id = "inputPassword4" placeholder = "Search Category.." formControlName="category">
+					 <div class="form-group">
+					 	<ng-select2 *ngIf="categories" [data]="formattedCategoriesList"
+					            [options]="options"
+					            [width]="500"
+					            [(ngModel)]="value"
+					            formControlName="category"
+					            placeholder = "Search Category.." 
+					            >
+						</ng-select2>
+	            	</div>
+					<!-- <input type = "text" class= "form-control" id = "inputPassword4" placeholder = "Search Category.." formControlName="category"> -->
 				</div>
 			</div>
 			<div class = "form-row">

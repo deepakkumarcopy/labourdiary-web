@@ -76,6 +76,7 @@ export class PrivateInformationComponent implements OnInit {
       console.log(res, 'get searched service')
       if (res.success) {
         this.toastr.success(res.message);
+        this.router.navigate(['service-provider/emergency-contact']);
       } else {
         this.toastr.info(res.message);
       }
@@ -84,7 +85,6 @@ export class PrivateInformationComponent implements OnInit {
         console.log('error')
     });
 
-    // this.router.navigate(['service-provider/emergency-contact']);
   }
   
   closeModal(id: string) {
@@ -104,7 +104,16 @@ export class PrivateInformationComponent implements OnInit {
   createAddress() {
     this.userAddresses.push(this.addAddressForm.value)
     console.log(this.addAddressForm.value);
-    this.api.createAddress(this.addAddressForm.value).subscribe((res) => {
+    let data = {
+      user: this.user.id,
+      houseNo: this.addAddressForm.value.buildingName,
+      address: this.addAddressForm.value.area,
+      city: this.addAddressForm.value.city,
+      state: this.addAddressForm.value.state,
+      pincode: this.addAddressForm.value.pinCode,
+      addressType: this.addAddressForm.value.addressType
+    }
+    this.api.createAddress(data).subscribe((res) => {
       console.log(res, 'get searched service')
       if (res.success) {
         this.toastr.success(res.message);

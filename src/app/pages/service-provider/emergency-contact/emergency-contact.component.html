@@ -12,7 +12,7 @@
 			<div class = "form-group">
 				<label >Relation</label>
 				<select id = "inputState" class = "form-control" formControlName="relation">
-					<option selected disabled>Select Relation</option>
+					<option selected disabled value=''>Select Relation</option>
 					<option>Father</option>
 					<option>Mother</option>
 					<option>Sister</option>
@@ -40,7 +40,7 @@
 					</div>
 				</div>
 			</div>
-			<button  type = "submit" class = "btn btn-primary w-100" (click)="savedEmergencyContact()">Submit</button>
+			<button  type = "submit" class = "btn btn-primary w-100" [disabled]="emergencyContactForm.status=='INVALID'" (click)="savedEmergencyContact()">Submit</button>
 		</div>
 	</form>
 </div>

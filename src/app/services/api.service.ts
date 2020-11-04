@@ -29,7 +29,14 @@ export class ApiService {
     })
 
   }
-
+  formatCategoryList(category) {
+    return category.map(function (item) {
+      return {
+        id: item.id,
+        text: item.name,
+      }
+    })
+  }
   checkEmail(email) {
     return this.http.post(`${this.baseUrl}/api/checkEmail`, { email: email })
       .pipe(map((res: any) => res),
