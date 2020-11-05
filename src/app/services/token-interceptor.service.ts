@@ -49,8 +49,8 @@ export class TokenInterceptorService implements HttpInterceptor {
 	 setLoader(req) {
     if (!!req){
       let value = req.url.split('?')[0]?.split('/');
-      let isGetRequest = (req.method == 'POST');
-      let shouldShowLoader = !(['checkEmail'].includes(value[value.length - 1]));
+      let isGetRequest = (req.method == 'POST' || req.method == 'GET');
+      let shouldShowLoader = !(['checkEmail','showSubCategories'].includes(value[value.length - 1]));
       let Condition = (shouldShowLoader || (!shouldShowLoader && !isGetRequest));
       this.eventService.showLoader(Condition);
     }

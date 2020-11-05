@@ -53,12 +53,11 @@ export class PrivateInformationComponent implements OnInit {
       state: new FormControl ('', [Validators.required]),
       city: new FormControl('',  [Validators.required]),
       pincode: new FormControl ('', [Validators.required]),
-      addressType: new FormControl('',[Validators.required]),
+      addressType: new FormControl('Home',[Validators.required]),
     });
   }
   savePrivateInformation() {
     const form = new FormData();
-
     form.append('user', this.user.id);
     form.append('gender', this.privateInformationForm.value.gender);
     form.append('dob', this.privateInformationForm.value.dob);
@@ -110,7 +109,7 @@ export class PrivateInformationComponent implements OnInit {
       address: this.addAddressForm.value.area,
       city: this.addAddressForm.value.city,
       state: this.addAddressForm.value.state,
-      pincode: this.addAddressForm.value.pinCode,
+      pincode: this.addAddressForm.value.pincode,
       addressType: this.addAddressForm.value.addressType
     }
     this.api.createAddress(data).subscribe((res) => {
@@ -170,8 +169,23 @@ export class PrivateInformationComponent implements OnInit {
   }
   saveAddress() {
     const fltAddress = this.userAddresses.find(add => add.selected === true);
-    this.closeModal('add-new-address');
-    const address = fltAddress.houseNo + ' ' +  ' ' + fltAddress.address + ' ' +  fltAddress.city  + ' ' + fltAddress.state + ' ' + fltAddress.pincode
-    this.privateInformationForm.get('address').setValue(address);
+    if (!!fltAddress) {
+      let data = {
+        selected: true,
+        addressId: fltAddress.id,
+        user: this.user.id
+      }
+      this.api.updateAddress(data).subscribe((res) => {
+        console.log(res, 'get searched service')
+        if (res.success) {
+          this.closeModal('add-new-address');
+          const address = fltAddress.houseNo + ' ' +  ' ' + fltAddress.address + ' ' +  fltAddress.city  + ' ' + fltAddress.state + ' ' + fltAddress.pincode
+          this.privateInformationForm.get('address').setValue(address);
+        }
+        }, (e) => {
+          this.toastr.error('Something went wrong');
+          console.log('error')
+      });
+    }
   }
 }

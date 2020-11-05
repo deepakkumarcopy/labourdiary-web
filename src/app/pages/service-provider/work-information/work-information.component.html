@@ -5,21 +5,22 @@
 			<div class = "form-row">
 				<div class = "form-group col-md-12">
 					<input type = "text" class= "form-control" 
-					id = "inputPassword4" placeholder = "Please select service location" formControlName="location">
+					id = "inputPassword4" placeholder = "Please select service location" formControlName="location" (click)="openModal('google-map')" autocomplete="off">
 				</div>
 			</div>
 			<div class = "form-row">
 				<div class = "form-group col-md-12">
 					<label>Work Category</label>
-					 <div class="form-group">
+				 	<div class="form-group">
 					 	<ng-select2 *ngIf="categories" [data]="formattedCategoriesList"
 					            [options]="options"
 					            [width]="500"
-					            [(ngModel)]="value"
+					            (valueChanged)="selectedCategory($event)"
 					            formControlName="category"
 					            placeholder = "Search Category.." 
 					            >
 						</ng-select2>
+						<!-- <span *ngIf="isCategoryThree" class="color-red">Can't select more than three category*</span> -->
 	            	</div>
 					<!-- <input type = "text" class= "form-control" id = "inputPassword4" placeholder = "Search Category.." formControlName="category"> -->
 				</div>
@@ -27,8 +28,16 @@
 			<div class = "form-row">
 				<div class = "form-group col-md-12">
 					<label>Experienced in</label>
-					<input type = "text" class= "form-control" 
-					id = "inputPassword4" placeholder = "Search Subcategory.." formControlName="subCategory">
+					<div class="form-group">
+					 	<ng-select2 *ngIf="subCategories" [data]="formattedSubCategoriesList"
+					            [options]="options"
+					            [width]="500"
+					            (valueChanged)="selectedSubCategory($event)"
+					            formControlName="subCategory"
+					            placeholder = "Search Sub Category.." 
+					            >
+						</ng-select2>
+	            	</div>
 				</div>
 			</div>
 			<div class = "form-row">
@@ -41,7 +50,7 @@
 			<div class = "form-group">
 				<label >English Level</label>
 				<select id = "inputState" class = "form-control" formControlName="englishLevel">
-					<option selected disabled>English Level</option>
+					<option selected disabled value="">English Level</option>
 					<option>Native</option>
 					<option>Basic</option>
 					<option>Advance</option>
@@ -51,7 +60,7 @@
 			<div class = "form-group">
 				<label >Employee Type</label>
 				<select id = "inputState" class = "form-control" formControlName="employeType">
-					<option selected disabled>Employee Type</option>
+					<option selected disabled value="">Employee Type</option>
 					<option>Free Lancer</option>
 					<option>Agencies</option>
 				</select>
@@ -66,10 +75,45 @@
 			</div>
 			<div class = "form-group">
 				<label for = "inputAddress">Work Photos</label>
-				<input type = "file" class = "form-control" id = "inputAddress" 
-				placeholder = "ID proof" formControlName="photo">
+				<label for="work-file" class="inputLabelLarge">
+					<img for="work-file" src="assets/img/construction.jpg" [ngClass]="{'inputBoxError': isWorkImages}">
+					<div class="btn">
+						<span><i class="fa fa-upload"></i></span>
+						<div>Image Uplaod Here</div>
+					</div>
+				</label>
+				<input class="inputField" type="file" id="work-file" formControlName="photo" multiple accept="image/*" (change)="onSelect($event)">
+				<div class="imageGrid">
+					<div class="row" *ngIf="workImages && workImages.length>0">
+						<div class="col-3" size="4" *ngFor="let image of workImages; index as i;" (click)="removeImage(i)">
+							<div class="selectedImage">
+								<i class="fa fa-times-circle float-right"></i>
+								<img [src]="image" alt="">
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- <input type = "file" class = "form-control" id = "inputAddress" 
+				placeholder = "ID proof" formControlName="photo"> -->
 			</div>
-			<button  type = "submit" class = "btn btn-primary w-100" (click)="savedWorkInformation()">Submit</button>
+			<button  type = "submit" class = "btn btn-primary w-100" [disabled]="workInformationForm.status=='INVALID'" (click)="savedWorkInformation()">Submit</button>
 		</div>
 	</form>
 </div>
+
+<jw-modal id="google-map">
+	<!-- <div #mapElement class="map" (click)="serviceInfo($event)"></div> -->
+
+    <div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content" style="height: 500px;">
+			<div class="modal-header">
+				<button type="button" class="close" (click)="closeModal('google-map')" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body mapCol">
+				<div #mapElement class="work-map"></div>
+			</div>
+		</div>
+	</div>
+</jw-modal>

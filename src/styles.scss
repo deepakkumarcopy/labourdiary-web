@@ -99,7 +99,63 @@
     }
   }
 }
+.inputBoxError {
+    border: 1px solid red !important;
+    box-shadow: 0px 0px 6px 0px red;
+}
+.inputField {
+    display: none;
+}
+.inputLabelLarge {
+    position: relative;
+    width: 100%;
+    margin-top: 10px;
+}
 
+.inputLabelLarge img {
+    width: 100%;
+    height: auto;
+    filter: contrast(0.5);
+    border-radius: 3px;
+}
+
+.inputLabelLarge .btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    color: white;
+    border-radius: 5px;
+    font-size: 21px;
+    font-weight: bold;
+    border: solid;
+    width: 70%;
+    border-style: dashed;
+
+    span {
+        font-size: 50px;
+    }
+}
+.selectedImage {
+    position: relative;
+    width: 100%;
+}
+
+.selectedImage img {
+    width: 100%;
+    height: auto;
+}
+
+.selectedImage .btn {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    color: white;
+    font-size: 20px;
+}
 .select2-container--default .select2-selection--multiple {
     border-radius: 8px !important;
     border: 1px solid #ced4da !important;
@@ -130,7 +186,15 @@
 .social-img{
     height: 30px;
 }
-
+.work-map {
+    position: relative;
+    overflow: hidden;
+    /* width: 20px; */
+    height: 410px;
+}
+.mapCol {
+    padding: 0;
+}
 .social-input{
   padding-left: 25px;
   height: 20px;
