@@ -68,7 +68,7 @@ export class PrivateInformationComponent implements OnInit {
     form.append('dob', this.privateInformationForm.value.dob);
     form.append('countryCode', this.countryDialCode);
     form.append('phone', this.privateInformationForm.value.phone);
-    form.append('education', this.privateInformationForm.value.higherEducation);
+    form.append('education', this.privateInformationForm.value.education);
     form.append('linkedin', this.privateInformationForm.value.linkedIn);
     form.append('facebook', this.privateInformationForm.value.facebook);
     for (const language of this.privateInformationForm.value.language) {
@@ -80,6 +80,8 @@ export class PrivateInformationComponent implements OnInit {
       console.log(res, 'get searched service')
       if (res.success) {
         this.toastr.success(res.message);
+        this.user.profile = res.profile;
+        localStorage.setItem('user', JSON.stringify(this.user));
         this.router.navigate(['service-provider/emergency-contact']);
       } else {
         this.toastr.info(res.message);
