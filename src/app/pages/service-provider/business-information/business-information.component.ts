@@ -18,6 +18,7 @@ export class BusinessInformationComponent implements OnInit {
   selectedCountry: any;
   countryDialCode: any = "0";
   user: any = JSON.parse(localStorage.getItem('user'));
+  providerStage: any = 'business-information'
   constructor(private modalService: ModalService,
     private api: ApiService,
     private route: ActivatedRoute,

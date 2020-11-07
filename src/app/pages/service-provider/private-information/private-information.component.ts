@@ -82,7 +82,7 @@ export class PrivateInformationComponent implements OnInit {
         this.toastr.success(res.message);
         this.user.profile = res.profile;
         localStorage.setItem('user', JSON.stringify(this.user));
-        this.router.navigate(['service-provider/emergency-contact']);
+        this.router.navigate(['/emergency-contact']);
       } else {
         this.toastr.info(res.message);
       }

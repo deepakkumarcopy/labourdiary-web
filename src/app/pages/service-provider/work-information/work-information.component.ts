@@ -31,6 +31,7 @@ export class WorkInformationComponent implements OnInit {
   user: any = JSON.parse(localStorage.getItem('user'));
   latitude:any;
   longitude:any;
+  providerStage:any = 'work-information';
   constructor(private modalService: ModalService,
     private api: ApiService,
     private route: ActivatedRoute,
@@ -118,7 +119,7 @@ export class WorkInformationComponent implements OnInit {
     this.api.registerAsServiceProvider(form).subscribe((res) => {
       if (res.success) {
         this.toastr.success(res.message);
-        this.router.navigate(['service-provider/business-information']);
+        this.router.navigate(['/business-information']);
       } else {
         this.toastr.info(res.message);
       }
@@ -171,7 +172,6 @@ export class WorkInformationComponent implements OnInit {
     for (const file of files.target.files) {
       if (this.workImagesToUpload.length < 10) {
         this.workImagesToUpload.push(file);
-
         const reader = new FileReader();
         reader.onload = (e: any) => {
           this.workImages.push(e.target.result);

@@ -61,6 +61,7 @@ import { EmergencyContactComponent } from './pages/service-provider/emergency-co
 import { CountryInputComponent } from './pages/country-input/country-input.component';
 import { WorkInformationComponent } from './pages/service-provider/work-information/work-information.component';
 import { BusinessInformationComponent } from './pages/service-provider/business-information/business-information.component';
+import { ServicerProviderBreadCrumbComponent } from './pages/service-provider/servicer-provider-bread-crumb/servicer-provider-bread-crumb.component';
 
 @NgModule({
 	declarations: [
@@ -98,6 +99,7 @@ import { BusinessInformationComponent } from './pages/service-provider/business-
 		CountryInputComponent,
 		WorkInformationComponent,
 		BusinessInformationComponent,
+		ServicerProviderBreadCrumbComponent,
 	],
 	imports: [
 		BrowserModule,

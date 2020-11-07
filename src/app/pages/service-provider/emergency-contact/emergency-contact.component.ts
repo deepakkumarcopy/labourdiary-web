@@ -20,6 +20,7 @@ export class EmergencyContactComponent implements OnInit {
   selectedCountry: any;
   countryDialCode: any = "0";
   user: any = JSON.parse(localStorage.getItem('user'));
+  providerStage:any = 'emergency-contact'
   constructor(private modalService: ModalService,
     private api: ApiService,
     private route: ActivatedRoute,
@@ -57,7 +58,7 @@ export class EmergencyContactComponent implements OnInit {
       console.log(res, 'get searched service')
       if (res.success) {
         this.toastr.success(res.message);
-        this.router.navigate(['service-provider/work-information']);
+        this.router.navigate(['/work-information']);
       } else {
         this.toastr.info(res.message);
       }
