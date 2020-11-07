@@ -4,7 +4,7 @@ import { ModalService } from '../../../services/modal.service';
 import { ActivatedRoute, Router, RouterEvent, NavigationEnd } from '@angular/router';
 import { ApiService } from '../../../services/api.service';
 import { ToastrService } from 'ngx-toastr';
-
+import { ImageCroppedEvent } from 'ngx-image-cropper';
 declare var $:any;
 @Component({
   selector: 'app-private-information',
@@ -19,6 +19,10 @@ export class PrivateInformationComponent implements OnInit {
   userAddresses:any=[];
   imagePreview:any;
   user: any = JSON.parse(localStorage.getItem('user'));
+  imageChangedEvent: any = '';
+  croppedImage: any = '';
+  isReadyToCrop:boolean =false;
+  cropped:boolean=false;
   constructor(private modalService: ModalService,
     private api: ApiService,
     private route: ActivatedRoute,
@@ -43,7 +47,8 @@ export class PrivateInformationComponent implements OnInit {
       education: new FormControl('',  [Validators.required]),
       gender: new FormControl('',  [Validators.required]),
       facebook: new FormControl(''),
-      linkedIn: new FormControl('')
+      linkedIn: new FormControl(''),
+      // photo:new FormControl('')
     });
   }
   setAddressForm() {
@@ -187,5 +192,32 @@ export class PrivateInformationComponent implements OnInit {
           console.log('error')
       });
     }
+  }
+
+  fileChangeEvent(event: any): void {
+    this.imageChangedEvent = event;
+    this.cropped = false;
+
+    this.isReadyToCrop = true;
+    console.log('fbhjbfhjervjh')
+  }
+  imageCropped(event: ImageCroppedEvent) {
+
+      this.croppedImage = event.base64;
+      console.log('imageee')
+  }
+  imageLoaded() {
+    console.log('imageLoaded')
+      // show cropper
+  }
+  cropperReady() {
+    console.log('cropperReady')
+      // cropper ready
+  }
+  loadImageFailed() {
+      // show message
+  }
+  cropImage() {
+    this.cropped = true;
   }
 }

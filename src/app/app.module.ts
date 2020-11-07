@@ -16,6 +16,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ChartsModule } from 'ng2-charts';
 import { NgSelect2Module } from 'ng-select2';
+import { ImageCropperModule } from 'ngx-image-cropper';
+
 // import { NgSelect2Module } from 'ng-select2';
 //Component
 import { AppRoutingModule } from './app-routing.module';
@@ -113,6 +115,7 @@ import { BusinessInformationComponent } from './pages/service-provider/business-
 		MatInputModule,
 		BrowserAnimationsModule,
 		DpDatePickerModule,
+		ImageCropperModule,
 		ChartsModule,
 		NgSelect2Module,
 		TranslateModule.forRoot({

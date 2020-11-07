@@ -3,7 +3,23 @@
 		<h5 class="pt-5 pb-3">Private Information</h5>
 		<div class="form-border">
 			<div class = "form-group">
-				<img class="center" src="assets/img/personImg.jpg" alt="">
+				<div *ngIf="!cropped">
+					<image-cropper
+					    [imageChangedEvent]="imageChangedEvent"
+					    [maintainAspectRatio]="true"
+					    [aspectRatio]="4 / 3"
+					    format="png"
+					    (imageCropped)="imageCropped($event)"
+					    (imageLoaded)="imageLoaded()"
+					    (cropperReady)="cropperReady()"
+					    (loadImageFailed)="loadImageFailed()"
+					></image-cropper>
+					<button  *ngIf=isReadyToCrop type = "submit" class = "btn btn-primary w-100 mb-1" (click)="cropImage()">Crop</button>
+				</div>
+				<label for="work-file" style="display: block">
+					<img for="work-file" class="center" [src]="croppedImage ? croppedImage : 'assets/img/personImg.jpg'" height="100px">
+				</label>
+				<input class="inputField" type="file" (click)="myInputFile.value = null" id="work-file" accept="image/*" (change)="fileChangeEvent($event)" #myInputFile>
 			</div>
 			<div class="form-check form-check-inline">
 				<input class="form-check-input" type="radio" name="gender" formControlName="gender"  id="inlineRadio1" value="male">
