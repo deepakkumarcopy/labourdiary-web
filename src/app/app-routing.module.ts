@@ -26,6 +26,7 @@ import { PrivateInformationComponent } from './pages/service-provider/private-in
 import { EmergencyContactComponent } from './pages/service-provider/emergency-contact/emergency-contact.component';
 import { WorkInformationComponent } from './pages/service-provider/work-information/work-information.component';
 import { BusinessInformationComponent } from './pages/service-provider/business-information/business-information.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 const routes: Routes = [
   {
@@ -73,6 +74,7 @@ const routes: Routes = [
   { path: 'business-information', component: BusinessInformationComponent },
   { path: "", component: HomeComponent },
   { path: "login", component: LoginComponent },
+  {path:'profile', component: ProfileComponent},
   { path: "payment/:serviceId/:orderId/:totalAmount", component: PaymentComponent },
   { path: "message", component: MessagesComponent },
   { path: "sign-up", component: SignUpComponent },

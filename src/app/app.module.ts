@@ -62,6 +62,7 @@ import { CountryInputComponent } from './pages/country-input/country-input.compo
 import { WorkInformationComponent } from './pages/service-provider/work-information/work-information.component';
 import { BusinessInformationComponent } from './pages/service-provider/business-information/business-information.component';
 import { ServicerProviderBreadCrumbComponent } from './pages/service-provider/servicer-provider-bread-crumb/servicer-provider-bread-crumb.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 @NgModule({
 	declarations: [
@@ -100,6 +101,7 @@ import { ServicerProviderBreadCrumbComponent } from './pages/service-provider/se
 		WorkInformationComponent,
 		BusinessInformationComponent,
 		ServicerProviderBreadCrumbComponent,
+		ProfileComponent,
 	],
 	imports: [
 		BrowserModule,
