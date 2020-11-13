@@ -23,6 +23,7 @@ export class PrivateInformationComponent implements OnInit {
   croppedImage: any = '';
   isReadyToCrop:boolean =false;
   cropped:boolean=false;
+  isEdit:any;
   constructor(private modalService: ModalService,
     private api: ApiService,
     private route: ActivatedRoute,
@@ -31,6 +32,11 @@ export class PrivateInformationComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.route.params.subscribe((params) => {
+      if(!!params.source && params.source == 'edit-profile') {
+        this.isEdit = params.source;
+      }
+    });
     this.setWidthDrawForm();
     this.setAddressForm();
     this.getAddress();
@@ -38,17 +44,17 @@ export class PrivateInformationComponent implements OnInit {
   }
   setWidthDrawForm() {
     this.privateInformationForm = new FormGroup({
-      dob: new FormControl ('', [Validators.required]),
-      email: new FormControl(this.user.email,  [Validators.required]),
-      phone: new FormControl ('', [Validators.required]),
-      language: new FormControl('',  [Validators.required]),
-      idProof: new FormControl ('', [Validators.required]),
+      dob: new FormControl (this.user.profile.dob !== '0' ? this.user.profile.dob : '', [Validators.required]),
+      email: new FormControl(this.user.email ? this.user.email : '', [Validators.required, Validators.pattern('^[0-9]*$')]),
+      phone: new FormControl (this.user.profile.phone ? this.user.profile.phone : ''),
+      language: new FormControl(this.user.profile.spokenLanguages ? this.user.profile.spokenLanguages : '', [Validators.required]),
+      idProof: new FormControl (this.user.profile.documentUrl ? this.user.documentUrl : '', [Validators.required]),
       address: new FormControl('',  [Validators.required]),
-      education: new FormControl('',  [Validators.required]),
-      gender: new FormControl('',  [Validators.required]),
-      facebook: new FormControl(''),
-      linkedIn: new FormControl(''),
-      // photo:new FormControl('')
+      education: new FormControl(this.user.profile.education ? this.user.profile.education : '', [Validators.required]),
+      gender: new FormControl(this.user.profile.gender ? this.user.profile.gender : '', [Validators.required]),
+      facebook: new FormControl(this.user.profile.facebook ? this.user.profile.facebook : ''),
+      linkedIn: new FormControl(this.user.profile.linkedin ? this.user.profile.linkedin : '')
+
     });
   }
   setAddressForm() {
@@ -82,7 +88,13 @@ export class PrivateInformationComponent implements OnInit {
         this.toastr.success(res.message);
         this.user.profile = res.profile;
         localStorage.setItem('user', JSON.stringify(this.user));
-        this.router.navigate(['/emergency-contact']);
+        if(this.isEdit == 'edit-profile') {
+          this.router.navigate(['/profile']);
+
+        } else {
+
+          this.router.navigate(['/emergency-contact']);
+        }
       } else {
         this.toastr.info(res.message);
       }
@@ -143,6 +155,7 @@ export class PrivateInformationComponent implements OnInit {
     this.countryDialCode = e.countryCode;
   }
   onSelectFile(event) {
+    console.log('evventtttttttt', event)
     if (event.target.files && event.target.files[0]) {
       var reader = new FileReader();
 
@@ -150,7 +163,9 @@ export class PrivateInformationComponent implements OnInit {
 
       reader.onload = (event) => { // called once readAsDataURL is completed
         this.imagePreview = event.target.result;
+        console.log(this.imagePreview, 'image previewwwwwww')
       }
+      console.log(this.privateInformationForm.value.idProof,'id prooffffffff')
     }
   }
 

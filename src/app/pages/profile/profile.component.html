@@ -3,8 +3,15 @@
         <div class="col-1"></div>
         <div class="col-4">
             <div class="card" style=" border-radius: 21px">
-                <img class="logo center mt-5"  src="assets/img/personImg.jpg" alt="image" height="45" width="45" />
-                <a href="#" class="text-center pt-1">Update Photo</a>
+                
+                <label >
+                    <img for="work-file" class="center mt-4" [src]="croppedImage ? croppedImage : 'assets/img/personImg.jpg'" height="45" width="45">
+                </label>
+                <label for="work-file">
+                    <p class="text-center pt-1"><input class="inputField"  value="Update Photo" type="file" (click)="myInputFile.value = null" id="work-file" accept="image/*" (change)="fileChangeEvent($event)" #myInputFile>Update Photo</p>
+                </label>
+                <!-- <input class="inputField"  value="Update Photo" type="file" (click)="myInputFile.value = null" accept="image/*" (change)="fileChangeEvent($event)" #myInputFile> -->
+                <!-- <img class="logo center mt-5"  src="assets/img/personImg.jpg" alt="image" height="45" width="45" /> -->
                 <div class="card-body">
                     <div class="d-flex">
                         <i class="fa fa-star" aria-hidden="true"></i>
@@ -12,21 +19,25 @@
                     </div>
                     <div class="d-flex">
                         <i class="fa fa-star" aria-hidden="true"></i>
-                        <p class="card-text pl-2">Identify verified</p>
+                        <p class="card-text pl-2" *ngIf="user.verified">Identify verified</p>
+                        <p class="card-text pl-2" *ngIf="!user.verified">You are not verify</p>
                     </div>
-                    <div class="border-confirm"></div>
-                    <h6 class="pb-2 font-weght f-21">Badrinath Confirmed </h6>
-                    <div class="d-flex">
-                        <i style="font-size:20px" class="fa">&#xf00c;</i>
-                        <p class="card-text pl-2">Identify </p>
-                    </div>
-                    <div class="d-flex">
-                        <i style="font-size:20px" class="fa">&#xf00c;</i>
-                        <p class="card-text pl-2">Email Address</p>
-                    </div>
-                    <div class="d-flex">
-                        <i style="font-size:20px" class="fa">&#xf00c;</i>
-                        <p class="card-text pl-2">Phone Number</p>
+                    <div *ngIf="user.verified">
+                        <div class="border-confirm"></div>
+
+                        <h6 class="pb-2 font-weght f-21">Badrinath Confirmed </h6>
+                        <div class="d-flex">
+                            <i style="font-size:20px" class="fa">&#xf00c;</i>
+                            <p class="card-text pl-2">Identify </p>
+                        </div>
+                        <div class="d-flex">
+                            <i style="font-size:20px" class="fa">&#xf00c;</i>
+                            <p class="card-text pl-2">Email Address</p>
+                        </div>
+                        <div class="d-flex">
+                            <i style="font-size:20px" class="fa">&#xf00c;</i>
+                            <p class="card-text pl-2">Phone Number</p>
+                        </div>
                     </div>
                     <div class="d-flex pt-5">
                         
@@ -36,9 +47,9 @@
             </div>
         </div>
         <div class="col-7 pt-3">
-            <h6 class="font-weght f-21">Hi, I'm Badrinath</h6>
-            <p class="f-12 color-grey"> Joined in 2014</p>
-            <a href="#" class="text-center pt-1 color-black">Edit Profile</a>
+            <h6 class="font-weght f-21" style="font-size:25px">Hi, I'm {{user.firstName}}</h6>
+            <p class="f-12 color-grey"> Joined in {{user.createdAt |date:'yyyy'}}</p>
+            <a href="#" class="text-center pt-1 color-black" [routerLink]= "['/private-information', 'edit-profile']" >Edit Profile</a>
             <div>
                 <p class="font-weght f-21 pt-5">About</p>
             </div> 
@@ -59,3 +70,33 @@
         </div>
     </div>
 </div>
+
+
+<jw-modal id="update-photo">
+    <!-- <div #mapElement class="map" (click)="serviceInfo($event)"></div> -->
+
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content" style="height: 500px;">
+            <div class="modal-header">
+                <button type="button" class="close" (click)="closeModal('update-photo')" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div *ngIf="!cropped">
+                    <image-cropper
+                        [imageChangedEvent]="imageChangedEvent"
+                        [maintainAspectRatio]="true"
+                        [aspectRatio]="4 / 3"
+                        format="png"
+                        (imageCropped)="imageCropped($event)"
+                        (imageLoaded)="imageLoaded()"
+                        (cropperReady)="cropperReady()"
+                        (loadImageFailed)="loadImageFailed()"
+                    ></image-cropper>
+                    <button  *ngIf=isReadyToCrop type = "submit" class = "btn btn-primary w-100 mb-1" (click)="cropImage()">Crop</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</jw-modal>

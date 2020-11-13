@@ -69,6 +69,7 @@ const routes: Routes = [
     ]
   },
   { path: 'private-information', component: PrivateInformationComponent },
+  { path: 'private-information/:source', component: PrivateInformationComponent },
   { path: 'emergency-contact', component: EmergencyContactComponent },
   { path: 'work-information', component: WorkInformationComponent },
   { path: 'business-information', component: BusinessInformationComponent },

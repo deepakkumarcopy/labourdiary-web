@@ -108,7 +108,7 @@
 				<input type = "text" class="social-input form-control" id="inputAddress" 
 				placeholder = "Enter FaceBook" formControlName="facebook">
 			</div>
-			<button  type = "submit" class = "btn btn-primary w-100" [disabled]="privateInformationForm.status=='INVALID'" (click)="savePrivateInformation()">Submit</button>
+			<button   type = "submit" class = "btn btn-primary w-100" [disabled]="privateInformationForm.status=='INVALID'" (click)="savePrivateInformation()">{{isEdit ? 'Update' :'Submit'}}</button>
 		</div>
 	</form>
 </div>

@@ -481,4 +481,15 @@ export class ApiService {
       .pipe(map((res: any) => res),
         catchError(error => throwError(error.error || 'Server Error')));
   }
+
+  imageUpload(data) {
+    let form = new FormData();
+
+    form.append('userId', data.id);
+    form.append('profile', data.files)
+
+    return this.http.post(`${this.baseUrl}/api/updateUserImage`, form)
+      .pipe(map((res: any) => res),
+        catchError(error => throwError(error.error || 'Server Error')));
+  }
 }
