@@ -42,14 +42,14 @@ color-grey{
     line-height: 36px;
     color: white;
     /*need more margin on the left of links to accomodate the numbers*/
-    padding: 0 10px 0 60px;
+    padding: 0 70px 0 110px;
     background: #333;
     background: linear-gradient(#333, #111);
     position: relative;
 }
 /*since the first link does not have a triangle before it we can reduce the left padding to make it look consistent with other links*/
 .breadcrumb a:first-child {
-    padding-left: 46px;
+    padding-left: 70px;
     border-radius: 5px 0 0 5px; /*to match with the parent's radius*/
 }
 .breadcrumb a:first-child:before {
@@ -107,7 +107,8 @@ color-grey{
     counter-increment: flag;
     /*some styles now*/
     border-radius: 100%;
-    width: 20px;
+    // width: 20px;
+    padding: 0px 7px;
     height: 20px;
     line-height: 20px;
     margin: 8px 0;
@@ -198,7 +199,7 @@ color-grey{
 }
 .bread-in-center {
     margin: auto!important;
-    padding-left: 10%;
+    // padding-left: 10%;
 }
 .textarea {
     border-radius: 8px;
