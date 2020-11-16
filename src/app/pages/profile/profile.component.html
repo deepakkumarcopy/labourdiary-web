@@ -5,7 +5,7 @@
             <div class="card" style=" border-radius: 21px">
                 
                 <label >
-                    <img for="work-file" class="center mt-4" [src]="croppedImage ? croppedImage : 'assets/img/personImg.jpg'" height="45" width="45">
+                    <img for="work-file" class="center mt-4" [src]="croppedImage ? croppedImage : user.imageUrl ? user.imageUrl: 'assets/img/personImg.jpg'" height="45" width="45">
                 </label>
                 <label for="work-file">
                     <p class="text-center pt-1"><input class="inputField"  value="Update Photo" type="file" (click)="myInputFile.value = null" id="work-file" accept="image/*" (change)="fileChangeEvent($event)" #myInputFile>Update Photo</p>
