@@ -40,15 +40,18 @@ export class PrivateInformationComponent implements OnInit {
     this.setWidthDrawForm();
     this.setAddressForm();
     this.getAddress();
+
+    this.countryDialCode = this.user.profile.countryCode? this.user.profile.countryCode : "0"
     
   }
   setWidthDrawForm() {
+    
     this.privateInformationForm = new FormGroup({
       dob: new FormControl (this.user.profile.dob !== '0' ? this.user.profile.dob : '', [Validators.required]),
-      email: new FormControl(this.user.email ? this.user.email : '', [Validators.required, Validators.pattern('^[0-9]*$')]),
-      phone: new FormControl (this.user.profile.phone ? this.user.profile.phone : ''),
+      email: new FormControl(this.user.email ? this.user.email : '', [Validators.required]),
+      phone: new FormControl (this.user.profile.phone ? this.user.profile.phone : '', [Validators.required, Validators.pattern('^[0-9]*$')]),
       language: new FormControl(this.user.profile.spokenLanguages ? this.user.profile.spokenLanguages : '', [Validators.required]),
-      idProof: new FormControl (this.user.profile.documentUrl ? this.user.documentUrl : '', [Validators.required]),
+      idProof: new FormControl ('', [Validators.required]),
       address: new FormControl('',  [Validators.required]),
       education: new FormControl(this.user.profile.education ? this.user.profile.education : '', [Validators.required]),
       gender: new FormControl(this.user.profile.gender ? this.user.profile.gender : '', [Validators.required]),
@@ -56,6 +59,7 @@ export class PrivateInformationComponent implements OnInit {
       linkedIn: new FormControl(this.user.profile.linkedin ? this.user.profile.linkedin : '')
 
     });
+
   }
   setAddressForm() {
     this.addAddressForm = new FormGroup({
@@ -174,6 +178,12 @@ export class PrivateInformationComponent implements OnInit {
       console.log(res, 'get searched service')
       if (res.success) {
         this.userAddresses = res.addresses;
+        if(!!this.userAddresses) {
+          const fltAddress = this.userAddresses.find(add => add.selected === true);
+          const address = fltAddress.houseNo + ' ' +  ' ' + fltAddress.address + ' ' +  fltAddress.city  + ' ' + fltAddress.state + ' ' + fltAddress.pincode
+          this.privateInformationForm.get('address').setValue(address);
+          // this.imagePreview = this.convert(this.user.profile.documents)
+        }
       } else {
         this.userAddresses = [];
       }
@@ -182,7 +192,7 @@ export class PrivateInformationComponent implements OnInit {
         console.log('error')
     });
   }
-  selectedAddress(address) {
+  getSelectedAddress(address) {
     if (this.userAddresses && this.userAddresses.length>0) {
       this.userAddresses.forEach((add) => {
         add.selected = (add.id == address);
@@ -191,6 +201,7 @@ export class PrivateInformationComponent implements OnInit {
   }
   saveAddress() {
     const fltAddress = this.userAddresses.find(add => add.selected === true);
+    console.log(fltAddress, 'fltAddress')
     if (!!fltAddress) {
       let data = {
         selected: true,
@@ -198,7 +209,7 @@ export class PrivateInformationComponent implements OnInit {
         user: this.user.id
       }
       this.api.updateAddress(data).subscribe((res) => {
-        console.log(res, 'get searched service')
+        console.log(res, 'get searched servicesssssssssssssss')
         if (res.success) {
           this.closeModal('add-new-address');
           const address = fltAddress.houseNo + ' ' +  ' ' + fltAddress.address + ' ' +  fltAddress.city  + ' ' + fltAddress.state + ' ' + fltAddress.pincode
@@ -237,4 +248,16 @@ export class PrivateInformationComponent implements OnInit {
   cropImage() {
     this.cropped = true;
   }
+
+  // convert(img) {
+   
+  //   var canvas = document.createElement("canvas");
+  //   canvas.width = img.width;
+  //   canvas.height = img.height;
+  //   var ctx = canvas.getContext("2d");
+  //   ctx.drawImage(img, 0, 0);
+  //   var dataURL = canvas.toDataURL("image/png");
+  //   return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+  
+  // }
 }

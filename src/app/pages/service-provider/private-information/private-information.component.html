@@ -125,7 +125,7 @@
 			<div class="modal-body modal-scroll">
 				<div class="f-13 color-grey">{{userAddresses ? userAddresses.length : 0}} Saved address</div>
 				<div *ngIf="userAddresses && userAddresses.length>0">
-					<div class="card mt-1" *ngFor="let address of userAddresses" (click)="selectedAddress(address.id)">
+					<div class="card mt-1" *ngFor="let address of userAddresses" (click)="getSelectedAddress(address.id)">
 					  <div class="card-body"><h5>{{address.addressType}}</h5>
 					  	<span>{{address.houseNo}},{{address.address}},{{address.city}}</span>
 					  	<i *ngIf="address.selected" class="fa fa-check-circle" aria-hidden="true"></i>
