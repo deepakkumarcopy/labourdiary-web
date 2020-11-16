@@ -58,16 +58,17 @@ export class ProfileComponent implements OnInit {
     const imageName = 'name.png';
     const imageBlob = this.dataURItoBlob(this.croppedImage);
 		const imageFile = new File([imageBlob], imageName, { type: 'image/jpeg' });
-    console.log(imageFile)
+    console.log(imageFile, 'image filee')
     console.log(this.croppedImage)
     let data = {
       id: this.user.id,
       files: imageFile,
     }
     this.api.imageUpload(data).subscribe((res) => {
-      console.log(res, 'get searched service')
+      console.log(res, 'image uploadddddddddddd')
       if (res.success) {
         this.toastr.success('Successfully Updated');
+        localStorage.setItem('user', JSON.stringify(res.user));
         this.closeModal('update-photo');
       } else {
         this.toastr.info(res.message);

@@ -182,7 +182,7 @@ export class PrivateInformationComponent implements OnInit {
           const fltAddress = this.userAddresses.find(add => add.selected === true);
           const address = fltAddress.houseNo + ' ' +  ' ' + fltAddress.address + ' ' +  fltAddress.city  + ' ' + fltAddress.state + ' ' + fltAddress.pincode
           this.privateInformationForm.get('address').setValue(address);
-          // this.imagePreview = this.convert(this.user.profile.documents)
+          this.imagePreview = this.convert(this.user.profile.documents)
         }
       } else {
         this.userAddresses = [];
@@ -230,9 +230,9 @@ export class PrivateInformationComponent implements OnInit {
     console.log('fbhjbfhjervjh')
   }
   imageCropped(event: ImageCroppedEvent) {
-
-      this.croppedImage = event.base64;
-      console.log('imageee')
+    
+    this.croppedImage = event.base64;
+    console.log('imageee')
   }
   imageLoaded() {
     console.log('imageLoaded')
@@ -249,15 +249,15 @@ export class PrivateInformationComponent implements OnInit {
     this.cropped = true;
   }
 
-  // convert(img) {
+  convert(img) {
    
-  //   var canvas = document.createElement("canvas");
-  //   canvas.width = img.width;
-  //   canvas.height = img.height;
-  //   var ctx = canvas.getContext("2d");
-  //   ctx.drawImage(img, 0, 0);
-  //   var dataURL = canvas.toDataURL("image/png");
-  //   return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+    var canvas = document.createElement("canvas");
+    canvas.width = img.width;
+    canvas.height = img.height;
+    var ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0);
+    var dataURL = canvas.toDataURL("image/png");
+    return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
   
-  // }
+  }
 }
