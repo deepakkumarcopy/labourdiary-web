@@ -68,7 +68,8 @@ export class ProfileComponent implements OnInit {
       console.log(res, 'image uploadddddddddddd')
       if (res.success) {
         this.toastr.success('Successfully Updated');
-        localStorage.setItem('user', JSON.stringify(res.user));
+        this.user.imageUrl = res.user.imageUrl
+        localStorage.setItem('user', JSON.stringify(this.user));
         this.closeModal('update-photo');
       } else {
         this.toastr.info(res.message);

@@ -24,6 +24,7 @@ export class PrivateInformationComponent implements OnInit {
   isReadyToCrop:boolean =false;
   cropped:boolean=false;
   isEdit:any;
+  UploadDocuments:any;
   constructor(private modalService: ModalService,
     private api: ApiService,
     private route: ActivatedRoute,
@@ -51,7 +52,7 @@ export class PrivateInformationComponent implements OnInit {
       email: new FormControl(this.user.email ? this.user.email : '', [Validators.required]),
       phone: new FormControl (this.user.profile.phone ? this.user.profile.phone : '', [Validators.required, Validators.pattern('^[0-9]*$')]),
       language: new FormControl(this.user.profile.spokenLanguages ? this.user.profile.spokenLanguages : '', [Validators.required]),
-      idProof: new FormControl ('', [Validators.required]),
+      idProof: new FormControl (''),
       address: new FormControl('',  [Validators.required]),
       education: new FormControl(this.user.profile.education ? this.user.profile.education : '', [Validators.required]),
       gender: new FormControl(this.user.profile.gender ? this.user.profile.gender : '', [Validators.required]),
@@ -84,7 +85,7 @@ export class PrivateInformationComponent implements OnInit {
     for (const language of this.privateInformationForm.value.language) {
       form.append('spokenLanguages[]', language);
     }
-    form.append('documents', this.privateInformationForm.value.idProof);
+    form.append('documents', this.UploadDocuments);
     console.log(this.privateInformationForm);
     this.api.updateProfile(form).subscribe((res) => {
       console.log(res, 'get searched service')
@@ -169,6 +170,7 @@ export class PrivateInformationComponent implements OnInit {
         this.imagePreview = event.target.result;
         console.log(this.imagePreview, 'image previewwwwwww')
       }
+      this.UploadDocuments = event.target.files[0];
       console.log(this.privateInformationForm.value.idProof,'id prooffffffff')
     }
   }
@@ -182,7 +184,6 @@ export class PrivateInformationComponent implements OnInit {
           const fltAddress = this.userAddresses.find(add => add.selected === true);
           const address = fltAddress.houseNo + ' ' +  ' ' + fltAddress.address + ' ' +  fltAddress.city  + ' ' + fltAddress.state + ' ' + fltAddress.pincode
           this.privateInformationForm.get('address').setValue(address);
-          this.imagePreview = this.convert(this.user.profile.documents)
         }
       } else {
         this.userAddresses = [];
@@ -225,7 +226,7 @@ export class PrivateInformationComponent implements OnInit {
   fileChangeEvent(event: any): void {
     this.imageChangedEvent = event;
     this.cropped = false;
-
+    this.openModal('update-photo')
     this.isReadyToCrop = true;
     console.log('fbhjbfhjervjh')
   }
@@ -246,18 +247,46 @@ export class PrivateInformationComponent implements OnInit {
       // show message
   }
   cropImage() {
-    this.cropped = true;
+    const imageName = 'name.png';
+    const imageBlob = this.dataURItoBlob(this.croppedImage);
+    const imageFile = new File([imageBlob], imageName, { type: 'image/jpeg' });
+    console.log(imageFile, 'image filee')
+    console.log(this.croppedImage)
+    let data = {
+      id: this.user.id,
+      files: imageFile,
+    }
+    this.api.imageUpload(data).subscribe((res) => {
+      console.log(res, 'image uploadddddddddddd')
+      if (res.success) {
+        this.toastr.success('Successfully Updated');
+        this.user.imageUrl = res.user.imageUrl
+        localStorage.setItem('user', JSON.stringify(this.user));
+        this.closeModal('update-photo');
+      } else {
+        this.toastr.info(res.message);
+      }
+      }, (e) => {
+        this.toastr.error('Something went wrong');
+        console.log('error')
+    });
   }
+  dataURItoBlob(dataURI) {
+    var byteString;
+    if (dataURI.split(',')[0].indexOf('base64') >= 0)
+        byteString = atob(dataURI.split(',')[1]);
+    else
+        byteString = unescape(dataURI.split(',')[1]);
 
-  convert(img) {
-   
-    var canvas = document.createElement("canvas");
-    canvas.width = img.width;
-    canvas.height = img.height;
-    var ctx = canvas.getContext("2d");
-    ctx.drawImage(img, 0, 0);
-    var dataURL = canvas.toDataURL("image/png");
-    return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
-  
+    // separate out the mime component
+    var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+    // write the bytes of the string to a typed array
+    var ia = new Uint8Array(byteString.length);
+    for (var i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+    }
+
+    return new Blob([ia], {type:mimeString});
   }
 }
