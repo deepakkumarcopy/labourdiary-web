@@ -1,15 +1,15 @@
-<div class = "container">
+<div class="container">
 	<app-servicer-provider-bread-crumb></app-servicer-provider-bread-crumb>
-	<form class="form-in-centre mb-5" [formGroup]="privateInformationForm">
-		<h5 class="pt-5 pb-3">Private Information</h5>
+	<form class="mb-5" [formGroup]="privateInformationForm">
+		<h4 class="pt-5 pb-3">Private Information</h4>
 		<div class="form-border">
-			<div class = "form-group">
-				<label for="work-file" style="display: block">
+			<div class="form-group">
+				<label class="mb-0 font-14" for="work-file" style="display: block">
 					<img for="work-file" class="center" [src]="user.imageUrl ? user.imageUrl: 'assets/img/personImg.jpg'" height="100px">
 				</label>
-				<input class="inputField" type="file" (click)="myInputFile.value = null" id="work-file" accept="image/*" (change)="fileChangeEvent($event)" #myInputFile>
+				<input class="inputField" type="file" (click)="myInputFile.value=null" id="work-file" accept="image/*" (change)="fileChangeEvent($event)" #myInputFile>
 			</div>
-			<div class="form-check form-check-inline">
+			<!-- <div class="form-check form-check-inline">
 				<input class="form-check-input" type="radio" name="gender" formControlName="gender"  id="inlineRadio1" value="male">
 				<label class="form-check-label" for="inlineRadio1">Male</label>
 			</div>
@@ -20,46 +20,89 @@
 			<div class="form-check form-check-inline mb-3">
 				<input class="form-check-input" type="radio" name="gender" formControlName="gender" id="inlineRadio3" value="other" >
 				<label class="form-check-label" for="inlineRadio3">Other</label>
-			</div>
-			<div class = "form-row">
-				<div class = "form-group col-md-12">
-					<label for = "inputEmail4">Date of birth</label>
-					<input type = "date" class =" form-control" 
-					id = "inputEmail4" placeholder= "Enter DOB" formControlName="dob">
+			</div> -->
+			<div class="form-group row">
+				<div class="form-group col-md-6">
+					<label class="mb-0 font-14" for="inputEmail4">Date of birth</label>
+					<input type="date" class =" form-control" 
+					id="inputEmail4" placeholder= "Enter DOB" formControlName="dob">
 				</div>
 
-				<div class = "form-group col-md-12">
-					<label for = "inputPassword4">Email</label>
-					<input type = "text" class = "form-control" 
-					id = "inputPassword4" placeholder = "Email" formControlName="email" readonly="true">
+				<div class="form-group col-md-6">
+					<label class="mb-0 font-14" for="inputPassword4">Email</label>
+					<input type="text" class="form-control" 
+					id="inputPassword4" placeholder="Email" formControlName="email" readonly="true">
 				</div>
 			</div>
-			<div class = "form-group">
-				<label for = "inputAddress">Phone Number</label>
-				<div class="row">
-					<div class="col-5">
-                        <app-country-input [countryCode] = "countryDialCode" (onCountryChange)="resetPhoneNumber($event)"> </app-country-input>
+			<div class="form-group row">
+				<div class="col-md-6">
+						<label class="mb-0 font-14" for="inputAddress">Country</label>
+                        <app-country-input [countryCode]="countryDialCode" (onCountryChange)="resetPhoneNumber($event)"> </app-country-input>
 					</div>
-					<div class="col-7">
-						<input type = "text" class = "form-control" id = "inputAddress" 
-						placeholder = "Phone Number" formControlName="phone">
+					<div class="col-md-6">
+						<label class="mb-0 font-14" for="inputAddress">Phone Number</label>
+						<input type="text" class="form-control" id="inputAddress" placeholder="Phone Number" formControlName="phone">
 					</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-6">
+					<label class="mb-0 font-14" for="inputState">Gender</label>
+					<select id="inputState" class="form-control" formControlName="gender">
+						<option selected disabled value="">Select gender</option>
+						<option>Male</option>
+						<option>Female</option>
+						<option>Other</option>
+					</select>
+				</div>
+				<div class="form-group col-md-6">
+					<label class="mb-0 font-14" for="inputState">Spoken Languages</label>
+					<select id="inputState" class="form-control" formControlName="language">
+						<option selected disabled value="">Select Languages</option>
+						<option>English (EN)</option>
+						<option>French (FR)</option>
+						<option>Deutsch (DE)</option>
+						<option>Dutch (NL)</option>
+					</select>
 				</div>
 			</div>
-			<div class = "form-group">
-				<label for = "inputState">Spoken Languages</label>
-				<select id = "inputState" class = "form-control" formControlName="language">
-					<option selected disabled value="">Select Languages</option>
-					<option>English (EN)</option>
-					<option>French (FR)</option>
-					<option>Deutsch (DE)</option>
-					<option>Dutch (NL)</option>
-				</select>
+			<div class="row">
+				<div class="form-group col-md-6">
+					<label class="mb-0 font-14" for="inputAddress">Address</label>
+					<input type="text" class="form-control" id="inputAddress" 
+					placeholder="Enter address" formControlName="address" (click)="openModal('add-new-address')"  autocomplete="off">
+				</div>
+				<div class="form-group col-md-6">
+					<label class="mb-0 font-14" for="inputState">Higher Education</label>
+					<select id="inputState" class="form-control" formControlName="education">
+						<option selected disabled value="">Select Education</option>
+						<option>High School</option>
+						<option>Intermediate</option>
+						<option>Graduation</option>
+						<option>Post Graduation</option>
+					</select>
+				</div>
 			</div>
-			<div class = "form-group">
-				<label for = "inputAddress">ID proof</label>
-				<input type = "file" class = "form-control" id = "inputAddress" 
-				placeholder = "ID proof" formControlName="idProof" (change)="onSelectFile($event)">
+			<div class="row">
+				<div class="form-group col-md-6">
+					<label class="mb-0 font-14" for="inputAddress">Linkedin</label>
+					<span class="social-icon">
+						<img class="social-img" data-toggle="dropdown" id="selectedOption"src="assets/img/linkedInIcon.svg" alt="">
+					</span>
+					<input type="text" class= "social-input form-control" formControlName="linkedIn" id="inputAddress" 
+					placeholder="Enter Linkedin">
+				</div>
+				<div class="form-group col-md-6">
+					<label class="mb-0 font-14" for="inputAddress">Facebook</label>
+					<span class="social-icon">
+						<img class="social-img" data-toggle="dropdown" id="selectedOption"src="assets/img/facebookIcon.svg" alt="">
+					</span>
+					<input type="text" class="social-input form-control" id="inputAddress" 
+					placeholder="Enter FaceBook" formControlName="facebook">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="mb-0 font-14" for="inputAddress">ID proof</label>
+				<input type="file" class="form-control" id="inputAddress" placeholder="ID proof" formControlName="idProof" (change)="onSelectFile($event)">
 				<div *ngIf="imagePreview">
 					<img [src]="imagePreview" class="mt-1" height="50" width="80px"> <br/>
 				</div>
@@ -70,38 +113,7 @@
 					</div>
 				</div>
 			</div>
-			<div class = "form-group">
-				<label for = "inputAddress">Address</label>
-				<input type = "text" class = "form-control" id = "inputAddress" 
-				placeholder = "Enter address" formControlName="address" (click)="openModal('add-new-address')"  autocomplete="off">
-			</div>
-			<div class = "form-group">
-				<label for = "inputState">Higher Education</label>
-				<select id = "inputState" class = "form-control" formControlName="education">
-					<option selected disabled value="">Select Education</option>
-					<option>High School</option>
-					<option>Intermediate</option>
-					<option>Graduation</option>
-					<option>Post Graduation</option>
-				</select>
-			</div>
-			<div class = "form-group">
-				<label for = "inputAddress">Linkedin</label>
-				<span class="social-icon">
-					<img class="social-img" data-toggle="dropdown" id="selectedOption"src="assets/img/linkedInIcon.svg" alt="">
-				</span>
-				<input type = "text" class= "social-input form-control" formControlName="linkedIn" id = "inputAddress" 
-				placeholder = "Enter Linkedin">
-			</div>
-			<div class = "form-group">
-				<label for = "inputAddress">Facebook</label>
-				<span class="social-icon">
-					<img class="social-img" data-toggle="dropdown" id="selectedOption"src="assets/img/facebookIcon.svg" alt="">
-				</span>
-				<input type = "text" class="social-input form-control" id="inputAddress" 
-				placeholder = "Enter FaceBook" formControlName="facebook">
-			</div>
-			<button   type = "submit" class = "btn btn-primary w-100" [disabled]="privateInformationForm.status=='INVALID'" (click)="savePrivateInformation()">{{isEdit ? 'Update' :'Submit'}}</button>
+			<button type="submit" class="btn btn-primary w-100" [disabled]="privateInformationForm.status=='INVALID'" (click)="savePrivateInformation()">{{ isEdit ? 'Update' : 'Submit' }}</button>
 		</div>
 	</form>
 </div>
@@ -146,28 +158,28 @@
 			<form [formGroup]="addAddressForm">
 				<div class="modal-body ">
 					<div class="form-group">
-						<label >House no.,Building name</label>
+						<label class="mb-0 font-14" >House no.,Building name</label>
 						<input type="text" class="form-control"  aria-describedby="emailHelp" placeholder="House no.,Building name" formControlName="buildingName">
 					</div>
 					<div class="form-group">
-						<label >Road Name,Area,Colony</label>
+						<label class="mb-0 font-14" >Road Name,Area,Colony</label>
 						<input type="text" class="form-control" id="password1" placeholder="Road Name,Area,Colony" formControlName="area">
 					</div>
 					<div class="form-group">
-						<label for="">City</label>
+						<label class="mb-0 font-14" for="">City</label>
 						<input type="text" class="form-control" id="password2" placeholder="Enter City" formControlName="city">
 					</div>
 					<div class="form-group">
-						<label >State</label>
+						<label class="mb-0 font-14" >State</label>
 						<input type="text" class="form-control" id="password2" placeholder="Enter State" formControlName="state">
 					</div>
 					<div class="form-group">
-						<label >Pincode</label>
+						<label class="mb-0 font-14" >Pincode</label>
 						<input type="text" class="form-control" id="password2" placeholder="Enter Pincode" formControlName="pincode">
 					</div>
-					<div class = "form-group">
-						<label for = "inputState">Address Type</label>
-						<select id = "inputState" class = "form-control" formControlName="addressType">
+					<div class="form-group">
+						<label class="mb-0 font-14" for="inputState">Address Type</label>
+						<select id="inputState" class="form-control" formControlName="addressType">
 							<option selected disabled>Select Address Type</option>
 							<option>Home</option>
 							<option>Office</option>
