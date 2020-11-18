@@ -52,6 +52,7 @@ const routes: Routes = [
       { path: 'listing', component: ListingComponent },
       { path: 'calender', component: CalenderComponent },
       { path: 'jobs', component: JobsComponent },
+      
       // { path: 'private-information', component: PrivateInformationComponent },
       // { path: 'emergency-contact', component: EmergencyContactComponent },
       // { path: 'work-information', component: WorkInformationComponent },

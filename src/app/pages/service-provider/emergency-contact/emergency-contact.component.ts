@@ -21,6 +21,9 @@ export class EmergencyContactComponent implements OnInit {
   countryDialCode: any = "0";
   user: any = JSON.parse(localStorage.getItem('user'));
   providerStage:any = 'emergency-contact'
+  emergencyContact:any = []
+  isUpdate:boolean = false;
+  contactId:any;
   constructor(private modalService: ModalService,
     private api: ApiService,
     private route: ActivatedRoute,
@@ -30,6 +33,7 @@ export class EmergencyContactComponent implements OnInit {
 
   ngOnInit(): void {
     this.setEmergencyContactForm();
+    this.getEmergencyContact()
   }
 
   resetPhoneNumber(e) {
@@ -55,6 +59,68 @@ export class EmergencyContactComponent implements OnInit {
       user: this.user.id
     }
     this.api.emergencyContact(data).subscribe((res) => {
+      console.log(res, 'get searched service')
+      if (res.success) {
+        this.toastr.success(res.message);
+        this.router.navigate(['/work-information']);
+      } else {
+        this.toastr.info(res.message);
+      }
+      }, (e) => {
+        this.toastr.error('Something went wrong');
+        console.log('error')
+    });
+  }
+
+  getEmergencyContact() {
+    this.api.getEmergencyContact(this.user.id).subscribe((res) => {
+      console.log(res, 'get searched service')
+      if (res.success) {
+        this.emergencyContact = res.emergency
+        // this.toastr.success(res.message);
+        
+      } else {
+        this.toastr.info(res.message);
+      }
+      }, (e) => {
+        this.toastr.error('Something went wrong');
+        console.log('error')
+    });
+  }
+
+  editEmergencyContact(contact){
+    this.contactId = contact.id
+    this.getSelectedContact(contact)
+    this.isUpdate =true;
+    this.countryDialCode = contact.countryCode;
+
+    this.emergencyContactForm = new FormGroup({
+      name: new FormControl (contact.name, [Validators.required]),
+      email: new FormControl(contact.email,  [Validators.required]),
+      phone: new FormControl (contact.phone, [Validators.required]),
+      relation: new FormControl (contact.relation, [Validators.required]),
+    });
+  }
+
+  getSelectedContact(contact) {
+    if (this.emergencyContact && this.emergencyContact.length>0) {
+      this.emergencyContact.forEach((cont) => {
+        cont.selected = (cont.id == contact.id);
+      });
+    }
+  }
+
+  updateEmergencyContact() {
+    let data = {
+      EmergencyInformationId: this.contactId,
+      name: this.emergencyContactForm.value.name,
+      relation: this.emergencyContactForm.value.relation,
+      email: this.emergencyContactForm.value.email,
+      countryCode: this.countryDialCode,
+      phone: this.emergencyContactForm.value.phone,
+      user: this.user.id
+    }
+    this.api.updateEmergencyContact(data).subscribe((res) => {
       console.log(res, 'get searched service')
       if (res.success) {
         this.toastr.success(res.message);

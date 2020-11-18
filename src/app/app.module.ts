@@ -63,6 +63,7 @@ import { WorkInformationComponent } from './pages/service-provider/work-informat
 import { BusinessInformationComponent } from './pages/service-provider/business-information/business-information.component';
 import { ServicerProviderBreadCrumbComponent } from './pages/service-provider/servicer-provider-bread-crumb/servicer-provider-bread-crumb.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { ListOfServicesComponent } from './pages/service-provider/list-of-services/list-of-services.component';
 
 @NgModule({
 	declarations: [
@@ -102,6 +103,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 		BusinessInformationComponent,
 		ServicerProviderBreadCrumbComponent,
 		ProfileComponent,
+		ListOfServicesComponent,
 	],
 	imports: [
 		BrowserModule,

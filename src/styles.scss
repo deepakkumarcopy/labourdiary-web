@@ -305,10 +305,16 @@ color-grey{
 }
 .form-border {
     border: 1px solid;
-    padding: 38px;
+    padding: 48px;
+}
+.pt-48{
+    padding-top:94px;
 }
 .modal-scroll{
     overflow: auto;
+}
+.float-right {
+    float:right
 }
 .social-icon{
   position: absolute;
@@ -1135,7 +1141,14 @@ ngb-modal-window {
 .w-18 {
     width: 18px;
 }
-
+.edit-delete-position {
+    position: absolute;
+    right: 16px;
+    font-size: 20px;
+}
+.cursor-pointer {
+    cursor: pointer;
+}
 .w-24 {
     width: 24px;
 }

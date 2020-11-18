@@ -1,6 +1,29 @@
 <div class = "container">
 	<app-servicer-provider-bread-crumb [stage]="providerStage"></app-servicer-provider-bread-crumb>
-	<form class="form-in-centre mb-5" [formGroup]="emergencyContactForm">
+	<div class="row">
+		<div class="col-6">
+			<div class="pt-48" *ngIf="emergencyContact && emergencyContact.length>0">
+				<div class="card mt-1" *ngFor="let contact of emergencyContact">
+				  <div class="card-body">
+				  	<div class="d-flex">
+					  	<h5>{{contact.name}}</h5>
+					  	<div class="edit-delete-position">
+						  	<i class="fa fa-pencil pr-2 cursor-pointer" (click)="editEmergencyContact(contact)" aria-hidden="true"></i>
+						  	<i class="fa fa-trash text-red cursor-pointer" aria-hidden="true"></i>
+					  	</div>
+				  	</div>
+
+				  	<span>{{contact.relation}}</span>
+				  	<!-- <span>{{contact}},{{address.address}},{{address.city}}</span> -->
+				  	<i *ngIf="contact.selected" class="fa fa-check-circle" aria-hidden="true"></i>
+				  	<br>
+				  	<span>{{contact.countryCode}}{{contact.phone}}</span>
+				  </div>
+				</div>
+			</div>
+		</div>
+		<div class="col-6">
+			<form class="form-in-centre mb-5" [formGroup]="emergencyContactForm">
 		<h5 class="pt-5 pb-3">Emergency Contact</h5>
 		<div class="form-border">
 			<div class = "form-row">
@@ -41,7 +64,15 @@
 					</div>
 				</div>
 			</div>
-			<button  type = "submit" class = "btn btn-primary w-100" [disabled]="emergencyContactForm.status=='INVALID'" (click)="savedEmergencyContact()">Submit</button>
+			<div class="float-right">
+				<button  type = "submit" class = "btn btn-secondary mr-3 pr-4 pl-4" [routerLink]="['/private-information']">Back</button>
+				<button  *ngIf="!isUpdate" type = "submit" class = "btn btn-primary  pr-4 pl-4" [disabled]="emergencyContactForm.status=='INVALID'" (click)="savedEmergencyContact()">Submit</button>
+				<button *ngIf="isUpdate" type = "submit" class = "btn btn-primary  pr-4 pl-4" [disabled]="emergencyContactForm.status=='INVALID'" (click)="updateEmergencyContact()">Update</button>
+			</div>
 		</div>
 	</form>
 </div>
+
+		</div>
+	</div>
+	
