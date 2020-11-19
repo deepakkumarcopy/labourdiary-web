@@ -50,7 +50,10 @@
 					id = "inputPassword4" placeholder = "Enter number" formControlName="companyNumber">
 				</div>
 			</div>
-			<button  type = "submit" class = "btn btn-primary w-100" (click)="savedBusinessInfo()">Submit</button>
+			<div class="float-right">
+				<button  type = "submit" class = "btn btn-secondary mr-3 pr-4 pl-4" [routerLink]="['/work-information']">Back</button>
+				<button  type = "submit" class = "btn btn-primary  pr-4 pl-4" (click)="savedBusinessInfo()">Submit</button>
+			</div>
 		</div>
 	</form>
 </div>

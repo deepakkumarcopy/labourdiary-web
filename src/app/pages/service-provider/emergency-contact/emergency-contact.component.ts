@@ -5,8 +5,10 @@ import { ActivatedRoute, Router, RouterEvent, NavigationEnd } from '@angular/rou
 import { ApiService } from '../../../services/api.service';
 import { Select2OptionData } from 'ng-select2';
 import { Options } from 'select2';
+import { ConfirmationDialogService } from '../../../services/confirmation-dialog.service';
 import { ToastrService } from 'ngx-toastr';
 declare var jQuery:any;
+
 
 // import { NgSelect2Module } from 'ng-select2';
 // import { NgSelect2Module } from 'ng-select2';
@@ -28,7 +30,8 @@ export class EmergencyContactComponent implements OnInit {
     private api: ApiService,
     private route: ActivatedRoute,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private confirmationDialogService: ConfirmationDialogService
   ) { }
 
   ngOnInit(): void {
@@ -132,5 +135,23 @@ export class EmergencyContactComponent implements OnInit {
         this.toastr.error('Something went wrong');
         console.log('error')
     });
+  }
+  deleteEmergencyContact(contact) {
+    this.confirmationDialogService.confirm('Please confirm..', 'Do you really want to ... ?')
+    .then((confirmed) => {
+      if(confirmed) {
+        this.api.deleteEmergencyContact(contact.id).subscribe((res)=>{
+        if(res.success){
+          this.toastr.success(res.message);
+          this.getEmergencyContact();
+        } else {
+          this.toastr.info(res.message);
+        }
+        }, (e)=>{
+            this.toastr.error('Something went wrong');
+        })
+      }
+    })
+    .catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));
   }
 }

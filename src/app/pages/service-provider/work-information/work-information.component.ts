@@ -29,6 +29,8 @@ export class WorkInformationComponent implements OnInit {
   workImagesToUpload: any = [];
   selectedCategories:any=[]
   user: any = JSON.parse(localStorage.getItem('user'));
+  isWorkInfo:any =  JSON.parse(localStorage.getItem('work'));
+  isWorkPhotos: any = JSON.parse(localStorage.getItem('work-photo'));
   latitude:any;
   longitude:any;
   providerStage:any = 'work-information';
@@ -53,7 +55,10 @@ export class WorkInformationComponent implements OnInit {
       templateResult: this.templateResult,
       templateSelection: this.templateSelection
     };
-    console.log(this.workInformationForm)
+    
+    if(this.isWorkInfo) {
+        this.workImages = this.isWorkPhotos
+    }
     this.loadMap();
 
   }
@@ -70,13 +75,13 @@ export class WorkInformationComponent implements OnInit {
 
   setWorkInformationForm() {
     this.workInformationForm = new FormGroup({
-      location: new FormControl ('', [Validators.required]),
-      category: new FormControl('',  [Validators.required]),
-      subCategory: new FormControl ('', [Validators.required]),
-      fee: new FormControl('',  [Validators.required]),
-      englishLevel: new FormControl ('', [Validators.required]),
-      employeType: new FormControl ('', [Validators.required]),
-      about: new FormControl ('', [Validators.required]),
+      location: new FormControl (this.isWorkInfo ? this.isWorkInfo.location: '', [Validators.required]),
+      category: new FormControl(this.isWorkInfo ? this.isWorkInfo.category:'',  [Validators.required]),
+      subCategory: new FormControl (this.isWorkInfo ? this.isWorkInfo.subCategory:'', [Validators.required]),
+      fee: new FormControl(this.isWorkInfo ? this.isWorkInfo.fee:'',  [Validators.required]),
+      englishLevel: new FormControl (this.isWorkInfo ? this.isWorkInfo.englishLevel:'', [Validators.required]),
+      employeType: new FormControl (this.isWorkInfo ? this.isWorkInfo.employeType:'', [Validators.required]),
+      about: new FormControl (this.isWorkInfo ? this.isWorkInfo.about:'', [Validators.required]),
       photo: new FormControl ('', [Validators.required]),
     });
   }
@@ -115,10 +120,14 @@ export class WorkInformationComponent implements OnInit {
     for (const img of this.workImagesToUpload) {
       form.append('images', img);
     }
-    console.log(this.workInformationForm.value)
+    console.log(this.workInformationForm.value);
     this.api.registerAsServiceProvider(form).subscribe((res) => {
       if (res.success) {
         this.toastr.success(res.message);
+        console.log(res.service)
+        localStorage.setItem('work', JSON.stringify(this.workInformationForm.value))
+        localStorage.setItem('work-photo', JSON.stringify(res.service.workPhotos))
+
         this.router.navigate(['/business-information']);
       } else {
         this.toastr.info(res.message);

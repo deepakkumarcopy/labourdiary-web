@@ -64,6 +64,7 @@ import { BusinessInformationComponent } from './pages/service-provider/business-
 import { ServicerProviderBreadCrumbComponent } from './pages/service-provider/servicer-provider-bread-crumb/servicer-provider-bread-crumb.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { ListOfServicesComponent } from './pages/service-provider/list-of-services/list-of-services.component';
+import { ConfirmationDialogComponent } from './shared/confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
 	declarations: [
@@ -104,6 +105,8 @@ import { ListOfServicesComponent } from './pages/service-provider/list-of-servic
 		ServicerProviderBreadCrumbComponent,
 		ProfileComponent,
 		ListOfServicesComponent,
+		ConfirmationDialogComponent,
+		
 	],
 	imports: [
 		BrowserModule,
