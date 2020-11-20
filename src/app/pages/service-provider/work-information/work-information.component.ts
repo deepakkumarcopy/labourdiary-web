@@ -58,6 +58,9 @@ export class WorkInformationComponent implements OnInit {
     
     if(this.isWorkInfo) {
         this.workImages = this.isWorkPhotos
+        this.isWorkInfo.category.forEach((id) => {
+          this.getSubCategory(id)
+        })
     }
     this.loadMap();
 
@@ -82,7 +85,7 @@ export class WorkInformationComponent implements OnInit {
       englishLevel: new FormControl (this.isWorkInfo ? this.isWorkInfo.englishLevel:'', [Validators.required]),
       employeType: new FormControl (this.isWorkInfo ? this.isWorkInfo.employeType:'', [Validators.required]),
       about: new FormControl (this.isWorkInfo ? this.isWorkInfo.about:'', [Validators.required]),
-      photo: new FormControl ('', [Validators.required]),
+      photo: new FormControl (''),
     });
   }
 
@@ -121,21 +124,28 @@ export class WorkInformationComponent implements OnInit {
       form.append('images', img);
     }
     console.log(this.workInformationForm.value);
-    this.api.registerAsServiceProvider(form).subscribe((res) => {
-      if (res.success) {
-        this.toastr.success(res.message);
-        console.log(res.service)
-        localStorage.setItem('work', JSON.stringify(this.workInformationForm.value))
-        localStorage.setItem('work-photo', JSON.stringify(res.service.workPhotos))
+    if(!this.isWorkInfo) {
+      this.api.registerAsServiceProvider(form).subscribe((res) => {
+        if (res.success) {
+          this.toastr.success(res.message);
+          console.log(res.service)
+          localStorage.setItem('work', JSON.stringify(this.workInformationForm.value))
+          localStorage.setItem('work-photo', JSON.stringify(res.service.workPhotos))
 
-        this.router.navigate(['/business-information']);
-      } else {
-        this.toastr.info(res.message);
-      }
-      }, (e) => {
-        this.toastr.error('Something went wrong');
-        console.log('error')
-    });
+          this.router.navigate(['/business-information']);
+        } else {
+          this.toastr.info(res.message);
+        }
+        }, (e) => {
+          this.toastr.error('Something went wrong');
+          console.log('error')
+      });
+    } else {
+      localStorage.setItem('work', JSON.stringify(this.workInformationForm.value))
+      localStorage.setItem('work-photo', JSON.stringify(this.workImages))
+      this.router.navigate(['/business-information']);
+      this.toastr.success('Sucessfully Updated');
+    }
   }
 
   getSelectedCategory() {
@@ -164,6 +174,7 @@ export class WorkInformationComponent implements OnInit {
       if (res.success) {
         res.data.forEach((data) => {
           this.subCategories.push(data);
+          console.log('subCategories',this.subCategories)
         });
         this.formattedSubCategoriesList = this.api.formatCategoryList(this.subCategories)
       }

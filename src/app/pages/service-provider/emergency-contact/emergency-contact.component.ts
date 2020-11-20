@@ -137,7 +137,7 @@ export class EmergencyContactComponent implements OnInit {
     });
   }
   deleteEmergencyContact(contact) {
-    this.confirmationDialogService.confirm('Please confirm..', 'Do you really want to ... ?')
+    this.confirmationDialogService.confirm('Please confirm..', 'Do you really want to delete ?')
     .then((confirmed) => {
       if(confirmed) {
         this.api.deleteEmergencyContact(contact.id).subscribe((res)=>{

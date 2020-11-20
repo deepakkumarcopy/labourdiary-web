@@ -67,6 +67,8 @@ export class BusinessInformationComponent implements OnInit {
         this.user.businessInformation = res.business;
         localStorage.setItem('user', JSON.stringify(this.user));
         this.toastr.success("Succefully Updated");
+        localStorage.removeItem('work');
+        localStorage.removeItem('work-photo');
         this.router.navigate(['/']);
       } else {
         this.toastr.info(res.message);

@@ -99,8 +99,8 @@
 			</div>
 			<div class="float-right">
 				<button  type = "submit" class = "btn btn-secondary mr-3 pr-4 pl-4" [routerLink]="['/emergency-contact']">Back</button>
-				<button  *ngIf="!isWorkInfo" type = "submit" class = "btn btn-primary pr-4 pl-4 " [disabled]="workInformationForm.status=='INVALID'" (click)="savedWorkInformation()">Submit</button>
-				<button *ngIf="isWorkInfo" type = "submit" class = "btn btn-primary pr-4 pl-4 " [disabled]="workInformationForm.status=='INVALID'" [router-link]="business-information">Update</button>
+				<button  *ngIf="!isWorkInfo" type = "submit" class = "btn btn-primary pr-4 pl-4 " [disabled]="workInformationForm.status=='INVALID' || !workImages" (click)="savedWorkInformation()">Submit</button>
+				<button *ngIf="isWorkInfo" type = "submit" class = "btn btn-primary pr-4 pl-4 " [disabled]="workInformationForm.status=='INVALID' || !workImages" (click)="savedWorkInformation()">Update</button>
 			</div>
 		</div>
 	</form>
