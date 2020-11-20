@@ -160,6 +160,14 @@ export class WorkInformationComponent implements OnInit {
     }
   }
   selectedCategory(e) {
+    if(!!this.isWorkInfo) {
+      this.workInformationForm.controls['subCategory'].setValue('');
+      
+    }else {
+
+      this.workInformationForm.value.subCategory = ''
+    }
+
     if(e && e.length <= 3) {
       const categoryId = e[e.length-1];
       this.getSubCategory(categoryId);
@@ -174,7 +182,7 @@ export class WorkInformationComponent implements OnInit {
       if (res.success) {
         res.data.forEach((data) => {
           this.subCategories.push(data);
-          console.log('subCategories',this.subCategories)
+          // console.log('subCategories',this.subCategories)
         });
         this.formattedSubCategoriesList = this.api.formatCategoryList(this.subCategories)
       }

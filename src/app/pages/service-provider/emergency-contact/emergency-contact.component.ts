@@ -26,6 +26,7 @@ export class EmergencyContactComponent implements OnInit {
   emergencyContact:any = []
   isUpdate:boolean = false;
   contactId:any;
+  selectedEmergencyContact:any;
   constructor(private modalService: ModalService,
     private api: ApiService,
     private route: ActivatedRoute,
@@ -80,6 +81,12 @@ export class EmergencyContactComponent implements OnInit {
       console.log(res, 'get searched service')
       if (res.success) {
         this.emergencyContact = res.emergency
+        if(!!this.emergencyContact) {
+          const fltContact = this.emergencyContact.find((contact) => contact.selected == true);
+          if(!!fltContact) {
+            this.selectedEmergencyContact = fltContact
+          }
+        }
         // this.toastr.success(res.message);
         
       } else {
@@ -93,7 +100,6 @@ export class EmergencyContactComponent implements OnInit {
 
   editEmergencyContact(contact){
     this.contactId = contact.id
-    this.getSelectedContact(contact)
     this.isUpdate =true;
     this.countryDialCode = contact.countryCode;
 
@@ -111,23 +117,24 @@ export class EmergencyContactComponent implements OnInit {
         cont.selected = (cont.id == contact.id);
       });
     }
+    this.selectedEmergencyContact = contact
   }
 
   updateEmergencyContact() {
     let data = {
-      EmergencyInformationId: this.contactId,
-      name: this.emergencyContactForm.value.name,
-      relation: this.emergencyContactForm.value.relation,
-      email: this.emergencyContactForm.value.email,
-      countryCode: this.countryDialCode,
-      phone: this.emergencyContactForm.value.phone,
+      EmergencyInformationId: this.selectedEmergencyContact? this.selectedEmergencyContact.id :this.contactId,
+      name: this.selectedEmergencyContact? this.selectedEmergencyContact.name : this.emergencyContactForm.value.name,
+      relation: this.selectedEmergencyContact? this.selectedEmergencyContact.relation : this.emergencyContactForm.value.relation,
+      email: this.selectedEmergencyContact? this.selectedEmergencyContact.email : this.emergencyContactForm.value.email,
+      countryCode: this.selectedEmergencyContact? this.selectedEmergencyContact.countryCode : this.countryDialCode,
+      phone: this.selectedEmergencyContact? this.selectedEmergencyContact.phone : this.emergencyContactForm.value.phone,
       user: this.user.id
     }
     this.api.updateEmergencyContact(data).subscribe((res) => {
       console.log(res, 'get searched service')
       if (res.success) {
         this.toastr.success(res.message);
-        this.router.navigate(['/work-information']);
+          this.router.navigate(['/work-information']);
       } else {
         this.toastr.info(res.message);
       }

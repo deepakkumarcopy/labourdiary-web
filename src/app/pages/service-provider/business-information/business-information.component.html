@@ -1,5 +1,5 @@
 <div class = "container">
-	<app-servicer-provider-bread-crumb [stage]="providerStage"></app-servicer-provider-bread-crumb>
+	<img class="mt-5"  [routerLink]="['/work-information']" src="assets/img/back-icon.jpg" alt="" height="20px" width="20px">
 	<form class="form-in-centre mb-5" [formGroup]="businessInfoForm">
 		<h5 class="pt-5 pb-3">Business Information</h5>
 		<div class="form-border">
@@ -51,7 +51,7 @@
 				</div>
 			</div>
 			<div class="float-right">
-				<button  type = "submit" class = "btn btn-secondary mr-3 pr-4 pl-4" [routerLink]="['/work-information']">Back</button>
+				
 				<button  type = "submit" class = "btn btn-primary  pr-4 pl-4" (click)="savedBusinessInfo()">Submit</button>
 			</div>
 		</div>

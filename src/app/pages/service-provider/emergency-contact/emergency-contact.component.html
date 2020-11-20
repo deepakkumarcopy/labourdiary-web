@@ -1,78 +1,88 @@
 <div class = "container">
-	<app-servicer-provider-bread-crumb [stage]="providerStage"></app-servicer-provider-bread-crumb>
+	<img class="mt-5"  [routerLink]="['/private-information']" src="assets/img/back-icon.jpg" alt="" height="20px" width="20px">
 	<div class="row">
 		<div class="col-6">
-			<div class="pt-48" *ngIf="emergencyContact && emergencyContact.length>0">
+			<h5 class="pt-5 pb-3">Emergency Contact</h5>
+			<div class="" *ngIf="emergencyContact && emergencyContact.length>0">
 				<div class="card mt-1" *ngFor="let contact of emergencyContact">
-				  <div class="card-body">
-				  	<div class="d-flex">
-					  	<h5>{{contact.name}}</h5>
-					  	<div class="edit-delete-position">
-						  	<i class="fa fa-pencil pr-2 cursor-pointer" (click)="editEmergencyContact(contact)" aria-hidden="true"></i>
-						  	<i class="fa fa-trash text-red cursor-pointer" (click)="deleteEmergencyContact(contact)"aria-hidden="true"></i>
-					  	</div>
-				  	</div>
+					<div class="card-body display-dropdown" (click)="getSelectedContact(contact)" >
+						<div class="d-flex">
+							<h5>{{contact.name}}</h5>
+							<div class="edit-delete-position">
+								<div class="dropdown">
+									
+									<span class="show-dot" data-toggle="dropdown">...</span>
+									 <div class="dropdown-menu">
+									    <a class="dropdown-item" href="#" (click)="editEmergencyContact(contact)">Edit</a>
+									    <a class="dropdown-item" href="#" (click)="deleteEmergencyContact(contact)">Delete</a>
+								  	</div>
+								</div>
+								<!-- <i class="fa fa-pencil pr-2 cursor-pointer" (click)="editEmergencyContact(contact)" aria-hidden="true"></i>
+								<i class="fa fa-trash text-red cursor-pointer" (click)="deleteEmergencyContact(contact)"aria-hidden="true"></i> -->
+							</div>
+						</div>
 
-				  	<span>{{contact.relation}}</span>
-				  	<!-- <span>{{contact}},{{address.address}},{{address.city}}</span> -->
-				  	<i *ngIf="contact.selected" class="fa fa-check-circle" aria-hidden="true"></i>
-				  	<br>
-				  	<span>{{contact.countryCode}}{{contact.phone}}</span>
-				  </div>
+						<span>{{contact.relation}}</span>
+						<!-- <span>{{contact}},{{address.address}},{{address.city}}</span> -->
+						<i *ngIf="contact.selected" class="fa fa-check-circle" aria-hidden="true"></i>
+						<br>
+						<span>{{contact.countryCode}}{{contact.phone}}</span>
+					</div>
 				</div>
 			</div>
+
+			
 		</div>
 		<div class="col-6">
-			<form class="form-in-centre mb-5" [formGroup]="emergencyContactForm">
-		<h5 class="pt-5 pb-3">Emergency Contact</h5>
-		<div class="form-border">
-			<div class = "form-row">
-				<div class = "form-group col-md-12">
-					<label>Name</label>
-					<input type = "text" class= "form-control" 
-					id = "inputPassword4" placeholder = "Enter name" formControlName="name">
-				</div>
-			</div>
-			<div class = "form-group">
-				<label >Relation</label>
-				<select id = "inputState" class = "form-control" formControlName="relation">
-					<option selected disabled value=''>Select Relation</option>
-					<option>Father</option>
-					<option>Mother</option>
-					<option>Sister</option>
-					<option>Brother</option>
-					<option>Cousin</option>
+			<form class="form-in-centre mb-5 pt-48" [formGroup]="emergencyContactForm">
+				<div class="form-border">
+					<div class = "form-row">
+						<div class = "form-group col-md-12">
+							<label>Name</label>
+							<input type = "text" class= "form-control" 
+							id = "inputPassword4" placeholder = "Enter name" formControlName="name">
+						</div>
+					</div>
+					<div class = "form-group">
+						<label >Relation</label>
+						<select id = "inputState" class = "form-control" formControlName="relation">
+							<option selected disabled value=''>Select Relation</option>
+							<option>Father</option>
+							<option>Mother</option>
+							<option>Sister</option>
+							<option>Brother</option>
+							<option>Cousin</option>
 
-				</select>
-			</div>
-			<div class = "form-row">
-				<div class = "form-group col-md-12">
-					<label>Email</label>
-					<input type = "email" class = "form-control" 
-					id = "inputPassword4" placeholder = "Enter email" formControlName="email">
-				</div>
-			</div>
-			<div class = "form-group">
-				<label for = "inputAddress">Phone Number</label>
-				<div class="row">
-					<div class="col-5">
-                        <app-country-input [countryCode] = "countryDialCode" (onCountryChange)="resetPhoneNumber($event)"> </app-country-input>
+						</select>
 					</div>
-					<div class="col-7">
-						<input type = "text" class = "form-control" id = "inputAddress" 
-						placeholder = "Phone Number" formControlName="phone">
+					<div class = "form-row">
+						<div class = "form-group col-md-12">
+							<label>Email</label>
+							<input type = "email" class = "form-control" 
+							id = "inputPassword4" placeholder = "Enter email" formControlName="email">
+						</div>
+					</div>
+					<div class = "form-group">
+						<label for = "inputAddress">Phone Number</label>
+						<div class="row">
+							<div class="col-5">
+								<app-country-input [countryCode] = "countryDialCode" (onCountryChange)="resetPhoneNumber($event)"> </app-country-input>
+							</div>
+							<div class="col-7">
+								<input type = "text" class = "form-control" id = "inputAddress" 
+								placeholder = "Phone Number" formControlName="phone">
+							</div>
+						</div>
+					</div>
+					<div class="float-right">
+						<button  *ngIf="!isUpdate" type = "submit" class = "btn btn-primary  pr-4 pl-4" [disabled]="emergencyContactForm.status=='INVALID'" (click)="savedEmergencyContact()">Add</button>
+						<button *ngIf="isUpdate" type = "submit" class = "btn btn-primary  pr-4 pl-4" [disabled]="emergencyContactForm.status=='INVALID'" (click)="updateEmergencyContact()">Update</button>
 					</div>
 				</div>
-			</div>
-			<div class="float-right">
-				<button  type = "submit" class = "btn btn-secondary mr-3 pr-4 pl-4" [routerLink]="['/private-information']">Back</button>
-				<button  *ngIf="!isUpdate" type = "submit" class = "btn btn-primary  pr-4 pl-4" [disabled]="emergencyContactForm.status=='INVALID'" (click)="savedEmergencyContact()">Submit</button>
-				<button *ngIf="isUpdate" type = "submit" class = "btn btn-primary  pr-4 pl-4" [disabled]="emergencyContactForm.status=='INVALID'" (click)="updateEmergencyContact()">Update</button>
-			</div>
+			</form>
+		<div class="float-right">
+			<button  type = "submit" class = "btn btn-secondary  pr-4 pl-4 mb-3"  (click)="updateEmergencyContact()">Continue</button>
 		</div>
-	</form>
-</div>
-
 		</div>
 	</div>
-	
+</div>

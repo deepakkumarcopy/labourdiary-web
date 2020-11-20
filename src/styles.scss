@@ -18,6 +18,12 @@
     padding: 16px;
     margin-top: 40px;
 }
+.show-dot {
+    display: none;
+}
+.display-dropdown:hover .show-dot  {
+    display: block;
+}  
 .font-weght {
     font-weight:bold;
 }
