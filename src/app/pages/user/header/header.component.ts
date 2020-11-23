@@ -1,4 +1,4 @@
-import { Component, OnInit,  ViewChild , ChangeDetectorRef, OnChanges} from '@angular/core';
+import { Component, OnInit,  ViewChild , ChangeDetectorRef, Input, OnChanges} from '@angular/core';
 import { ModalService } from '../../../services/modal.service';
 import { CommonService } from '../../../services/common.service';
 declare let google: any;
@@ -12,10 +12,10 @@ declare var $:any;
     styleUrls: ['./header.component.scss']
 })
 
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnChanges {
 
     @ViewChild('mapElement', { static: true }) mapElement;
-
+    @Input() windowEvent;
     user: any = JSON.parse(localStorage.getItem('user'));
     userImage: any = this.user ? this.user.imageUrl : null;
     isDropdown:boolean = false;
@@ -35,7 +35,7 @@ export class HeaderComponent implements OnInit {
       private changeDetectorRef: ChangeDetectorRef,
       private api: ApiService,
       private router: Router,
-      ) {
+    ) {
       this.common.subscribeData().subscribe(res => {
         if (!!res.login) {
             this.user = res.login;
@@ -45,10 +45,17 @@ export class HeaderComponent implements OnInit {
     }
 
     ngOnInit(): void {
+      console.log(this.windowEvent, 'window eventtttttttttttttt');
       this.getCategory();
 
     }
+    ngOnChanges(changes) {
+      console.log(changes, 'window eventtttttttttttttt');
 
+    }
+    getWindowEvent(event) {
+      console.log(event, 'eventtttt');
+    }
     openModal(id) {
       this.modalService.open(id)
     }

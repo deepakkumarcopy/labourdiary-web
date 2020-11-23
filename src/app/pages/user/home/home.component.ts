@@ -1,5 +1,5 @@
 // Component
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter} from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ModalService } from '../../../services/modal.service';
 import { CommonService } from '../../../services/common.service';
 import { ApiService } from '../../../services/api.service';
+import { ChangeDetectorRef } from '@angular/core';
 declare var $:any;
 @Component({
 	selector: 'app-home',
@@ -15,6 +16,7 @@ declare var $:any;
 })
 
 export class HomeComponent implements OnInit {
+	@Output() change = new EventEmitter();
 
 	user: any = JSON.parse(localStorage.getItem('user'));
 	userImage: any = this.user ? this.user.imageUrl : null;
@@ -28,22 +30,26 @@ export class HomeComponent implements OnInit {
 		private api: ApiService,
 		private common: CommonService,
 		private modalService: ModalService,
-		private toastr: ToastrService
+		private toastr: ToastrService,
+		private cdr: ChangeDetectorRef
 	) {
 	}
 
 	ngOnInit(): void {
 		$(document).scroll(function() {
        		if($(window).scrollTop() > 50){
-			console.log('toppppppppppppppppppppppppp')
-			this.windowEvent = 'down'
+				this.windowEvent = 'down'
+				// this.change.emit(this.windowEvent)
+				console.log(this.windowEvent,'toppppppppppppppppppppppppp')
+
 	        // $("#headerline").css("background","red");
 	        // $("#header").hide();
 	        // $("#header2").show();
 
 	       }else if($(window).scrollTop() < 50){
-	       	this.windowEvent = 'top'
-	       	console.log('ddddddddddddddddd')
+		       	this.windowEvent = 'top'
+				// this.change.emit(this.windowEvent);
+		       	console.log(this.windowEvent,'ddddddddddddddddd')
 	        // $("#headerline").css("background","blue");
 	        // $("#header2").hide();
 	        // $("#header").show();
