@@ -28,7 +28,8 @@ export class HeaderComponent implements OnInit, OnChanges {
     selectedDate:any;
     selectedCategory:any;
     location:any;
-
+    isScroll:boolean = false;
+    isSearch:boolean=false;
     constructor(
       private common: CommonService,
       private modalService: ModalService,
@@ -45,17 +46,22 @@ export class HeaderComponent implements OnInit, OnChanges {
     }
 
     ngOnInit(): void {
-      console.log(this.windowEvent, 'window eventtttttttttttttt');
       this.getCategory();
 
     }
-    ngOnChanges(changes) {
-      console.log(changes, 'window eventtttttttttttttt');
+    ngOnChanges() {
+      if(this.windowEvent == 'top') {
+        this.isScroll = true;
+      } else {
+        this.isScroll = false
+        this.isSearch = false
+      }
 
     }
-    getWindowEvent(event) {
-      console.log(event, 'eventtttt');
+    showSearch() {
+      this.isSearch = true;
     }
+    
     openModal(id) {
       this.modalService.open(id)
     }

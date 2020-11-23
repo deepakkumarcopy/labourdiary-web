@@ -16,7 +16,7 @@ declare var $:any;
 })
 
 export class HomeComponent implements OnInit {
-	@Output() change = new EventEmitter();
+	@Output() valueChange = new EventEmitter();
 
 	user: any = JSON.parse(localStorage.getItem('user'));
 	userImage: any = this.user ? this.user.imageUrl : null;
@@ -36,23 +36,13 @@ export class HomeComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+		let self = this;
 		$(document).scroll(function() {
        		if($(window).scrollTop() > 50){
-				this.windowEvent = 'down'
-				// this.change.emit(this.windowEvent)
-				console.log(this.windowEvent,'toppppppppppppppppppppppppp')
-
-	        // $("#headerline").css("background","red");
-	        // $("#header").hide();
-	        // $("#header2").show();
+				self.windowEvent = 'down'
 
 	       }else if($(window).scrollTop() < 50){
-		       	this.windowEvent = 'top'
-				// this.change.emit(this.windowEvent);
-		       	console.log(this.windowEvent,'ddddddddddddddddd')
-	        // $("#headerline").css("background","blue");
-	        // $("#header2").hide();
-	        // $("#header").show();
+	       		self.windowEvent = 'top'
 
 	       }
       	});
