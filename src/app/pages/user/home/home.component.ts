@@ -7,7 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ModalService } from '../../../services/modal.service';
 import { CommonService } from '../../../services/common.service';
 import { ApiService } from '../../../services/api.service';
-
+declare var $:any;
 @Component({
 	selector: 'app-home',
 	templateUrl: './home.component.html',
@@ -21,7 +21,8 @@ export class HomeComponent implements OnInit {
 	resentServices: any = [];
 	categories: any = [];
 	savedServiceList: any = [];
-
+	windowEvent:any;
+	isDown:any;
 	constructor(
 		private route: Router,
 		private api: ApiService,
@@ -32,6 +33,23 @@ export class HomeComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+		$(document).scroll(function() {
+       		if($(window).scrollTop() > 50){
+			console.log('toppppppppppppppppppppppppp')
+			this.windowEvent = 'down'
+	        // $("#headerline").css("background","red");
+	        // $("#header").hide();
+	        // $("#header2").show();
+
+	       }else if($(window).scrollTop() < 50){
+	       	this.windowEvent = 'top'
+	       	console.log('ddddddddddddddddd')
+	        // $("#headerline").css("background","blue");
+	        // $("#header2").hide();
+	        // $("#header").show();
+
+	       }
+      	});
 		if (this.user) {
 			this.api.getListOfSavedServicesByUserId(this.user.id).subscribe((res) => {
 				if (res.success) {

@@ -1,4 +1,4 @@
-import { Component, OnInit,  ViewChild , ChangeDetectorRef} from '@angular/core';
+import { Component, OnInit,  ViewChild , ChangeDetectorRef, OnChanges} from '@angular/core';
 import { ModalService } from '../../../services/modal.service';
 import { CommonService } from '../../../services/common.service';
 declare let google: any;
@@ -46,6 +46,7 @@ export class HeaderComponent implements OnInit {
 
     ngOnInit(): void {
       this.getCategory();
+
     }
 
     openModal(id) {
