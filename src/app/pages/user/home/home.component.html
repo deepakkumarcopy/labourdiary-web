@@ -4,32 +4,51 @@
 	<br>
 	<br>
 	<br>
-	<div class="row m-0" *ngIf="categories && categories.length>0">
-		<div class="col-3 col-sm-3 col-lg-2 col-xl-1 colum-row text-center cursor-pointer category-card" *ngFor="let category of categories" (click)="selectCategory(category)" [routerLink]="['user/category', category.id]">
+	<div class="row m-0 plr" *ngIf="categories && categories.length>0">
+		<div class="col-4 col-sm-4 col-lg-4 col-xl-2 colum-row text-center cursor-pointer category-card" *ngFor="let category of categories" (click)="selectCategory(category)" [routerLink]="['user/category', category.id]">
 			<div class="h-100 box-shadow-box p-2 border-radius-10">
 				<img src="assets/img/{{category.name}}.png" alt="" width="60px">
-				<div class="font-12 text-capitalize">{{category.name}}</div>
+				<div class="font-12 text-capitalize pt-3 pb-3">{{category.name}}</div>
 			</div>
 		</div>
 	</div>
 	<br>
 	<br>
-	<div class="container">
+	<div class="plr mbt">
+		<h4 class="pb-2 font-700">Your next services</h4>
 		<div class="row" *ngIf="resentServices && resentServices.length>0">
-			<div class="col-6 col-md-3" *ngFor="let service of resentServices" [routerLink]="['user/service', service.id]" (click)="selectService(service)">
-				<div class="rounded service-card cursor-pointer">
-					<img [src]="((service.user.imageUrl == '') || (service.user.imageUrl == 'null')) ? 'assets/img/personImg.jpg' : service.user.imageUrl" alt="" width="100%">
-					<div class="heart font-20 p-2">
-						<div class="fa fa-heart text-danger" *ngIf="checkSavedService(service.id)" (click)="removeSavedServiceProvider(service);$event.stopPropagation();"></div>
-						<div class="fa fa-heart-o" *ngIf="!checkSavedService(service.id)" (click)="saveServiceProvider(service);$event.stopPropagation();"></div>
-					</div>
-					<div class="p-2 font-14">
-						<div>
-							<i class="fa fa-star text-danger"></i> {{service.rating}}
-							<span class="dull-text text-capitalize">({{service.reviewers}}) · {{service.cityName}}</span>
+			<div class="col-md-2 col-sm-3" *ngFor="let service of resentServices" [routerLink]="['user/service', service.id]" (click)="selectService(service)">
+				<div class="row">
+					<div class="col-3">
+						
+						<div class="rounded 
+						ervice-card cursor-pointer">
+							<img [src]="((service.user.imageUrl == '') || (service.user.imageUrl == 'null')) ? 'assets/img/personImg.jpg' : service.user.imageUrl" class="border-radius-20" alt="" width="100px">
+							<div class="p-2 font-14">
+							<!-- <div>
+								<i class="fa fa-star text-danger"></i> {{service.rating}}
+								<span class="dull-text text-capitalize">({{service.reviewers}}) · {{service.cityName}}</span>
+							</div>
+							<div><span class="text-capitalize">{{service.name}}</span></div>
+							<div class="font-weight-bold font-15">Form ${{service.price}}</div> -->
+							</div>
+							<!-- <div class="heart font-20 p-2">
+								<div class="fa fa-heart text-danger" *ngIf="checkSavedService(service.id)" (click)="removeSavedServiceProvider(service);$event.stopPropagation();"></div>
+								<div class="fa fa-heart-o" *ngIf="!checkSavedService(service.id)" (click)="saveServiceProvider(service);$event.stopPropagation();"></div>
+							</div> -->
+							
 						</div>
-						<div><span class="text-capitalize">{{service.name}}</span></div>
-						<div class="font-weight-bold font-15">Form ${{service.price}}</div>
+					</div>
+					<div class="col-2"></div>
+					<div class="col-7">
+						<div class="p-2 font-14">
+							<div>
+								<i class="fa fa-star text-danger"></i> {{service.rating}}
+								<span class="dull-text text-capitalize">({{service.reviewers}}) · {{service.cityName}}</span>
+							</div>
+							<div><span class="text-capitalize">{{service.name}}</span></div>
+							<div class="font-weight-bold font-15">Form ${{service.price}}</div>
+						</div>
 					</div>
 				</div>
 			</div>
