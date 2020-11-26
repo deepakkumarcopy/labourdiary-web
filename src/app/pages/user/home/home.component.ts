@@ -1,5 +1,5 @@
 // Component
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter} from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
@@ -7,7 +7,8 @@ import { ToastrService } from 'ngx-toastr';
 import { ModalService } from '../../../services/modal.service';
 import { CommonService } from '../../../services/common.service';
 import { ApiService } from '../../../services/api.service';
-
+import { ChangeDetectorRef } from '@angular/core';
+declare var $:any;
 @Component({
 	selector: 'app-home',
 	templateUrl: './home.component.html',
@@ -15,23 +16,36 @@ import { ApiService } from '../../../services/api.service';
 })
 
 export class HomeComponent implements OnInit {
+	@Output() valueChange = new EventEmitter();
 
 	user: any = JSON.parse(localStorage.getItem('user'));
 	userImage: any = this.user ? this.user.imageUrl : null;
 	resentServices: any = [];
 	categories: any = [];
 	savedServiceList: any = [];
-
+	windowEvent:any;
+	isDown:any;
 	constructor(
 		private route: Router,
 		private api: ApiService,
 		private common: CommonService,
 		private modalService: ModalService,
-		private toastr: ToastrService
+		private toastr: ToastrService,
+		private cdr: ChangeDetectorRef
 	) {
 	}
 
 	ngOnInit(): void {
+		let self = this;
+		$(document).scroll(function() {
+       		if($(window).scrollTop() > 50){
+				self.windowEvent = 'down'
+
+	       }else if($(window).scrollTop() < 50){
+	       		self.windowEvent = 'top'
+
+	       }
+      	});
 		if (this.user) {
 			this.api.getListOfSavedServicesByUserId(this.user.id).subscribe((res) => {
 				if (res.success) {

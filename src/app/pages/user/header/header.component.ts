@@ -1,4 +1,4 @@
-import { Component, OnInit,  ViewChild , ChangeDetectorRef} from '@angular/core';
+import { Component, OnInit,  ViewChild , ChangeDetectorRef, Input, OnChanges} from '@angular/core';
 import { ModalService } from '../../../services/modal.service';
 import { CommonService } from '../../../services/common.service';
 declare let google: any;
@@ -12,10 +12,10 @@ declare var $:any;
     styleUrls: ['./header.component.scss']
 })
 
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnChanges {
 
   @ViewChild('mapElement', { static: true }) mapElement;
-
+  @Input() windowEvent;
   user: any = JSON.parse(localStorage.getItem('user'));
   userImage: any = this.user ? this.user.imageUrl : null;
   isDropdown:boolean = false;
@@ -28,7 +28,8 @@ export class HeaderComponent implements OnInit {
   selectedDate:any;
   selectedCategory:any;
   location:any;
-
+  isScroll:boolean = false;
+  isSearch:boolean=false;
   constructor(
     private common: CommonService,
     private modalService: ModalService,
@@ -43,7 +44,15 @@ export class HeaderComponent implements OnInit {
       }
     });
   }
+  ngOnChanges() {
+      if(this.windowEvent == 'top') {
+        this.isScroll = true;
+      } else {
+        this.isScroll = false
+        this.isSearch = false
+      }
 
+    }
   ngOnInit(): void {
     this.getCategory();
   }
@@ -222,5 +231,7 @@ export class HeaderComponent implements OnInit {
   }
   switchToHost() {
     this.router.navigate(['service-provider/stats']);
+    
   }
+    
 }
