@@ -1,125 +1,131 @@
 <app-header></app-header>
 <div class="container">
-    <div *ngIf="!!service">
-        <div class="font-30 font-weight-bold pb-1">{{service.name | titlecase}}</div>
-        <div class="pb-2">
-            <i class="fa fa-star text-danger"></i> {{service.rating}}
-            <span class="dull-text text-capitalize">({{service.reviewers}}) · {{service.cityName}}</span>
-            <span class="float-right cursor-pointer">
-                <div class="heart font-20 p-2">
-                    <div class="fa fa-heart text-danger" *ngIf="checkSavedService(service.id)" (click)="removeSavedServiceProvider(service);$event.stopPropagation();">Saved</div>
-                    <div class="fa fa-heart-o pr" *ngIf="!checkSavedService(service.id)" (click)="saveServiceProvider(service);$event.stopPropagation();">Unsave</div>
-                </div>
-            </span>
-        </div>
-
-        <div class="row m-0" *ngIf="service.workPhotos && service.workPhotos.length>0">
-            <div class="col-md-6 image1" *ngFor="let photo of service.workPhotos">
-                <img [src]="photo" alt="">
+    <div *ngIf="isLoading; else showData" class="text-center">Loading..</div>
+    <ng-template #showData>
+        <div *ngIf="!!service ; else noDataFound">
+            <div class="font-30 font-weight-bold pb-1">{{service.name | titlecase}}</div>
+            <div class="pb-2">
+                <i class="fa fa-star text-danger"></i> {{service.rating}}
+                <span class="dull-text text-capitalize">({{service.reviewers}}) · {{service.cityName}}</span>
+                <span class="float-right cursor-pointer">
+                    <div class="heart font-20 p-2">
+                        <div class="fa fa-heart text-danger" *ngIf="checkSavedService(service.id)" (click)="removeSavedServiceProvider(service);$event.stopPropagation();">Saved</div>
+                        <div class="fa fa-heart-o pr" *ngIf="!checkSavedService(service.id)" (click)="saveServiceProvider(service);$event.stopPropagation();">Unsave</div>
+                    </div>
+                </span>
             </div>
-        </div>
-    
-        <div class="row" *ngIf="service.user">
-            <div class="col-md-8" *ngIf="userProfile">
-                <div class="d-flex w-100">
-                    <div class="w-100">
-                        <div class="font-weight-bold font-20">{{service.user.firstName}} {{service.user.lastName}}</div>
-                        <div class="font-12">{{service.jobSatisfaction}}% Job satisfaction</div>
-                    </div>
 
-                    <img class="float-right rounded-circle" [src]="service.user.imageUrl != 'null' ? service.user.imageUrl: 'assets/img/blankImage.jpg'" alt="" width="48px" height="48px">
-                </div>
-                <hr>
-                <div class="font-20 font-weight-bold">About</div>
-                <div>{{service.about}}</div>
-                <hr>
-                <div class="font-20 font-weight-bold">Category</div>
-                <div>{{service.name}}</div>
-                <hr>
-                <div class="font-20 font-weight-bold">Spoken Language</div>
-                    <div *ngIf="userProfile.spokenLanguages && userProfile.spokenLanguages.length>0 ; else noSpokenLanguage">
-                        <div>{{userProfile.spokenLanguages}}</div>
-                    </div>
-                    <ng-template #noSpokenLanguage>
-                        No Spoken Language
-                    </ng-template>
-                <hr>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="font-20 font-weight-bold">Phone</div>
-                        <div>{{userProfile.phone}}</div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="font-20 font-weight-bold">Email</div>
-                        <div>{{service.user.email}}</div>
-                    </div>
-                </div>
-                <hr>
-                <div>
-                    <div><span class="font-weight-bold">Facebook: {{userProfile.facebook}}</span></div>
-                    <div><span class="font-weight-bold">Linked In: {{userProfile.linkedin}}</span></div>
+            <div class="row m-0" *ngIf="service.workPhotos && service.workPhotos.length>0">
+                <div class="col-md-6 image1" *ngFor="let photo of service.workPhotos">
+                    <img [src]="photo" alt="">
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card p-2">
-                    <h2>Form ${{service.price}}</h2>
-                    <div class="form-group mb-0"  class="md-form md-outline input-with-post-icon datepicker"  inline="true">
-                        <label for="usr" class="search-label mb-0">Date</label>
-                        <br>
-                        <!-- <dp-month-calendar [(ngModel)]="selectedDate" class ="input-search" [ngModelOptions]="{standalone: true}"></dp-month-calendar>   -->
-                        <input (input)="parseDate($event.target.value)" type="date" class ="input-search" >
-                    </div>
-                    <!-- <div class="card p-4 font-20" id="date-picker-example" class="md-form md-outline input-with-post-icon datepicker date-style"  inline="true">Date/Time</div> -->
-                    <input  class="btn-theme ln-40  text-center btn-block font-14 text-uppercase nowrap mt-4 caret-transparent" type="submit" value="Reserve" (click)="goToOrderConfirmation()">
-                </div>
-
-            </div>
-        </div>
-    
-        <hr>
-        <div class="pb-2 font-20">
-            <i class="fa fa-star text-danger"></i> {{service.rating}}
-            <span class="dull-text text-capitalize">( {{service.reviewers}} reviews)</span>
-        </div>
-        <div *ngIf="userComments && userComments.length>0">
-            <div *ngFor="let review of userComments">
-                
-                <div class="row" *ngIf="review.user">
-                    <div class="col-md-6">
-                        <div class="d-flex">
-                            <img class="float-right rounded-circle" [src]="review.user.imageUrl !='null' ? review.user.imageUrl : 'assets/img/blankImage.jpg'"  alt="" width="48px" height="48px">
-                            <div class="ml-3">
-                                <div class="font-weight-bold">{{review.user.firstName || review.user.email}} {{review.user.LastName}}</div>
-                                <div class="font-12">{{review.user.createdAt | date}}</div>
-                            </div>
+        
+            <div class="row" *ngIf="service.user">
+                <div class="col-md-8" *ngIf="userProfile">
+                    <div class="d-flex w-100">
+                        <div class="w-100">
+                            <div class="font-weight-bold font-20">{{service.user.firstName}} {{service.user.lastName}}</div>
+                            <div class="font-12">{{service.jobSatisfaction}}% Job satisfaction</div>
                         </div>
-                        <p class="pt-3">{{review.comments}}</p>
+
+                        <img class="float-right rounded-circle" [src]="service.user.imageUrl != 'null' ? service.user.imageUrl: 'assets/img/blankImage.jpg'" alt="" width="48px" height="48px">
+                    </div>
+                    <hr>
+                    <div class="font-20 font-weight-bold">About</div>
+                    <div>{{service.about}}</div>
+                    <hr>
+                    <div class="font-20 font-weight-bold">Category</div>
+                    <div>{{service.name}}</div>
+                    <hr>
+                    <div class="font-20 font-weight-bold">Spoken Language</div>
+                        <div *ngIf="userProfile.spokenLanguages && userProfile.spokenLanguages.length>0 ; else noSpokenLanguage">
+                            <div>{{userProfile.spokenLanguages}}</div>
+                        </div>
+                        <ng-template #noSpokenLanguage>
+                            No Spoken Language
+                        </ng-template>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="font-20 font-weight-bold">Phone</div>
+                            <div>{{userProfile.phone}}</div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="font-20 font-weight-bold">Email</div>
+                            <div>{{service.user.email}}</div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div>
+                        <div><span class="font-weight-bold">Facebook: {{userProfile.facebook}}</span></div>
+                        <div><span class="font-weight-bold">Linked In: {{userProfile.linkedin}}</span></div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card p-2">
+                        <h2>Form ${{service.price}}</h2>
+                        <div class="form-group mb-0"  class="md-form md-outline input-with-post-icon datepicker"  inline="true">
+                            <label for="usr" class="search-label mb-0">Date</label>
+                            <br>
+                            <!-- <dp-month-calendar [(ngModel)]="selectedDate" class ="input-search" [ngModelOptions]="{standalone: true}"></dp-month-calendar>   -->
+                            <input (input)="parseDate($event.target.value)" type="date" class ="input-search" >
+                        </div>
+                        <!-- <div class="card p-4 font-20" id="date-picker-example" class="md-form md-outline input-with-post-icon datepicker date-style"  inline="true">Date/Time</div> -->
+                        <input  class="btn-theme ln-40  text-center btn-block font-14 text-uppercase nowrap mt-4 caret-transparent" type="submit" value="Reserve" (click)="goToOrderConfirmation()">
+                    </div>
+
+                </div>
+            </div>
+        
+            <hr>
+            <div class="pb-2 font-20">
+                <i class="fa fa-star text-danger"></i> {{service.rating}}
+                <span class="dull-text text-capitalize">( {{service.reviewers}} reviews)</span>
+            </div>
+            <div *ngIf="userComments && userComments.length>0">
+                <div *ngFor="let review of userComments">
+                    
+                    <div class="row" *ngIf="review.user">
+                        <div class="col-md-6">
+                            <div class="d-flex">
+                                <img class="float-right rounded-circle" [src]="review.user.imageUrl !='null' ? review.user.imageUrl : 'assets/img/blankImage.jpg'"  alt="" width="48px" height="48px">
+                                <div class="ml-3">
+                                    <div class="font-weight-bold">{{review.user.firstName || review.user.email}} {{review.user.LastName}}</div>
+                                    <div class="font-12">{{review.user.createdAt | date}}</div>
+                                </div>
+                            </div>
+                            <p class="pt-3">{{review.comments}}</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <hr>
-    <div *ngIf="userBusinessInfo">
-        <div class="font-weight-bold">Business Information</div>
-        <div class="font-weight-bold font-24">{{userBusinessInfo.companyName | titlecase}}</div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="font-18 font-weight-bold">Company Address</div>
-                <div>{{userBusinessInfo.companyAddress}}</div>
-            </div>
-            <div class="col-md-6">
-                <div class="font-18 font-weight-bold">Company Phone Number</div>
-                <div>{{userBusinessInfo.countryCode}}{{userBusinessInfo.companyContact}}</div>
-            </div>
-            <div class="col-md-6">
-                <div class="font-18 font-weight-bold">Enterprise number</div>
-                <div>{{userBusinessInfo.enterprisesNumber}}</div>
-            </div>
-            <div class="col-md-6">
-                <div class="font-18 font-weight-bold">Website link</div>
-                <div>{{userBusinessInfo.websiteLinks}}</div>
+        <hr>
+        <div *ngIf="userBusinessInfo">
+            <div class="font-weight-bold">Business Information</div>
+            <div class="font-weight-bold font-24">{{userBusinessInfo.companyName | titlecase}}</div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="font-18 font-weight-bold">Company Address</div>
+                    <div>{{userBusinessInfo.companyAddress}}</div>
+                </div>
+                <div class="col-md-6">
+                    <div class="font-18 font-weight-bold">Company Phone Number</div>
+                    <div>{{userBusinessInfo.countryCode}}{{userBusinessInfo.companyContact}}</div>
+                </div>
+                <div class="col-md-6">
+                    <div class="font-18 font-weight-bold">Enterprise number</div>
+                    <div>{{userBusinessInfo.enterprisesNumber}}</div>
+                </div>
+                <div class="col-md-6">
+                    <div class="font-18 font-weight-bold">Website link</div>
+                    <div>{{userBusinessInfo.websiteLinks}}</div>
+                </div>
             </div>
         </div>
-    </div>
+    </ng-template>
+    <ng-template>
+        <p class="text-center"> No data available. </p>
+    </ng-template>
 </div>

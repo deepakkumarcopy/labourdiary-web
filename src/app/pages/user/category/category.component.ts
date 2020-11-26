@@ -19,7 +19,7 @@ export class CategoryComponent implements OnInit, AfterContentInit {
 	noServices: boolean = false;
 	savedServiceList: any = [];
 	user: any = JSON.parse(localStorage.getItem('user'));
-
+	isLoading:boolean = true;
 	constructor(
 		private api: ApiService,
 		private route: ActivatedRoute,
@@ -38,6 +38,7 @@ export class CategoryComponent implements OnInit, AfterContentInit {
 					cityName: 'kanpur'
 				}
 				this.api.getAllServiceByCategory(data).subscribe((res) => {
+					this.isLoading = false;
 					console.log(res)
 					if (res.success) {
 						this.services = res.services;
@@ -51,6 +52,7 @@ export class CategoryComponent implements OnInit, AfterContentInit {
 					}
 					this.services.length ? this.noServices = false : this.noServices = true;
 				}, (e) => {
+					this.isLoading = false;
 					this.noServices = true;
 				});
 			}

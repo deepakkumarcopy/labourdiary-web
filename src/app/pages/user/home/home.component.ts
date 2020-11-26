@@ -25,6 +25,8 @@ export class HomeComponent implements OnInit {
 	savedServiceList: any = [];
 	windowEvent:any;
 	isDown:any;
+	isLoadingForCategory:boolean = true;
+	isLoadingForService:boolean = true;
 	constructor(
 		private route: Router,
 		private api: ApiService,
@@ -55,18 +57,22 @@ export class HomeComponent implements OnInit {
 
 			this.api.getTopCategories().subscribe((res) => {
 				if (res.success) {
+					this.isLoadingForCategory = false;
 					console.log(res)
 					this.categories = res.category;
 				} else {
+					this.isLoadingForCategory = false;
 				}
 			});
 
 			this.api.getRecentServices({ cityName: 'kanpur' }).subscribe((res) => {
 				if (!!res.success) {
 					this.resentServices = res.services;
+					this.isLoadingForService = false;
 				}
 				console.log(res)
 			}, (error) => {
+				this.isLoadingForCategory = false;
 			});
 		}
 	}

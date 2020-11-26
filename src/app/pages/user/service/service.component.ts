@@ -18,6 +18,7 @@ export class ServiceComponent implements OnInit {
 	user: any = JSON.parse(localStorage.getItem('user'));
 	selectedDate:any;
 	serviceUserId:any;
+	isLoading:boolean =true;
 	constructor(
 		private api: ApiService,
 		private route: ActivatedRoute,
@@ -45,6 +46,7 @@ export class ServiceComponent implements OnInit {
 		this.api.getService(id).subscribe((res) => {
 			if (!!res.success) {
 				this.service = res.services[0];
+				this.isLoading = false;
 				if(!!this.service.user) {
 					this.serviceUserId = this.service.user.id
 					this.getBusinessInfo()
@@ -54,6 +56,7 @@ export class ServiceComponent implements OnInit {
 				console.log(this.service, 'serviceeeeeeee')
 			}
 		}, error => {
+			this.isLoading = false;
 			console.log(error)
 		});
 	}
