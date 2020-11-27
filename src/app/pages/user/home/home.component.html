@@ -6,7 +6,7 @@
 	<br>
 	<div *ngIf="isLoadingForCategory; else showCategory" class="text-center">Loading..</div>
 	<ng-template #showCategory>
-		<div class="row m-0 plr" *ngIf="categories && categories.length>0 ; else noCategoryFound">
+		<div class="row m-0 plr " *ngIf="categories && categories.length>0 ; else noCategoryFound" >
 			<div class="col-4 col-sm-4 col-lg-4 col-xl-2 colum-row text-center cursor-pointer category-card" *ngFor="let category of categories" (click)="selectCategory(category)" [routerLink]="['user/category', category.id]">
 				<div class="h-100 box-shadow-box p-2 border-radius-10">
 					<img src="assets/img/{{category.name}}.png" alt="" width="60px">

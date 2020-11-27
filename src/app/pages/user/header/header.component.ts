@@ -233,5 +233,9 @@ export class HeaderComponent implements OnInit, OnChanges {
     this.router.navigate(['service-provider/stats']);
     
   }
+
+  showSearch() {
+    this.isSearch = true;
+  }
     
 }

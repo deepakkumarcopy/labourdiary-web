@@ -1,13 +1,13 @@
 <div class="container" style="padding-top: 120px;">
-	<h4>Dashboard</h4>
+	<h2 class="font-700">Dashboard</h2>
 	<div class="row">
 		<div class="col-6">
 			<div class="row">
 				<div class="col-12">
 					<div class="card mt-4">
 				    	<div class="card-body">
-				    		<h5>Requests</h5>
-				    		<p>Nothing you need to do right now-you're all set</p>
+				    		<h4 class="font-700">Requests</h4>
+				    		<p class="text-muted">Nothing you need to do right now-you're all set</p>
 				    	</div>
 				  	</div>
 				</div>
@@ -19,32 +19,32 @@
 				    		<div *ngIf="isLoading; else showStats">Loading..</div>
 				    		<ng-template #showStats>
 				    			<div *ngIf="stats; else noDataFound">
-						    		<h5>Stats</h5>
+						    		<h4  class="font-700">Stats</h4>
 						    		<div class="row pt-3 pb-3">
 						    			<div class="col-4">
-							    			<h6 class="margin-bottom">{{stats.rating.toFixed(2)}}</h6>
+							    			<h4 class="margin-bottom font-700">{{stats.rating.toFixed(2)}}<i class="fa fa-star star-style" aria-hidden="true"></i></h4>
 							    			<span class="f-14">Overall rating</span>
 						    			</div>
 						    			<div class="col-4">
-						    				<h6 class="margin-bottom">{{stats.reviewsCount}}</h6>
+						    				<h4 class="margin-bottom font-700">{{stats.reviewsCount}}</h4>
 							    			<span class="f-14">Total reviews</span>
 						    			</div>
 						    			<div class="col-4">
-						    				<h6 class="margin-bottom">{{stats.jobSatisfaction ? stats.jobSatisfaction : 0}}%</h6>
+						    				<h4 class="margin-bottom font-700">{{stats.jobSatisfaction ? stats.jobSatisfaction : 0}}%</h4>
 							    			<span class="f-14">Response rate</span>
 						    			</div>
 						    		</div>
 						    		<div class="row border-top  pt-3 pb-3">
 						    			<div class="col-4">
-							    			<h6 class="margin-bottom">${{stats.earning}}</h6>
+							    			<h4 class="margin-bottom font-700">${{stats.earning}}</h4>
 							    			<span class="f-14">{{currDate}} earings</span>
 						    			</div>
 						    			<div class="col-4">
-						    				<h6 class="margin-bottom">{{stats.viewsCount}}</h6>
+						    				<h4 class="margin-bottom font-700">{{stats.viewsCount}}</h4>
 							    			<span class="f-14">30-day views</span>
 						    			</div>
 						    			<div class="col-4">
-						    				<h6 class="margin-bottom">{{stats.noOfBooking}}</h6>
+						    				<h4 class="margin-bottom font-700">{{stats.noOfBooking}}</h4>
 							    			<span class="f-14">30-day bookings</span>
 						    			</div>
 						    		</div>
@@ -61,8 +61,8 @@
 				<div class="col-12">
 					<div class="card mt-4 ">
 				    	<div class="card-body">
-				    		<h5>Reservations</h5>
-				    		<p>No upcoming reservations</p>
+				    		<h4 class="font-700">Reservations</h4>
+				    		<p class="text-muted">No upcoming reservations</p>
 				    	</div>
 				  	</div>
 				</div>
@@ -78,7 +78,7 @@
 				<div class="col-12">
 					<div class="card mt-4">
 				    	<div class="card-body">
-				    		<h5 class="pb-4">Notifications</h5>
+				    		<h3 class="pb-4 font-700">Notifications</h3>
 				    		<p>Know someone who can help you host Clean Room in Evere-close to BRU AlrPort-zaventem?Invite them as a cpst</p>
 				    		<p>May3, 2018</p>
 				    	</div>
