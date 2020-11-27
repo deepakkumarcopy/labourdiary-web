@@ -1,5 +1,5 @@
 <div class="container" >
-	<h5 class="pt-4 pb-3">My Jobs</h5>
+	<h4 class="pt-4 pb-3 font-700">My Jobs</h4>
 	<div *ngIf="isLoading; else showData">Loading..
 	</div>
 	<ng-template #showData>
@@ -10,23 +10,23 @@
             [scrollWindow]="true"
          >
 			<div *ngIf="!!jobs && jobs.length>0; else noDataFound">
-				<div class="card mb-3" *ngFor="let job of jobs;">
+				<div class="card mb-3 box-shadow" *ngFor="let job of jobs;">
 					<div class="card-body">
 						<div class="row">
 							<div class="col-4">
 								<div *ngIf="job.user">
 									<img   class="float-right rounded-circle position-absolute" [src]="((job.user.imageUrl == '') || (job.user.imageUrl == 'null')) ? 'assets/img/personImg.jpg' : job.user.imageUrl" alt="" width="48px" height="48px">
-									<p class="pl-57">{{job.user.firstName}} {{job.user.lastName}}</p>
+									<p class="pl-57 font-700">{{job.user.firstName}} {{job.user.lastName}}</p>
 								</div>
 								<div *ngIf="job.service">
 									<p class="pl-57">{{job.service.name}}</p>
 								</div>
 							</div>
 							<div class="col-4">
-								{{job.totalAmount}}
+								<p class="font-700">{{job.totalAmount}}</p>
 							</div>
 							<div class="col-4">
-								{{job.orderStatus}}
+								<p class="font-700">{{job.orderStatus}}</p>
 							</div>
 						</div>
 					</div>

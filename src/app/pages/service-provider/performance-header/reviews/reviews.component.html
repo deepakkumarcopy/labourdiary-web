@@ -1,16 +1,16 @@
-<div class="container" >
-	<h5 class="pt-4 pb-3">Reviews</h5>
+<div class="container pl-5" >
+	<h4 class="pt-4 pb-3 font-700">Reviews</h4>
   <div class="row">
     <div class="col-12">
       <div *ngIf="isLoading; else showReview">Loading..</div>
       <ng-template #showReview>
         <div *ngIf="reviews && reviews.length>0; else noDataFound">
-          <div class="card mt-4" *ngFor="let review of reviews">
+          <div class="card mt-4 box-shadow" *ngFor="let review of reviews">
             <div class="card-body" >
                            <!-- <h5>Stats</h5> -->
               <div class="row pb-3" >
                 <div class="col-6">
-                  <h6 class="margin-bottom">Jayantheeswaran</h6>
+                  <h6 class="margin-bottom font-700 pb-2">Jayantheeswaran</h6>
                   <span class="f-14">Oct17-Oct-21,2-17 Clean in Evere-close to BRU Airport</span>
                 </div>
                 <div class="col-6" *ngIf="review.user">
@@ -20,7 +20,7 @@
 				      </div>
 				      <div class="row border-top  pt-3 pb-3">
       					<div class="col-12">
-      						<h6 class="margin-bottom">Overall rating: {{review.star}}</h6>
+      						<h6 class="margin-bottom"><span class="font-700">Overall rating</span>: {{review.star}}</h6>
       						<span class="f-14">{{review.comments}}</span>
       					</div>
   				    </div>
