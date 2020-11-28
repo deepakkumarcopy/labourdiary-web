@@ -1,7 +1,7 @@
 <div class = "container">
 	<img class="mt-5"  [routerLink]="['/emergency-contact']" src="assets/img/back-icon.jpg" alt="" height="20px" width="20px">
 	<form class="form-in-centre mb-5" [formGroup]="workInformationForm">
-		<h5 class="pt-5 pb-3">Work Information</h5>
+		<h4 class="pt-5 pb-3 font-700">Work Information</h4>
 		<div class="form-border">
 			<div class = "form-row">
 				<div class = "form-group col-md-12">
@@ -11,7 +11,7 @@
 			</div>
 			<div class = "form-row">
 				<div class = "form-group col-md-12">
-					<label>Work Category</label>
+					<label class="font-700 text-muted">Work Category</label>
 				 	<div class="form-group">
 					 	<ng-select2 *ngIf="categories" [data]="formattedCategoriesList"
 					            [options]="options"
@@ -28,7 +28,7 @@
 			</div>
 			<div class = "form-row">
 				<div class = "form-group col-md-12">
-					<label>Experienced in</label>
+					<label class="font-700 text-muted">Experienced in</label>
 					<div class="form-group">
 					 	<ng-select2 *ngIf="subCategories" [data]="formattedSubCategoriesList"
 					            [options]="options"
@@ -43,13 +43,13 @@
 			</div>
 			<div class = "form-row">
 				<div class = "form-group col-md-12">
-					<label>Consultation Fee</label>
+					<label class="font-700 text-muted">Consultation Fee</label>
 					<input type = "text" class= "form-control" 
 					id = "inputPassword4" placeholder = "Enter consultation fee" formControlName="fee">
 				</div>
 			</div>
 			<div class = "form-group">
-				<label >English Level</label>
+				<label class="font-700 text-muted">English Level</label>
 				<select id = "inputState" class = "form-control" formControlName="englishLevel">
 					<option selected disabled value="">English Level</option>
 					<option>Native</option>
@@ -59,7 +59,7 @@
 				</select>
 			</div>
 			<div class = "form-group">
-				<label >Employee Type</label>
+				<label class="font-700 text-muted">Employee Type</label>
 				<select id = "inputState" class = "form-control" formControlName="employeType">
 					<option selected disabled value="">Employee Type</option>
 					<option>Free Lancer</option>
@@ -75,7 +75,7 @@
 				</div>
 			</div>
 			<div class = "form-group">
-				<label for = "inputAddress">Work Photos</label>
+				<label for = "inputAddress" class="font-700 text-muted">Work Photos</label>
 				<label for="work-file" class="inputLabelLarge">
 					<img for="work-file" src="assets/img/construction.jpg" [ngClass]="{'inputBoxError': isWorkImages}">
 					<div class="btn">
@@ -99,8 +99,8 @@
 			</div>
 			<div class="float-right">
 				
-				<button  *ngIf="!isWorkInfo" type = "submit" class = "btn btn-primary pr-4 pl-4 " [disabled]="workInformationForm.status=='INVALID' || !workImages" (click)="savedWorkInformation()">Submit</button>
-				<button *ngIf="isWorkInfo" type = "submit" class = "btn btn-primary pr-4 pl-4 " [disabled]="workInformationForm.status=='INVALID' || !workImages" (click)="savedWorkInformation()">Update</button>
+				<button  *ngIf="!isWorkInfo" type = "submit" class = "btn btn-primary pr-4 pl-4 btn-theme-labour" [disabled]="workInformationForm.status=='INVALID' || !workImages" (click)="savedWorkInformation()">Submit</button>
+				<button *ngIf="isWorkInfo" type = "submit" class = "btn btn-primary pr-4 pl-4 btn-theme-labour" [disabled]="workInformationForm.status=='INVALID' || !workImages" (click)="savedWorkInformation()">Update</button>
 			</div>
 		</div>
 	</form>

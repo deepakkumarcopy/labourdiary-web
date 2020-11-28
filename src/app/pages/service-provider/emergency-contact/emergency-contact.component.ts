@@ -7,6 +7,8 @@ import { Select2OptionData } from 'ng-select2';
 import { Options } from 'select2';
 import { ConfirmationDialogService } from '../../../services/confirmation-dialog.service';
 import { ToastrService } from 'ngx-toastr';
+import { CustomValidationService } from '../../../services/custom-validation.service';
+
 declare var jQuery:any;
 
 
@@ -32,7 +34,8 @@ export class EmergencyContactComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private toastr: ToastrService,
-    private confirmationDialogService: ConfirmationDialogService
+    private confirmationDialogService: ConfirmationDialogService,
+    private customValidation: CustomValidationService
   ) { }
 
   ngOnInit(): void {
@@ -160,5 +163,8 @@ export class EmergencyContactComponent implements OnInit {
       }
     })
     .catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));
+  }
+  numberOnly(e) {
+    this.customValidation.preventFromAlphabet(e)
   }
 }

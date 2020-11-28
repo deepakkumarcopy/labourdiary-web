@@ -1,10 +1,12 @@
 <div class="container">
 	<form class="mb-5" [formGroup]="privateInformationForm">
-		<h4 class="pt-5 pb-3">Private Information</h4>
+		<h3 class="pt-5 pb-3 font-700">Private Information</h3>
 		<div class="form-border">
 			<div class="form-group">
 				<label class="mb-0 font-14" for="work-file" style="display: block">
-					<img for="work-file" class="center" [src]="user.imageUrl ? user.imageUrl: 'assets/img/personImg.jpg'" height="100px">
+					<div>
+						<img for="work-file" class="center" [src]="user.imageUrl ? user.imageUrl: 'assets/img/personImg.jpg'" height="100px">
+					</div>
 				</label>
 				<input class="inputField" type="file" (click)="myInputFile.value=null" id="work-file" accept="image/*" (change)="fileChangeEvent($event)" #myInputFile>
 			</div>
@@ -22,30 +24,30 @@
 			</div> -->
 			<div class="form-group row">
 				<div class="form-group col-md-6">
-					<label class="mb-0 font-14" for="inputEmail4">Date of birth</label>
+					<label class="mb-0 font-14 font-700 text-muted" for="inputEmail4">Date of birth</label>
 					<input type="date" class =" form-control" 
 					id="inputEmail4" placeholder= "Enter DOB" formControlName="dob">
 				</div>
 
 				<div class="form-group col-md-6">
-					<label class="mb-0 font-14" for="inputPassword4">Email</label>
+					<label class="mb-0 font-14 font-700 text-muted" for="inputPassword4">Email</label>
 					<input type="text" class="form-control" 
 					id="inputPassword4" placeholder="Email" formControlName="email" readonly="true">
 				</div>
 			</div>
 			<div class="form-group row">
 				<div class="col-md-6">
-						<label class="mb-0 font-14" for="inputAddress">Country</label>
+						<label class="mb-0 font-14 font-700 text-muted" for="inputAddress">Country</label>
                         <app-country-input [countryCode]="countryDialCode" (onCountryChange)="resetPhoneNumber($event)"> </app-country-input>
 					</div>
 					<div class="col-md-6">
-						<label class="mb-0 font-14" for="inputAddress">Phone Number</label>
-						<input type="text" class="form-control" id="inputAddress" placeholder="Phone Number" formControlName="phone">
+						<label class="mb-0 font-14 font-700 text-muted" for="inputAddress">Phone Number</label>
+						<input type="tel"   pattern="^[0-9]{10}$" class="form-control" id="inputAddress" placeholder="Phone Number" formControlName="phone" (keydown)="numberOnly($event)" maxLength="14">
 					</div>
 			</div>
 			<div class="row">
 				<div class="form-group col-md-6">
-					<label class="mb-0 font-14" for="inputState">Gender</label>
+					<label class="mb-0 font-14 font-700 text-muted" for="inputState">Gender</label>
 					<select id="inputState" class="form-control" formControlName="gender">
 						<option selected disabled value="">Select gender</option>
 						<option>Male</option>
@@ -54,7 +56,7 @@
 					</select>
 				</div>
 				<div class="form-group col-md-6">
-					<label class="mb-0 font-14" for="inputState">Spoken Languages</label>
+					<label class="mb-0 font-14 font-700 text-muted" for="inputState">Spoken Languages</label>
 					<select id="inputState" class="form-control" formControlName="language">
 						<option selected disabled value="">Select Languages</option>
 						<option>English (EN)</option>
@@ -66,12 +68,12 @@
 			</div>
 			<div class="row">
 				<div class="form-group col-md-6">
-					<label class="mb-0 font-14" for="inputAddress">Address</label>
+					<label class="mb-0 font-14 font-700 text-muted" for="inputAddress">Address</label>
 					<input type="text" class="form-control" id="inputAddress" 
 					placeholder="Enter address" formControlName="address" (click)="openModal('add-new-address')"  autocomplete="off">
 				</div>
 				<div class="form-group col-md-6">
-					<label class="mb-0 font-14" for="inputState">Higher Education</label>
+					<label class="mb-0 font-14 font-700 text-muted" for="inputState">Higher Education</label>
 					<select id="inputState" class="form-control" formControlName="education">
 						<option selected disabled value="">Select Education</option>
 						<option>High School</option>
@@ -83,7 +85,7 @@
 			</div>
 			<div class="row">
 				<div class="form-group col-md-6">
-					<label class="mb-0 font-14" for="inputAddress">Linkedin</label>
+					<label class="mb-0 font-14 font-700 text-muted" for="inputAddress">Linkedin</label>
 					<span class="social-icon">
 						<img class="social-img" data-toggle="dropdown" id="selectedOption"src="assets/img/linkedInIcon.svg" alt="">
 					</span>
@@ -91,7 +93,7 @@
 					placeholder="Enter Linkedin">
 				</div>
 				<div class="form-group col-md-6">
-					<label class="mb-0 font-14" for="inputAddress">Facebook</label>
+					<label class="mb-0 font-14 font-700 text-muted" for="inputAddress">Facebook</label>
 					<span class="social-icon">
 						<img class="social-img" data-toggle="dropdown" id="selectedOption"src="assets/img/facebookIcon.svg" alt="">
 					</span>
@@ -100,7 +102,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="mb-0 font-14" for="inputAddress">ID proof</label>
+				<label class="mb-0 font-14 font-700 text-muted" for="inputAddress">ID proof</label>
 				<input type="file" class="form-control" id="inputAddress" placeholder="ID proof" formControlName="idProof" (change)="onSelectFile($event)">
 				<div *ngIf="imagePreview">
 					<img [src]="imagePreview" class="mt-1" height="50" width="80px"> <br/>
@@ -112,7 +114,7 @@
 					</div>
 				</div>
 			</div>
-			<button type="submit" class="btn btn-primary w-100" [disabled]="privateInformationForm.status=='INVALID'" (click)="savePrivateInformation()">{{ isEdit ? 'Update' : 'Submit' }}</button>
+			<button type="submit" class="btn btn-primary btn-theme-labour float-right" [disabled]="privateInformationForm.status=='INVALID'" (click)="savePrivateInformation()">{{ isEdit ? 'Update' : 'Submit' }}</button>
 		</div>
 	</form>
 </div>
@@ -189,7 +191,7 @@
 					</div>
 				</div>
 				<div class="modal-footer border-top-0 d-flex justify-content-center">
-					<button type="submit" class="btn btn-primary w-100" [disabled]="addAddressForm.status=='INVALID' || !!user.profile.documentUrl || UploadDocuments" (click)="createAddress()">Add a Adress</button>
+					<button type="submit" class="btn btn-primary btn-theme-labour w-100" [disabled]="addAddressForm.status=='INVALID' || !!user.profile.documentUrl || UploadDocuments" (click)="createAddress()">Add a Adress</button>
 				</div>
 			</form>
 		</div>
@@ -219,7 +221,7 @@
                         (cropperReady)="cropperReady()"
                         (loadImageFailed)="loadImageFailed()"
                     ></image-cropper>
-                    <button  *ngIf=isReadyToCrop type = "submit" class = "btn btn-primary w-100 mb-1" (click)="cropImage()">Crop</button>
+                    <button  *ngIf=isReadyToCrop type = "submit" class = "btn btn-primary w-100 mb-1 btn-theme-labour" (click)="cropImage()">Crop</button>
                 </div>
             </div>
         </div>

@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/fo
 import { ModalService } from '../../../services/modal.service';
 import { ActivatedRoute, Router, RouterEvent, NavigationEnd } from '@angular/router';
 import { ApiService } from '../../../services/api.service';
+import { CustomValidationService } from '../../../services/custom-validation.service';
 import { Select2OptionData } from 'ng-select2';
 import { Options } from 'select2';
 import { ToastrService } from 'ngx-toastr';
@@ -23,7 +24,8 @@ export class BusinessInformationComponent implements OnInit {
     private api: ApiService,
     private route: ActivatedRoute,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private customValidation: CustomValidationService
   ) { }
 
   ngOnInit(): void {
@@ -77,5 +79,9 @@ export class BusinessInformationComponent implements OnInit {
         this.toastr.error('Something went wrong');
         console.log('error')
     });
+  }
+
+  numberOnly(e) {
+    this.customValidation.preventFromAlphabet(e)
   }
 }

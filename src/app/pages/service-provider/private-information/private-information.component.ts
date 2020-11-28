@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/fo
 import { ModalService } from '../../../services/modal.service';
 import { ActivatedRoute, Router, RouterEvent, NavigationEnd } from '@angular/router';
 import { ApiService } from '../../../services/api.service';
+import { CustomValidationService } from '../../../services/custom-validation.service';
 import { ToastrService } from 'ngx-toastr';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 declare var $:any;
@@ -29,7 +30,8 @@ export class PrivateInformationComponent implements OnInit {
     private api: ApiService,
     private route: ActivatedRoute,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private customValidation: CustomValidationService
   ) { }
 
   ngOnInit(): void {
@@ -50,7 +52,7 @@ export class PrivateInformationComponent implements OnInit {
     this.privateInformationForm = new FormGroup({
       dob: new FormControl (this.user.profile.dob !== '0' ? this.user.profile.dob : '', [Validators.required]),
       email: new FormControl(this.user.email ? this.user.email : '', [Validators.required]),
-      phone: new FormControl (this.user.profile.phone ? this.user.profile.phone : '', [Validators.required, Validators.pattern('^[0-9]*$')]),
+      phone: new FormControl (this.user.profile.phone ? this.user.profile.phone : '', [Validators.required, Validators.minLength(4), Validators.maxLength(14), Validators.pattern('^[0-9]*$')]),
       language: new FormControl(this.user.profile.spokenLanguages ? this.user.profile.spokenLanguages : '', [Validators.required]),
       idProof: new FormControl (''),
       address: new FormControl('',  [Validators.required]),
@@ -182,8 +184,10 @@ export class PrivateInformationComponent implements OnInit {
         this.userAddresses = res.addresses;
         if(!!this.userAddresses) {
           const fltAddress = this.userAddresses.find(add => add.selected === true);
-          const address = fltAddress.houseNo + ' ' +  ' ' + fltAddress.address + ' ' +  fltAddress.city  + ' ' + fltAddress.state + ' ' + fltAddress.pincode
-          this.privateInformationForm.get('address').setValue(address);
+          if(!!fltAddress) {
+            const address = fltAddress.houseNo + ' ' +  ' ' + fltAddress.address + ' ' +  fltAddress.city  + ' ' + fltAddress.state + ' ' + fltAddress.pincode
+            this.privateInformationForm.get('address').setValue(address);
+          }
         }
       } else {
         this.userAddresses = [];
@@ -288,5 +292,8 @@ export class PrivateInformationComponent implements OnInit {
     }
 
     return new Blob([ia], {type:mimeString});
+  }
+  numberOnly(e) {
+    this.customValidation.preventFromAlphabet(e)
   }
 }

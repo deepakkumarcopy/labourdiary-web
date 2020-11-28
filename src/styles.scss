@@ -210,16 +210,19 @@ color-grey{
     margin: auto!important;
 }
 .textarea {
-    border-radius: 8px;
+    border-radius: 42px;
     padding: 15px;
-    border: 1px solid #ced4da !important;
+    box-shadow: 1px 4px 2px 0px #c1cbea!important;
+    border: 1px solid #fff !important;
 }
 .select2-container--default .select2-selection--single {
     background-color: #fff;
-    border: 1px solid #ced4da !important;
-    border-radius: 7px !important;
+    border: 1px solid #fff !important;
+    border-radius: 45px !important;
     padding-top: 4px !important;
     padding-bottom: 32px !important;
+    box-shadow: 1px 4px 2px 0px #c1cbea!important;
+    
 }
 .select2-selection__arrow{
     padding-top: 33px !important;
@@ -301,10 +304,11 @@ color-grey{
     font-size: 20px;
 }
 .select2-container--default .select2-selection--multiple {
-    border-radius: 8px !important;
-    border: 1px solid #ced4da !important;
+    border-radius: 22px !important;
+    border: 1px solid  #fff!important;
     font-size: 14px !important;
     padding: 5px !important;
+    box-shadow: 1px 4px 2px 0px #c1cbea!important;
 }
 .f-13{
     font-size: 13px;
@@ -322,8 +326,10 @@ color-grey{
     color: grey;
 }
 .form-border {
-    border: 1px solid;
+    /*border: 1px solid;*/
     padding: 48px;
+    background-color: #f3f6ff;
+    /*box-shadow: */
 }
 .pt-48{
     padding-top:94px;
@@ -359,7 +365,7 @@ color-grey{
     font-weight: 700;
 }
 .box-shadow {
-    box-shadow: 2px 2px  #eaeaea;
+    box-shadow: 2px 2px  #c1cbea;
 }
 .performance-border {
     border-bottom: 1px solid #ececec;
@@ -379,6 +385,21 @@ color-grey{
   align-items: center;
   margin-top: 6px;
 }
+
+.new-btn {
+    color: #fff;
+    border-color: #008489;
+    background: #008489;
+}
+.new-btn:hover {
+    background: #008489;
+}
+.new-btn:disabled {
+    color: #fff;
+    background-color: #008489;
+    border-color: #008489;
+}
+
 .social-img{
     height: 24px;
 }
@@ -542,7 +563,8 @@ color-grey{
     .main-loader{
         border: 4px solid #f3f3f3;
         border-radius: 50%;
-        border-top: 4px solid #d42cf6;
+
+        border-top: 4px solid #6F8FEA!important;
         width: 80px;
         height: 80px;
         -webkit-animation: spin 2s linear infinite; /* Safari */
@@ -724,12 +746,16 @@ body.jw-modal-open {
 }
 
 #toast-container {
+    /*background-image: linear-gradient(purple,red) !important;*/
+    background-image: linear-gradient(5deg, #474AD9, #6F8FEA)!important;
     .ngx-toastr {
         width: calc(100vw/3);
+
     }
 
     .toast-success {
-        background-color: #811e97ad;
+        /*background-image: linear-gradient(20deg, #474AD9, #6F8FEA);*/
+        background-image: none !important;
     }
 }
 
@@ -1392,9 +1418,10 @@ a:hover {
 
 .form-control {
     font-size: 14px;
-    border-radius: 8px;
+    border-radius: 22px;
     height: 40px;
-
+    box-shadow: 1px 4px 2px 0px #c1cbea!important;
+    border: 1px solid #fff !important;
     &:focus {
         box-shadow: unset;
         border-color: #811E97;
@@ -1565,7 +1592,8 @@ a:hover {
     font-size: 14px;
 }
 .color-6cabab{
-    color: #6cabab;
+    color: #6F8FEA;
+
 }
 .color-6cabab :hover {
     color: #6cabab;
@@ -2442,12 +2470,14 @@ a:hover {
 
 @media screen and (max-width: 819px) {
     #toast-container {
+        background-image: linear-gradient(20deg, #474AD9, #6F8FEA)!important;
         .ngx-toastr {
             width: calc(94vw);
+
         }
 
         .toast-success {
-            background-color: #811e97;
+            background-image: none !important;
         }
     }
 }
@@ -2472,11 +2502,11 @@ a:hover {
     color: white;
     /*border-radius: 15px;*/
     padding: 5px 15px;
-    background-image: linear-gradient(5deg, #008489, #008489);
+    background-image: linear-gradient(5deg, #474AD9, #6F8FEA);
 }
 .btn-theme-labour:hover {
-    background-image: linear-gradient(5deg, #008489, #008489);
+    background-image: linear-gradient(5deg, #6F8FEA, #474AD9);
 }
 .btn-theme-labour:active {
-    background-image: linear-gradient(5deg, #008489, #008489);
+    background-image: linear-gradient(5deg, #474AD9, #6F8FEA);
 }
