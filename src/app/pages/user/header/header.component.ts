@@ -67,6 +67,10 @@ export class HeaderComponent implements OnInit, OnChanges {
 
   }
   showSearch() {
+    setTimeout(()=>{
+
+      this.initMap();
+    },100)
     this.isSearch = true;
   }
   
