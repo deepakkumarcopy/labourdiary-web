@@ -79,11 +79,14 @@ export class CategoryComponent implements OnInit, AfterContentInit {
 			console.log(res, 'get searched service')
 
 			if (res.success) {
+				this.isLoading = false;
 				this.services = res.services;
 			} else {
 				this.services = [];
+				this.isLoading = false;
 			}
 			}, (e) => {
+				this.isLoading = false;
 				console.log('error')
 		});
 

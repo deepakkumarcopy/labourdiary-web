@@ -36,7 +36,7 @@ export class HeaderComponent implements OnInit, OnChanges {
     private changeDetectorRef: ChangeDetectorRef,
     private api: ApiService,
     private router: Router,
-    ) {
+  ) {
     this.common.subscribeData().subscribe(res => {
       if (!!res.login) {
           this.user = res.login;
@@ -44,19 +44,36 @@ export class HeaderComponent implements OnInit, OnChanges {
       }
     });
   }
-  ngOnChanges() {
-      if(this.windowEvent == 'top') {
-        this.isScroll = true;
-      } else {
-        this.isScroll = false
-        this.isSearch = false
-      }
-
-    }
+  
   ngOnInit(): void {
     this.getCategory();
-  }
 
+  }
+  ngAfterViewInit() {
+    this.initMap()
+
+  }
+  ngOnChanges() {
+    if(this.windowEvent == 'top') {
+      this.isScroll = true;
+      setTimeout(()=>{
+
+        this.initMap();
+      },100)
+    } else {
+      this.isScroll = false
+      this.isSearch = false
+    }
+
+  }
+  showSearch() {
+    setTimeout(()=>{
+
+      this.initMap();
+    },100)
+    this.isSearch = true;
+  }
+  
   openModal(id) {
     this.modalService.open(id)
   }
@@ -64,7 +81,15 @@ export class HeaderComponent implements OnInit, OnChanges {
   closeModal(id) {
     this.modalService.close(id);
   }
-  
+  parseDate(dateString: string) {
+
+    console.log(new Date(dateString))
+      if (dateString) {
+          this.selectedDate = dateString
+          console.log(this.selectedDate, 'selectedDate')
+      }
+    // return null;
+  }
   getCategory() {
     this.api.getCategory().subscribe((res) => {
       if (!!res.success) {
@@ -72,7 +97,6 @@ export class HeaderComponent implements OnInit, OnChanges {
       }
     });
   }
-
   datepicker(){
     $('#date-picker-example').datepicker({
       format: 'mm/dd',
@@ -83,139 +107,7 @@ export class HeaderComponent implements OnInit, OnChanges {
   searchedCategory() {
     this.router.navigate(['user/search',this.location,this.selectedCategory]);
   }
-  loadMap(location) {
-    let self = this;
-    var pos = {
-        lat: location.coords.latitude,
-        lng: location.coords.longitude
-    };
-    this.map = new google.maps.Map(this.mapElement.nativeElement, {
-        zoom: 6,
-        center: pos,
-        fullscreenControl: false,
-        streetViewControl: false,
-        mapTypeControl: false,
-        zoomControl: false,
-    });
 
-    // Create the search box and link it to the UI element.
-    const input = document.getElementById('pac-input') as HTMLInputElement;
-    const searchBox = new google.maps.places.SearchBox(input);
-    this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
-    // Bias the SearchBox results towards current map's viewport.
-    this.map.addListener('bounds_changed', () => {
-        searchBox.setBounds(this.map.getBounds());
-    });
-    let markers = [];
-    // Listen for the event fired when the user selects a prediction and retrieve
-    // more details for that place.
-    searchBox.addListener('places_changed', () => {
-      const places = searchBox.getPlaces();
-
-      if (places.length === 0) {
-          return;
-      }
-      // Clear out the old markers.
-      markers.forEach((marker) => {
-          marker.setMap(null);
-      });
-      markers = [];
-      // For each place, get the icon, name and location.
-      const bounds = new google.maps.LatLngBounds();
-      places.forEach((place) => {
-        if (!place.geometry) {
-          console.log('Returned place contains no geometry');
-          return;
-        }
-        const icon = {
-          url: place.icon,
-          size: new google.maps.Size(71, 71),
-          origin: new google.maps.Point(0, 0),
-          anchor: new google.maps.Point(17, 34),
-          scaledSize: new google.maps.Size(25, 25),
-        };
-        // Create a marker for each place.
-        markers.push(
-          new google.maps.Marker({
-              map: this.map,
-              icon,
-              title: place.name,
-              position: place.geometry.location,
-          })
-        );
-        this.lagLatDrpoed = { lat: parseFloat(place.geometry.location.lat()), lng: parseFloat(place.geometry.location.lng()) };
-
-        this.locationDrop = place.formatted_address;
-        if (place.geometry.viewport) {
-            // Only geocodes have viewport.
-          bounds.union(place.geometry.viewport);
-        } else {
-          bounds.extend(place.geometry.location);
-        }
-      });
-      this.map.fitBounds(bounds);
-    });
-
-    var geocoder = new google.maps.Geocoder;
-    let infoWindow = new google.maps.InfoWindow;
-
-    infoWindow.setPosition(pos);
-    // infoWindow.open(this.map);
-    this.map.setCenter(pos);
-
-    let marker = new google.maps.Marker({
-        position: pos,
-        map: this.map,
-        draggable: true
-    });
-
-    //click on current user marker
-    google.maps.event.addListener(marker, 'click', function (event) {
-        console.log('click on marker event', event.latLng.lat(), event.latLng.lng());
-        var latlng = { lat: parseFloat(event.latLng.lat()), lng: parseFloat(event.latLng.lng()) };
-
-        self.showCurrentUserLocation(latlng, geocoder, infoWindow, self.map);
-    });
-
-    //click on all map
-    google.maps.event.addListener(this.map, 'click', function (event) {
-        console.log('click on map event', event.latLng.lat(), event.latLng.lng());
-        var latlng = { lat: parseFloat(event.latLng.lat()), lng: parseFloat(event.latLng.lng()) };
-
-        self.showCurrentUserLocation(latlng, geocoder, infoWindow, self.map);
-    });
-
-    //show current user location using dragend
-    marker.addListener('dragend', function (event) {
-        console.log('dragend on map event', event.latLng.lat(), event.latLng.lng())
-        var latlng = { lat: parseFloat(event.latLng.lat()), lng: parseFloat(event.latLng.lng()) };
-
-        self.showCurrentUserLocation(latlng, geocoder, infoWindow, self.map);
-    })
-  }
-  //show current user address details
-  showCurrentUserLocation(latlng, geocoder, infoWindow, map) {
-    let self = this;
-    this.lagLatDrpoed = latlng
-    geocoder.geocode({ 'location': latlng }, function (results, status) {
-        console.log(results)
-        self.locationDrop = results[0].formatted_address;
-        self.changeDetectorRef.detectChanges();
-        if (status === 'OK') {
-          if (results[0]) {
-              infoWindow.setPosition(latlng);
-              infoWindow.open(map);
-              infoWindow.setContent(results[0].formatted_address);
-              map.setCenter(latlng);
-          } else {
-              console.log('No results found');
-          }
-        } else {
-          console.log('Geocoder failed due to: ' + status);
-        }
-    });
-  }
 
   getUserSavedService() {
     this.router.navigate(['user/saved/service', this.user.id]);
@@ -231,11 +123,67 @@ export class HeaderComponent implements OnInit, OnChanges {
   }
   switchToHost() {
     this.router.navigate(['service-provider/stats']);
-    
   }
 
-  showSearch() {
-    this.isSearch = true;
+  initMap() {
+    const map = new google.maps.Map(document.getElementById("map"), {
+      center: { lat: -33.8688, lng: 151.2195 },
+      zoom: 13,
+    });
+    const card = document.getElementById("location-card");
+    const input = document.getElementById("location-input");
+    if(!!card && !!input) {
+      map.controls[google.maps.ControlPosition.TOP_RIGHT].push(card);
+      const autocomplete = new google.maps.places.Autocomplete(input);
+      autocomplete.bindTo("bounds", map);
+      // Set the data fields to return when the user selects a place.
+      autocomplete.setFields(["address_components", "geometry", "icon", "name"]);
+      const infowindow = new google.maps.InfoWindow();
+      const infowindowContent = document.getElementById("infowindow-content");
+      infowindow.setContent(infowindowContent);
+      const marker = new google.maps.Marker({
+        map,
+        anchorPoint: new google.maps.Point(0, -29),
+      });
+      autocomplete.addListener("place_changed", () => {
+        infowindow.close();
+        marker.setVisible(false);
+        const place = autocomplete.getPlace();
+
+        if (!place.geometry) {
+          // User entered the name of a Place that was not suggested and
+          // pressed the Enter key, or the Place Details request failed.
+          window.alert("No details available for input: '" + place.name + "'");
+          return;
+        }
+
+        // If the place has a geometry, then present it on a map.
+        if (place.geometry.viewport) {
+          map.fitBounds(place.geometry.viewport);
+        } else {
+          map.setCenter(place.geometry.location);
+          map.setZoom(17); // Why 17? Because it looks good.
+        }
+        marker.setPosition(place.geometry.location);
+        marker.setVisible(true);
+        let address = "";
+
+        if (place.address_components) {
+          address = [
+            (place.address_components[0] &&
+              place.address_components[0].short_name) ||
+              "",
+            (place.address_components[1] &&
+              place.address_components[1].short_name) ||
+              "",
+            (place.address_components[2] &&
+              place.address_components[2].short_name) ||
+              "",
+          ].join(" ");
+          this.location = place.address_components[0].short_name;
+        }
+      });
+    }
   }
     
 }
