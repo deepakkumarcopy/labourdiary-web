@@ -37,44 +37,6 @@
 	    	</div>
 	    </form>
   	</div>
-	<!-- <div class="search-container" *ngIf="isScroll || isSearch">
-	    <form action="/action_page.php">
-	    	<div class ="search d-flex">
-<<<<<<< HEAD
-
-	    		<div class="form-group mb-0 dropdown">
-	    			<label for="usr" class="search-label mb-0">Location</label>
-	    			<br>
-
-			      	<input type="text" placeholder="Where are you going" name="search" class ="input-search" data-toggle="dropdown" list="location" [(ngModel)]="location" class ="input-search" [ngModelOptions]="{standalone: true}" id="pac-input"> -->
-			      	<!-- <datalist id="location"  *ngIf="categories && categories.length>0">
-					    <option *ngFor="let item of categories" [value]="item.name">{{item.name}}</option>
-					</datalist> -->
-	    		<!-- </div>
-=======
-	    		<div class="form-group mb-0 dropdown" id="location-card">
-		    			<label for="usr" class="search-label mb-0">Location</label>
-		    			<br>
-				        <input type="text" placeholder="Where are you going" name="search" class ="input-search" data-toggle="dropdown"  [(ngModel)]="location" class ="input-search" [ngModelOptions]="{standalone: true}" id="location-input" />
-		    	</div>
->>>>>>> search
-	    		<div class="form-group mb-0" id="date-picker-example" class="md-form md-outline input-with-post-icon datepicker date-style"  inline="true">
-	    			<label for="usr" class="search-label mb-0">Date</label>
-	    			<br>
-		      		<input type="text" placeholder="Date" [(ngModel)]="selectedDate"  [ngModelOptions]="{standalone: true}" class ="input-search" (click)="datepicker()">
-	    		</div>
-	    		<div class="form-group mb-0 dropdown">
-	    			<label for="usr" class="search-label mb-0 ">Category</label>
-	    			<br>
-			      	<input type="text" placeholder="Category" name="search" [(ngModel)]="selectedCategory" class ="input-search" [ngModelOptions]="{standalone: true}" data-toggle="dropdown" list="category">
-			      	<datalist id="category"  *ngIf="categories && categories.length>0">
-					    <option *ngFor="let category of categories"  [value]="category.name">{{category.name}}</option>
-					</datalist>
-		    	</div>
-		      <button type="submit" class="search-icon" (click)="searchedCategory()"><i class="fa fa-search"></i></button>
-	    	</div>
-	    </form>
-  	</div> -->
 	<div class="dropdown">
   		<button *ngIf="user"  type="button" class="btn btn-light switch-button" (click)="switchToHost()">Switch to host</button>
 		<img class="logo btn-primary dropdown-toggle" data-toggle="dropdown" id="selectedOption"  [src]="userImage ? userImage : 'assets/img/personImg1.jpg'" alt="">

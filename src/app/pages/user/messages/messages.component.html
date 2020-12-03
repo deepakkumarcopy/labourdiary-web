@@ -1,4 +1,43 @@
-<section>
+<app-header></app-header>
+<!-- <nav class="navbar bg-light pt-15"> -->
+    <!-- <img [routerLink]="['/']" class="logo" src="assets/img/icon.png" alt=""> -->
+    <!-- <a class="navbar-brand" href="/"></a> -->
+            
+<div class="container-fluid pt-74">
+    <div class="row">
+        <div class="col-3">
+            <div class="card" style="margin-left: -10px;">
+                <div class="card-body">
+                    <h5 class="font-700">Messaging</h5>
+                </div>
+            </div>
+            <div class="message-scroll">
+                <div *ngFor="let in of [0,1,2,3,4]">
+                    <div class="card-body d-flex on-hover">
+                        <img class="logo btn-primary border-radius-50"  id="selectedOption"  src="assets/img/construction.jpg" alt="" width="40px" height="40px">
+                        <div>
+                            
+                            <h5 class="pl-2">Jean-Lious</h5>
+                            <div class="d-flex">
+                                <p class="pl-2 ">I will be there in 1 hour. Thank you</p>
+                                <p class="float-right pl-4 text-muted">Jan 25</p>
+                            </div>
+                            <p class="pl-2 mt-in-negative text-muted">Completed 18 Jan-25 Jan</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-9">
+            <div class="card" style="margin-left: -32px;">
+                <div class="card-body"><h5 class="font-700">Jean-Louis and Marc</h5></div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+    <!-- </nav> -->
+<!-- <section>
     <div class="row">
         <div class="col-4">
             <div class="p-3">
@@ -18,7 +57,7 @@
                     <label class="allMessage">
                         <div [ngClass]="{'self': sender, 'other': !sender}">
                             <div class="profile-divider"></div>
-                            <div class="body">{{ message.texts }}
+                            <div class="body">{{ message.texts }} -->
                                 <!-- <span class="messageStatus" *ngIf="user.id == message.sender" class="sent">
                                     <i *ngIf="message.deliveryStatus == 'Sending'" class="far fa-clock"></i>
                                     <i *ngIf="message.deliveryStatus == 'Sent'" class="fa fa-check"></i>
@@ -27,11 +66,11 @@
                                         <i *ngIf="message.deliveryStatus == 'Read'" class='fas fa-check-double'></i>
                                     </span>
                                 </span> -->
-                            </div>
+                           <!--  </div>
                         </div>
                     </label>
                 </ion-item>
             </div>
         </div>
     </div>
-</section>
+</section> -->

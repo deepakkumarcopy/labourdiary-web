@@ -316,6 +316,16 @@ color-grey{
 .border-radius-20 {
     border-radius: 20px;
 }
+.border-radius-50 {
+    border-radius: 50%;
+}
+.on-hover:hover {
+    background-color: #f8f9fa;
+}
+.message-scroll {
+    overflow-y: scroll;
+    height: 630px;
+}
 .plr {
     padding: 0px 26px 0px 70px;
 }
@@ -324,6 +334,10 @@ color-grey{
 }
 .color-grey{
     color: grey;
+}
+
+.mt-in-negative {
+    margin-top: -10px;
 }
 .form-border {
     /*border: 1px solid;*/
@@ -710,7 +724,10 @@ jw-modal {
 .dull-text {
     opacity: 0.7;
 }
-
+.border-top {
+    border-top: 1px solid!important;
+    border-bottom: 1px solid!important;
+}
 .cancel {
     background-color: #D3D3D3;
     color: white;
@@ -727,7 +744,9 @@ jw-modal {
 .pt-15 {
     padding-top: 15%;
 }
-
+.pt-74 {
+    padding-top: 74px;
+}
 .bg-unset-img {
     background-image: unset !important;
 }
