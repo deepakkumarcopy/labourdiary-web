@@ -313,6 +313,9 @@ color-grey{
 .f-13{
     font-size: 13px;
 }
+.f-25 {
+    font-size: 25px;
+}
 .border-radius-20 {
     border-radius: 20px;
 }
@@ -324,7 +327,13 @@ color-grey{
 }
 .message-scroll {
     overflow-y: scroll;
-    height: 630px;
+    height: 826px;
+}
+.input-style {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 45px;
 }
 .plr {
     padding: 0px 26px 0px 70px;
@@ -912,6 +921,15 @@ ngb-modal-window {
     input {
         padding-right: 120px;
     }
+}
+.background-border {
+    background: #f8f9fa;
+    border-radius: 45px;
+}
+.div-in-centre {
+    width:165px; 
+    margin-right: auto; 
+    margin-left: auto;
 }
 
 .box-sizing-box {

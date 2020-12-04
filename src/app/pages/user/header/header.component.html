@@ -40,7 +40,7 @@
 	<div class="dropdown">
   		<button *ngIf="user"  type="button" class="btn btn-light switch-button" (click)="switchToHost()">Switch to host</button>
 		<img class="logo btn-primary dropdown-toggle" data-toggle="dropdown" id="selectedOption"  [src]="userImage ? userImage : 'assets/img/personImg1.jpg'" alt="">
-		<div class="dropdown_div dropdown-menu">
+		<div class="dropdown_div dropdown-menu box-shadow-box">
 			<a class="dropdown-item pb-3 " *ngIf="!user" (click)="openModal('login')" href="#">Log In</a>
 			<a class="dropdown-item pb-3" *ngIf="!user" (click)="openModal('sign-up')" href="#">Sign Up</a>
 			<a class="dropdown-item pb-3 font-700" *ngIf="user" (click)="getUserSavedService()" href="javascript:void(0)">Saved</a>

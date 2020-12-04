@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterContentInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router, RouterEvent, NavigationEnd } from '@angular/router';
+import { ApiService } from '../../../services/api.service';
 
 @Component({
 	selector: 'app-messages',
@@ -10,9 +12,12 @@ export class MessagesComponent implements OnInit {
 
 	messages: any = [];
 
-	constructor() { }
+	constructor(private api: ApiService,
+		private route: ActivatedRoute) { }
 
 	ngOnInit(): void {
+
+		this.getMessage()
 		this.messages = [
 			{texts: '1234', sender: true},
 			{texts: '1234', sender: true},
@@ -21,4 +26,18 @@ export class MessagesComponent implements OnInit {
 		]
 	}
 
+	getMessage() {
+		console.log('messageeeeeeeee')
+		let data = {
+			id: 12,
+			page_num: 20,
+			skips: 1 * 20
+		}
+		this.api.getMessage(data).subscribe((res) => {
+			console.log(res, 'responseee')
+			if(res.success){
+				console.log(res, 'responseeeeeeeee')
+			}
+		})
+	}
 }
