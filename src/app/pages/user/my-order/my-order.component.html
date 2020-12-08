@@ -26,7 +26,12 @@
 								{{order.totalAmount}}
 							</div>
 							<div class="col-4">
-								{{order.orderStatus}}
+								<div *ngIf="order.orderStatus!='COMPLETED'; else showMessage">
+									{{order.orderStatus}}
+								</div>
+								<ng-template #showMessage>
+									<button type="button" class="btn btn-primary" (click)="goToChat(order)">Message</button>
+								</ng-template>
 							</div>
 						</div>
 					</div>

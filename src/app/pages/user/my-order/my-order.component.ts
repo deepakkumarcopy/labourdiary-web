@@ -27,6 +27,7 @@ export class MyOrderComponent implements OnInit {
       "skips": this.page_size * this.page_num,
     }
     this.api.getAllOrder(data).subscribe((res) => {
+      console.log(res, 'responseee');
       if (res.success) {
         this.isLoading = false;
         this.orders = this.orders.concat(res.order);
@@ -41,4 +42,9 @@ export class MyOrderComponent implements OnInit {
         console.log('something went wrong')
     });
   }
+
+  goToChat(order) {
+    this.router.navigate(['message', order.serviceCreateUser.id]);
+  }
+  
 }
