@@ -17,6 +17,10 @@ export class MessagesComponent implements OnInit {
 	newMsg:any;
 	selectedUser:any;
 	userMessage:any=[];
+	reciverUser:any;
+	isLoading:boolean = true;
+	page_num: any = 10;
+  	page_size: any = 0;
 	constructor(private api: ApiService,
 		private route: ActivatedRoute,
 		private router: Router,
@@ -44,9 +48,10 @@ export class MessagesComponent implements OnInit {
 	      providerChatId: serviceId
 	    }
 	    this.api.createChannel(data).subscribe((res)=>{
-	      console.log(res)
+	      console.log(res, 'create channelllllllll')
 	      if(res.success) {
 	      	this.getRecentUsers();
+	      	this.getMessage(res.channel.id)
 	      } else {
 	      	this.router.navigate(['order']);
 	      	this.tostr.warning(res.message)
@@ -61,12 +66,18 @@ export class MessagesComponent implements OnInit {
 		let data = {
 			id: channelId,
 			page_num: 10,
-			skips: 0 * 10
+			skips:this.page_size * this.page_num,
 		}
 		this.api.getMessage(data).subscribe((res) => {
 			console.log(res, 'messageeeeeeeee rrrrrrrrrrr')
 			if(res.success){
+				this.isLoading = false;
+				this.userMessage = this.userMessage.concat(res.messages);
+        		this.page_size++;
 				console.log(res, 'responseeeeeeeee')
+			} else {
+				this.isLoading = false
+				this.page_size = 0;
 			}
 		})
 	}
@@ -93,7 +104,7 @@ export class MessagesComponent implements OnInit {
 					})
 					console.log(this.selectedUser, 'msggg')
 				}
-				this.getMessage(res.users.channelId)
+				// this.getMessage(res.users.channelId)
 			} else {
 
 			}
@@ -118,11 +129,17 @@ export class MessagesComponent implements OnInit {
 		console.log(data, 'data', this.selectedUser)
 		this.api.createMessage(data).subscribe((res)=>{
 			if(res.success) {
-				console.log(res, 'responseee of message')
+				console.log(res, 'responseee of send message')
 				this.userMessage.push(res.message)
-				this.getMessage(data.channelId);
+				this.getRecentUsers()
+				this.newMsg = ''
+				// this.getMessage(data.channelId);
 			}
 
 		})
+	}
+
+	userChatWindow(user) {
+		this.reciverUser = user
 	}
 }

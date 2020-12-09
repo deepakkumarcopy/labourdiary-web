@@ -14,7 +14,7 @@
             <div class="message-scroll">
                 <div *ngIf="message">
                     <div *ngFor="let msg of message">
-                        <div class="card-body d-flex on-hover">
+                        <div class="card-body d-flex on-hover" (click)="userChatWindow(msg)">
                             
                             <img class="logo btn-primary border-radius-50"  id="selectedOption"  [src]="msg.imageUrl!= 'null'? msg.imageUrl: 'assets/img/construction.jpg'" alt="" width="40px" height="40px">
                             <div>
@@ -36,36 +36,51 @@
         </div>
         <div class="col-9">
             <div class="card" style="margin-left: -32px;">
-
-                <div class="card-body"><h6 class="font-700">Mohit Gupta</h6></div>
+                <div *ngIf="reciverUser">
+                    <div class="card-body"><h6 class="font-700">{{reciverUser.firstName | titlecase}}</h6></div>
+                </div>
             </div>
             <div class="message-scroll" style="height: 765px;">
-                <div *ngIf="userMessage">
-                    <div *ngFor="let msg of userMessage">
-                        <div class="div-in-centre pt-4">
-                            <p>{{msg.createdAt |date: 'MMM d, yyy'}}</p>
-                        </div>
-                        <div class="div-in-centre " style="width: 590px;">
-                            <div class="background-border"> 
-                                <p class="p-3 f-14 text-muted"><i class="fa fa-star pl-2 pr-2" aria-hidden="true"></i>To protect your payment, always communicate and pay through the Airbnb website or app.•9:13 PM</p>
-                            </div>
-                            <div class="card-body d-flex">
-                                <img class="logo btn-primary border-radius-50"  id="selectedOption"  src="assets/img/construction.jpg" alt="" width="40px" height="40px">
-                                <div>
-                                    <div class="d-flex">
-                                        <h5 class="pl-2 font-700">Jean-Lious</h5>
-                                        <p class="pt-1 pl-1 f-14 text-muted">{{ msg.createdAt | date:'hh:mm a'}}</p>
+                <div *ngIf="isLoading; else showData">Loading..</div>
+                <ng-template #showData>
+                    <div  infiniteScroll
+                        [infiniteScrollDistance]="0"
+                        [infiniteScrollThrottle]="50"
+                        (scrolled)="getMessage(reciverUser.channelId)"
+                        [scrollWindow]="true"
+                     >
+                        <div *ngIf="userMessage">
+                            <div *ngFor="let msg of userMessage">
+                                <div class="div-in-centre pt-4">
+                                    <p>{{msg.createdAt |date: 'MMM d, yyy'}}</p>
+                                </div>
+                                <div class="div-in-centre " style="width: 590px;">
+                                    <div class="background-border"> 
+                                        <p class="p-3 f-14 text-muted"><i class="fa fa-star pl-2 pr-2" aria-hidden="true"></i>To protect your payment, always communicate and pay through the Labourdiary website or app.•9:13 PM</p>
                                     </div>
-                                    <div class="d-flex">
-                                        <p class="pl-2 ">{{msg.texts}}</p>
-                                        <!-- <p class="float-right pl-4 text-muted">Jan 25</p> -->
+                                    
+                                    <div class="card-body d-flex">
+                                        <img class="logo btn-primary border-radius-50"  id="selectedOption"  [src]="msg.sender == user.id ? user.imageUrl : 'assets/img/construction.jpg'"  width="40px" height="40px">
+                                        <!-- <img class="logo btn-primary border-radius-50"  id="selectedOption"  [src]="msg.sender != user.id && reciverUser &&  reciverUser.imgageUrl!='null' ? reciverUser.imgageUrl: 'assets/img/construction.jpg'"  width="40px" height="40px"> -->
+                                        <div>
+                                            <div class="d-flex">
+                                                <h5 class="pl-2 font-700" *ngIf="msg.sender == user.id">{{(user.firstName)}}</h5>
+                                                    <h5 class="pl-2 font-700" *ngIf="reciverUser && msg.sender != user.id">{{(reciverUser.firstName)}}</h5>
+
+                                                <p class="pt-1 pl-1 f-14 text-muted">{{ msg.createdAt | date:'hh:mm a'}}</p>
+                                            </div>
+                                            <div class="d-flex">
+                                                <p class="pl-2 ">{{msg.texts}}</p>
+                                                <!-- <p class="float-right pl-4 text-muted">Jan 25</p> -->
+                                            </div>
+                                            <!-- <p class="pl-2 mt-in-negative text-muted">Completed 18 Jan-25 Jan</p> -->
+                                        </div>
                                     </div>
-                                    <!-- <p class="pl-2 mt-in-negative text-muted">Completed 18 Jan-25 Jan</p> -->
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </ng-template>
             </div>
             <div class="div-in-centre " style="width: 590px;">
                 <div class="d-flex">
