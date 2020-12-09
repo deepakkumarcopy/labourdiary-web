@@ -60,8 +60,8 @@ export class MessagesComponent implements OnInit {
 		console.log('messageeeeeeeee')
 		let data = {
 			id: channelId,
-			page_num: 20,
-			skips: 0 * 20
+			page_num: 10,
+			skips: 0 * 10
 		}
 		this.api.getMessage(data).subscribe((res) => {
 			console.log(res, 'messageeeeeeeee rrrrrrrrrrr')
@@ -117,8 +117,12 @@ export class MessagesComponent implements OnInit {
 		}
 		console.log(data, 'data', this.selectedUser)
 		this.api.createMessage(data).subscribe((res)=>{
-			console.log(res, 'responseee of message')
-			this.userMessage.push(res.message)
+			if(res.success) {
+				console.log(res, 'responseee of message')
+				this.userMessage.push(res.message)
+				this.getMessage(data.channelId);
+			}
+
 		})
 	}
 }
