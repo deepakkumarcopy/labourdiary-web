@@ -37,13 +37,13 @@ export class MessagesComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.getRecentUsers()
 		this.route.params.subscribe((params) => {
 			if (!!params && params.id) {
 				this.createChannel(params.id)
 			}
 		})
 		// this.getMessage()
+		this.getRecentUsers()
 		this.messages = [
 			{ texts: '1234', sender: true },
 			{ texts: '1234', sender: true },
@@ -96,6 +96,7 @@ export class MessagesComponent implements OnInit {
 	}
 
 	getRecentUsers() {
+		console.log('getRecentUsers')
 		let data = {
 			userId: this.user.id,
 			providerChatId: this.user.id,
@@ -103,9 +104,10 @@ export class MessagesComponent implements OnInit {
 			skips: 0
 		}
 		this.api.getRecentUsers(data).subscribe((res) => {
+			console.log(res, 'responsee og getRecentUsers')
 			if (res.success) {
 				this.message = res.users;
-				console.log(this.message, 'responseee')
+				console.log(this.message, 'get recent usersssssssssssssssss')
 
 				if (this.message) {
 					this.message.forEach((msg) => {
@@ -134,10 +136,10 @@ export class MessagesComponent implements OnInit {
 
 		let data: any = {
 			sender: this.user.id,
-			receiver: this.selectedUser.receiver,
+			receiver: this.reciverUser.id,
 			texts: this.newMsg,
-			channelId: this.selectedUser.channelId,
-			senderType: this.selectedUser.senderType
+			channelId: this.reciverUser.channelId,
+			senderType: "User"
 		}
 		console.log(data, 'data', this.selectedUser)
 		this.api.createMessage(data).subscribe((res) => {
@@ -154,6 +156,7 @@ export class MessagesComponent implements OnInit {
 
 	userChatWindow(user) {
 		this.reciverUser = user;
+		console.log(this.reciverUser, 'userrr')
 		this.getMessage(user.channelId);
 	}
 }
