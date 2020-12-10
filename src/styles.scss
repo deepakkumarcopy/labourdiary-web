@@ -221,7 +221,7 @@ color-grey{
     border-radius: 45px !important;
     padding-top: 4px !important;
     padding-bottom: 32px !important;
-    box-shadow: 1px 4px 2px 0px #c1cbea!important;
+    // box-shadow: 1px 4px 2px 0px #c1cbea!important;
     
 }
 .select2-selection__arrow{
@@ -328,7 +328,6 @@ color-grey{
 .form-border {
     /*border: 1px solid;*/
     padding: 48px;
-    background-color: #f3f6ff;
     /*box-shadow: */
 }
 .pt-48{
@@ -1420,12 +1419,30 @@ a:hover {
     font-size: 14px;
     border-radius: 22px;
     height: 40px;
-    box-shadow: 1px 4px 2px 0px #c1cbea!important;
+    // box-shadow: 1px 4px 2px 0px #c1cbea!important;
     border: 1px solid #fff !important;
     &:focus {
         box-shadow: unset;
         border-color: #811E97;
     }
+}
+.input-border {
+    border: 1px solid rgba(159,157,163,0.28);
+    border-radius: 16px;
+    padding: 10px;
+    padding-bottom: 0px;
+    label {
+        padding-left: 14px;
+        font-size: 14px;
+    }
+    input {
+        font-size: 20px;
+        font-weight: bold;
+    }
+}
+
+.background-white {
+    background: #fff !important;
 }
 
 .ng-select.disable-arrow .ng-arrow-wrapper .ng-arrow {

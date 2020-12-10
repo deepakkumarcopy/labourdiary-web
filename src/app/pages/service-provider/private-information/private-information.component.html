@@ -2,119 +2,144 @@
 	<form class="mb-5" [formGroup]="privateInformationForm">
 		<h3 class="pt-5 pb-3 font-700">Private Information</h3>
 		<div class="form-border">
-			<div class="form-group">
+			<div class="form-group row">
 				<label class="mb-0 font-14" for="work-file" style="display: block">
-					<div>
-						<img for="work-file" class="center" [src]="user.imageUrl ? user.imageUrl: 'assets/img/personImg.jpg'" height="100px">
+					<div class="d-flex col-md-12">
+						<img for="work-file" class="user_image" [src]="((user.imageUrl == '') || (user.imageUrl == 'null')) ? 'assets/img/personImg.jpg' : user.imageUrl" height="150px">
+						<div>
+							<div class="font-30 ml-5">Hi, {{ user.firstName }} {{ user.lastName }}</div>
+							<div class="input-border ml-5">
+								<label class="mb-0 font-14 font-700 text-muted" for="inputEmail4">Gander</label><br>
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="gender" formControlName="gender"  id="inlineRadio1" value="male">
+									<label class="form-check-label p-0" for="inlineRadio1">Male</label>
+								</div>
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="gender" formControlName="gender"  id="inlineRadio2" value="female">
+									<label class="form-check-label p-0" for="inlineRadio2">Female</label>
+								</div>
+								<div class="form-check form-check-inline mb-3">
+									<input class="form-check-input" type="radio" name="gender" formControlName="gender" id="inlineRadio3" value="other" >
+									<label class="form-check-label p-0" for="inlineRadio3">Other</label>
+								</div>
+							</div>
+						</div>
 					</div>
 				</label>
 				<input class="inputField" type="file" (click)="myInputFile.value=null" id="work-file" accept="image/*" (change)="fileChangeEvent($event)" #myInputFile>
 			</div>
-			<!-- <div class="form-check form-check-inline">
-				<input class="form-check-input" type="radio" name="gender" formControlName="gender"  id="inlineRadio1" value="male">
-				<label class="form-check-label" for="inlineRadio1">Male</label>
-			</div>
-			<div class="form-check form-check-inline">
-				<input class="form-check-input" type="radio" name="gender" formControlName="gender"  id="inlineRadio2" value="female">
-				<label class="form-check-label" for="inlineRadio2">Female</label>
-			</div>
-			<div class="form-check form-check-inline mb-3">
-				<input class="form-check-input" type="radio" name="gender" formControlName="gender" id="inlineRadio3" value="other" >
-				<label class="form-check-label" for="inlineRadio3">Other</label>
-			</div> -->
 			<div class="form-group row">
-				<div class="form-group col-md-6">
-					<label class="mb-0 font-14 font-700 text-muted" for="inputEmail4">Date of birth</label>
-					<input type="date" class =" form-control" 
-					id="inputEmail4" placeholder= "Enter DOB" formControlName="dob">
+				<div class="col-md-6">
+					<div class="input-border">
+						<label class="mb-0 font-14 font-700 text-muted" for="inputEmail4">Date of birth</label>
+						<input type="date" class =" form-control" id="inputEmail4" placeholder= "Enter DOB" formControlName="dob">
+					</div>
 				</div>
 
-				<div class="form-group col-md-6">
-					<label class="mb-0 font-14 font-700 text-muted" for="inputPassword4">Email</label>
-					<input type="text" class="form-control" 
-					id="inputPassword4" placeholder="Email" formControlName="email" readonly="true">
+				<div class="col-md-6">
+					<div class="input-border">
+						<label class="mb-0 font-14 font-700 text-muted" for="inputPassword4">Email</label>
+						<input type="text" class="form-control background-white" id="inputPassword4" placeholder="Email" formControlName="email" readonly="true">
+					</div>
 				</div>
 			</div>
 			<div class="form-group row">
 				<div class="col-md-6">
+					<div class="input-border">
 						<label class="mb-0 font-14 font-700 text-muted" for="inputAddress">Country</label>
-                        <app-country-input [countryCode]="countryDialCode" (onCountryChange)="resetPhoneNumber($event)"> </app-country-input>
+						<app-country-input [countryCode]="countryDialCode" (onCountryChange)="resetPhoneNumber($event)"></app-country-input>
 					</div>
-					<div class="col-md-6">
+				</div>
+				<div class="col-md-6">
+					<div class="input-border">
 						<label class="mb-0 font-14 font-700 text-muted" for="inputAddress">Phone Number</label>
 						<input type="tel"   pattern="^[0-9]{10}$" class="form-control" id="inputAddress" placeholder="Phone Number" formControlName="phone" (keydown)="numberOnly($event)" maxLength="14">
 					</div>
-			</div>
-			<div class="row">
-				<div class="form-group col-md-6">
-					<label class="mb-0 font-14 font-700 text-muted" for="inputState">Gender</label>
-					<select id="inputState" class="form-control" formControlName="gender">
-						<option selected disabled value="">Select gender</option>
-						<option>Male</option>
-						<option>Female</option>
-						<option>Other</option>
-					</select>
-				</div>
-				<div class="form-group col-md-6">
-					<label class="mb-0 font-14 font-700 text-muted" for="inputState">Spoken Languages</label>
-					<select id="inputState" class="form-control" formControlName="language">
-						<option selected disabled value="">Select Languages</option>
-						<option>English (EN)</option>
-						<option>French (FR)</option>
-						<option>Deutsch (DE)</option>
-						<option>Dutch (NL)</option>
-					</select>
 				</div>
 			</div>
 			<div class="row">
 				<div class="form-group col-md-6">
-					<label class="mb-0 font-14 font-700 text-muted" for="inputAddress">Address</label>
-					<input type="text" class="form-control" id="inputAddress" 
-					placeholder="Enter address" formControlName="address" (click)="openModal('add-new-address')"  autocomplete="off">
+					<div class="input-border">
+						<label class="mb-0 font-14 font-700 text-muted" for="inputState">Gender</label>
+						<select id="inputState" class="form-control" formControlName="gender">
+							<option selected disabled value="">Select gender</option>
+							<option>Male</option>
+							<option>Female</option>
+							<option>Other</option>
+						</select>
+					</div>
 				</div>
 				<div class="form-group col-md-6">
-					<label class="mb-0 font-14 font-700 text-muted" for="inputState">Higher Education</label>
-					<select id="inputState" class="form-control" formControlName="education">
-						<option selected disabled value="">Select Education</option>
-						<option>High School</option>
-						<option>Intermediate</option>
-						<option>Graduation</option>
-						<option>Post Graduation</option>
-					</select>
-				</div>
-			</div>
-			<div class="row">
-				<div class="form-group col-md-6">
-					<label class="mb-0 font-14 font-700 text-muted" for="inputAddress">Linkedin</label>
-					<span class="social-icon">
-						<img class="social-img" data-toggle="dropdown" id="selectedOption"src="assets/img/linkedInIcon.svg" alt="">
-					</span>
-					<input type="text" class= "social-input form-control" formControlName="linkedIn" id="inputAddress" 
-					placeholder="Enter Linkedin">
-				</div>
-				<div class="form-group col-md-6">
-					<label class="mb-0 font-14 font-700 text-muted" for="inputAddress">Facebook</label>
-					<span class="social-icon">
-						<img class="social-img" data-toggle="dropdown" id="selectedOption"src="assets/img/facebookIcon.svg" alt="">
-					</span>
-					<input type="text" class="social-input form-control" id="inputAddress" 
-					placeholder="Enter FaceBook" formControlName="facebook">
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="mb-0 font-14 font-700 text-muted" for="inputAddress">ID proof</label>
-				<input type="file" class="form-control" id="inputAddress" placeholder="ID proof" formControlName="idProof" (change)="onSelectFile($event)">
-				<div *ngIf="imagePreview">
-					<img [src]="imagePreview" class="mt-1" height="50" width="80px"> <br/>
-				</div>
-				<div class="p-2" *ngIf="!!user.profile && !!user.profile.documentUrl && !UploadDocuments">
-					<div class="attachment-doc">
-						<img class="viewDocument"
-							[src]="user.profile.documentUrl"  height="50" width="80px">
+					<div class="input-border">
+						<label class="mb-0 font-14 font-700 text-muted" for="inputState">Spoken Languages</label>
+						<select id="inputState" class="form-control" formControlName="language">
+							<option selected disabled value="">Select Languages</option>
+							<option>English (EN)</option>
+							<option>French (FR)</option>
+							<option>Deutsch (DE)</option>
+							<option>Dutch (NL)</option>
+						</select>
 					</div>
 				</div>
 			</div>
-			<button type="submit" class="btn btn-primary btn-theme-labour float-right" [disabled]="privateInformationForm.status=='INVALID'" (click)="savePrivateInformation()">{{ isEdit ? 'Update' : 'Submit' }}</button>
+			<div class="row">
+				<div class="form-group col-md-6">
+					<div class="input-border">
+						<label class="mb-0 font-14 font-700 text-muted" for="inputAddress">Address</label>
+						<input type="text" class="form-control" id="inputAddress" placeholder="Enter address" formControlName="address" (click)="openModal('add-new-address')"  autocomplete="off">
+					</div>
+				</div>
+				<div class="form-group col-md-6">
+					<div class="input-border">
+						<label class="mb-0 font-14 font-700 text-muted" for="inputState">Higher Education</label>
+						<select id="inputState" class="form-control" formControlName="education">
+							<option selected disabled value="">Select Education</option>
+							<option>High School</option>
+							<option>Intermediate</option>
+							<option>Graduation</option>
+							<option>Post Graduation</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-6">
+					<div class="input-border">
+						<label class="mb-0 font-14 font-700 text-muted" for="inputAddress">Linkedin</label>
+						<span class="social-icon">
+							<img class="social-img" data-toggle="dropdown" id="selectedOption"src="assets/img/linkedInIcon.svg" alt="">
+						</span>
+						<input type="text" class="form-control" formControlName="linkedIn" id="inputAddress" placeholder="Enter Linkedin">
+					</div>
+				</div>
+				<div class="form-group col-md-6">
+					<div class="input-border">
+						<label class="mb-0 font-14 font-700 text-muted" for="inputAddress">Facebook</label>
+						<span class="social-icon">
+							<img class="social-img" data-toggle="dropdown" id="selectedOption"src="assets/img/facebookIcon.svg" alt="">
+						</span>
+						<input type="text" class="form-control" id="inputAddress" placeholder="Enter FaceBook" formControlName="facebook">
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="input-border">
+					<label class="mb-0 font-14 font-700 text-muted" for="inputAddress">ID proof</label>
+					<input type="file" class="form-control" id="inputAddress" placeholder="ID proof" formControlName="idProof" (change)="onSelectFile($event)">
+					<div *ngIf="imagePreview">
+						<img [src]="imagePreview" class="mt-1" height="50" width="80px"> <br/>
+					</div>
+					<div class="p-2" *ngIf="!!user.profile && !!user.profile.documentUrl && !UploadDocuments">
+						<div class="attachment-doc">
+							<img class="viewDocument"
+								[src]="user.profile.documentUrl"  height="50" width="80px">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<button type="submit" class="w-100 p-4 input-border font-24 btn btn-primary btn-theme-labour float-right" [disabled]="privateInformationForm.status=='INVALID'" (click)="savePrivateInformation()">{{ isEdit ? 'Update' : 'Submit' }}</button>
+			</div>
 		</div>
 	</form>
 </div>

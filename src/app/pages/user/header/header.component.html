@@ -13,20 +13,20 @@
   	</div>
   	<div class="search-container" *ngIf="isScroll || isSearch">
 	    <form action="/action_page.php">
-	    	<div class ="search d-flex border mt-5">
+	    	<div class ="search d-flex border">
 
     			<div class="form-group mb-0  pl-2 pt-1 dropdown" id="location-card">
-	    			<label for="usr" class="search-label mb-0">Location</label>
+	    			<label for="usr" class="search-label mb-0 font-12">Location</label>
 	    			<br>
 			        <input type="text" placeholder="Where are you going" name="search" class ="input-search" data-toggle="dropdown"  [(ngModel)]="location" class ="input-search" [ngModelOptions]="{standalone: true}" id="location-input" />
 	    		</div>
 	    		<div class="form-group mb-0" id="date-picker-example" class="md-form md-outline input-with-post-icon datepicker date-style"  inline="true">
-	    			<label for="usr" class="search-label mb-0">Date</label>
+	    			<label for="usr" class="search-label mb-0 font-12">Date</label>
 	    			<br>
 		      		<input type="date" placeholder="Date" [(ngModel)]="selectedDate"  [ngModelOptions]="{standalone: true}" class ="input-search" (input)="parseDate($event.target.value)">
 	    		</div>
 	    		<div class="form-group mb-0 dropdown">
-	    			<label for="usr" class="search-label mb-0 ">Category</label>
+	    			<label for="usr" class="search-label mb-0 font-12">Category</label>
 	    			<br>
 			      	<input type="text" placeholder="Category" name="search" [(ngModel)]="selectedCategory" class ="input-search" [ngModelOptions]="{standalone: true}" data-toggle="dropdown" list="category">
 			      	<datalist id="category"  *ngIf="categories && categories.length>0">
@@ -40,24 +40,6 @@
 	<!-- <div class="search-container" *ngIf="isScroll || isSearch">
 	    <form action="/action_page.php">
 	    	<div class ="search d-flex">
-<<<<<<< HEAD
-
-	    		<div class="form-group mb-0 dropdown">
-	    			<label for="usr" class="search-label mb-0">Location</label>
-	    			<br>
-
-			      	<input type="text" placeholder="Where are you going" name="search" class ="input-search" data-toggle="dropdown" list="location" [(ngModel)]="location" class ="input-search" [ngModelOptions]="{standalone: true}" id="pac-input"> -->
-			      	<!-- <datalist id="location"  *ngIf="categories && categories.length>0">
-					    <option *ngFor="let item of categories" [value]="item.name">{{item.name}}</option>
-					</datalist> -->
-	    		<!-- </div>
-=======
-	    		<div class="form-group mb-0 dropdown" id="location-card">
-		    			<label for="usr" class="search-label mb-0">Location</label>
-		    			<br>
-				        <input type="text" placeholder="Where are you going" name="search" class ="input-search" data-toggle="dropdown"  [(ngModel)]="location" class ="input-search" [ngModelOptions]="{standalone: true}" id="location-input" />
-		    	</div>
->>>>>>> search
 	    		<div class="form-group mb-0" id="date-picker-example" class="md-form md-outline input-with-post-icon datepicker date-style"  inline="true">
 	    			<label for="usr" class="search-label mb-0">Date</label>
 	    			<br>

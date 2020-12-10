@@ -35,6 +35,7 @@ export class PrivateInformationComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log(this.user)
     this.route.params.subscribe((params) => {
       if(!!params.source && params.source == 'edit-profile') {
         this.isEdit = params.source;
