@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterContentInit, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterContentInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router, RouterEvent, NavigationEnd } from '@angular/router';
 import { ApiService } from '../../../services/api.service';
 import { ToastrService } from 'ngx-toastr';
@@ -10,6 +10,7 @@ import { NotificationService } from '../../../services/notification.service';
 })
 
 export class MessagesComponent implements OnInit {
+	@ViewChild('scrollBottom') private scrollBottom: ElementRef;
 	user: any = JSON.parse(localStorage.getItem('user'));
 	messages: any = [];
 	message: any;
@@ -22,7 +23,8 @@ export class MessagesComponent implements OnInit {
 	page_num: any = 10;
 	page_size: any = 0;
 	w3channel: any;
-
+	isUserOrProvider:any;
+	userChat: any = JSON.parse(localStorage.getItem('user-chat'));
 	constructor(
 		private api: ApiService,
 		private route: ActivatedRoute,
@@ -35,14 +37,19 @@ export class MessagesComponent implements OnInit {
 			console.log(msg)
 		})
 	}
+	ngAfterViewChecked() {        
+     this.scrollToBottom();        
+    } 
 
 	ngOnInit(): void {
+		this.isUserOrProvider = this.router.url.split('/')[1]
 		this.route.params.subscribe((params) => {
 			if (!!params && params.id) {
 				this.createChannel(params.id)
 			}
 		})
 		// this.getMessage()
+		this.scrollToBottom();
 		this.getRecentUsers()
 		this.messages = [
 			{ texts: '1234', sender: true },
@@ -51,7 +58,11 @@ export class MessagesComponent implements OnInit {
 			{ texts: '1234', sender: true },
 		]
 	}
-
+	scrollToBottom(): void {
+        try {
+            this.scrollBottom.nativeElement.scrollTop = this.scrollBottom.nativeElement.scrollHeight;
+        } catch(err) { }
+    }
 	createChannel(serviceId) {
 		let data = {
 			sender: this.user.id,
@@ -97,11 +108,21 @@ export class MessagesComponent implements OnInit {
 
 	getRecentUsers() {
 		console.log('getRecentUsers')
-		let data = {
-			userId: this.user.id,
-			providerChatId: this.user.id,
-			page_num: 10,
-			skips: 0
+		let data 
+		if (this.isUserOrProvider == 'message') {
+			data = {
+				userId: this.user.id,
+				userChatId: this.user.id,
+				page_num: 10,
+				skips: 0
+			}
+		} else {
+			data = {
+				userId: this.user.id,
+				providerChatId: this.user.id,
+				page_num: 10,
+				skips: 0
+			}
 		}
 		this.api.getRecentUsers(data).subscribe((res) => {
 			console.log(res, 'responsee og getRecentUsers')
@@ -157,6 +178,12 @@ export class MessagesComponent implements OnInit {
 	userChatWindow(user) {
 		this.reciverUser = user;
 		console.log(this.reciverUser, 'userrr')
+		this.message.forEach((msg)=>{
+			msg.selected = (msg.id == user.id ? true : false);
+		});
+		const selectedUser = this.message.find((msg)=>msg.selected == true)
+		localStorage.setItem('user-chat', JSON.stringify(selectedUser));
 		this.getMessage(user.channelId);
+
 	}
 }

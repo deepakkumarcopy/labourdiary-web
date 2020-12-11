@@ -1,9 +1,11 @@
-<app-header></app-header>
+<div *ngIf="isUserOrProvider == 'message'">
+    <app-header></app-header>
+</div>
 <!-- <nav class="navbar bg-light pt-15"> -->
     <!-- <img [routerLink]="['/']" class="logo" src="assets/img/icon.png" alt=""> -->
     <!-- <a class="navbar-brand" href="/"></a> -->
             
-<div class="container-fluid pt-74">
+<div class="container-fluid" [ngClass]="{'pt-74': isUserOrProvider == 'message'}">
     <div class="row">
         <div class="col-3">
             <div class="card" style="margin-left: -10px;">
@@ -14,7 +16,7 @@
             <div class="message-scroll">
                 <div *ngIf="message">
                     <div *ngFor="let msg of message">
-                        <div class="card-body d-flex on-hover" (click)="userChatWindow(msg)">
+                        <div class="card-body d-flex" [ngClass]="{'selected-chat': msg.selected == true}" (click)="userChatWindow(msg)">
                             
                             <img class="logo btn-primary border-radius-50"  id="selectedOption"  [src]="msg.imageUrl!= 'null'? msg.imageUrl: 'assets/img/construction.jpg'" alt="" width="40px" height="40px">
                             <div>
@@ -40,7 +42,7 @@
                     <div class="card-body"><h6 class="font-700">{{reciverUser.firstName | titlecase}}</h6></div>
                 </div>
             </div>
-            <div class="message-scroll" style="height: 765px;">
+            <div class="message-scroll" style="height: 765px;" #scrollBottom>
                 <div *ngIf="isLoading; else showData">Loading..</div>
                 <ng-template #showData>
                     <div  infiniteScroll
