@@ -1,92 +1,89 @@
-<div class = "container">
-	<img class="mt-5"  [routerLink]="['/emergency-contact']" src="assets/img/back-icon.jpg" alt="" height="20px" width="20px">
-	<form class="form-in-centre mb-5" [formGroup]="workInformationForm">
+<div class="container">
+	<img class="mt-5" [routerLink]="['/emergency-contact']" src="assets/img/back-icon.jpg" alt="" height="20px" width="20px">
+	<form class="mb-5" [formGroup]="workInformationForm">
 		<h4 class="pt-5 pb-3 font-700">Work Information</h4>
 		<div class="form-border">
-			<div class = "form-row">
-				<div class = "form-group col-md-12">
-					<input type = "text" class= "form-control" 
-					id = "inputPassword4" placeholder = "Please select service location" formControlName="location" (click)="openModal('google-map')" autocomplete="off">
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					<div class="input-border">
+						<label class="font-700 text-muted">Work Category</label>
+						<div class="form-group">
+							<ng-select2 *ngIf="categories" [data]="formattedCategoriesList" [options]="options" [width]="500" (valueChanged)="selectedCategory($event)" formControlName="category" placeholder="Search Category.."></ng-select2>
+							<!-- <span *ngIf="isCategoryThree" class="color-red">Can't select more than three category*</span> -->
+						</div>
+						<!-- <input type = "text" class= "form-control" id = "inputPassword4" placeholder = "Search Category.." formControlName="category"> -->
+					</div>
+				</div>
+				<div class="form-group col-md-6">
+					<div class="input-border">
+						<label class="font-700 text-muted">Experienced in</label>
+						<div class="form-group">
+							<ng-select2 *ngIf="subCategories" [data]="formattedSubCategoriesList" [options]="options" [width]="500" (valueChanged)="selectedSubCategory($event)" formControlName="subCategory" placeholder="Search Sub Category.."></ng-select2>
+						</div>
+					</div>
 				</div>
 			</div>
-			<div class = "form-row">
-				<div class = "form-group col-md-12">
-					<label class="font-700 text-muted">Work Category</label>
-				 	<div class="form-group">
-					 	<ng-select2 *ngIf="categories" [data]="formattedCategoriesList"
-					            [options]="options"
-					            [width]="500"
-					            (valueChanged)="selectedCategory($event)"
-					            formControlName="category"
-					            placeholder = "Search Category.." 
-					            >
-						</ng-select2>
-						<!-- <span *ngIf="isCategoryThree" class="color-red">Can't select more than three category*</span> -->
-	            	</div>
-					<!-- <input type = "text" class= "form-control" id = "inputPassword4" placeholder = "Search Category.." formControlName="category"> -->
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					<div class="input-border">
+						<label class="font-700 text-muted">Consultation Fee</label>
+						<input type="text" class="form-control" id="inputPassword4" placeholder="Enter consultation fee" formControlName="fee">
+					</div>
+				</div>
+				<div class="form-group col-md-6">
+					<div class="input-border">
+						<label class="font-700 text-muted">Location</label>
+						<input type="text" class="form-control" id="inputPassword4" placeholder="Please select service location" formControlName="location" (click)="openModal('google-map')" autocomplete="off">
+					</div>
 				</div>
 			</div>
-			<div class = "form-row">
-				<div class = "form-group col-md-12">
-					<label class="font-700 text-muted">Experienced in</label>
-					<div class="form-group">
-					 	<ng-select2 *ngIf="subCategories" [data]="formattedSubCategoriesList"
-					            [options]="options"
-					            [width]="500"
-					            (valueChanged)="selectedSubCategory($event)"
-					            formControlName="subCategory"
-					            placeholder = "Search Sub Category.." 
-					            >
-						</ng-select2>
-	            	</div>
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					<div class="input-border">
+						<label class="font-700 text-muted">English Level</label>
+						<select id="inputState" class="form-control" formControlName="englishLevel">
+							<option selected disabled value="">English Level</option>
+							<option>Native</option>
+							<option>Basic</option>
+							<option>Advance</option>
+							<option>Fluent</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group col-md-6">
+					<div class="input-border">
+						<label class="font-700 text-muted">Employee Type</label>
+						<select id="inputState" class="form-control" formControlName="employeType">
+							<option selected disabled value="">Employee Type</option>
+							<option>Free Lancer</option>
+							<option>Agencies</option>
+						</select>
+					</div>
 				</div>
 			</div>
-			<div class = "form-row">
-				<div class = "form-group col-md-12">
-					<label class="font-700 text-muted">Consultation Fee</label>
-					<input type = "text" class= "form-control" 
-					id = "inputPassword4" placeholder = "Enter consultation fee" formControlName="fee">
+			<div class="form-row">
+				<div class="form-group col-md-12">
+					<div class="input-border">
+						<label>About you</label>
+						<textarea class="w-100 textarea pt-0" row="5" maxlength="1000" name="text" placeholder="Enter more about you..." formControlName="about"></textarea>
+					</div>
 				</div>
 			</div>
-			<div class = "form-group">
-				<label class="font-700 text-muted">English Level</label>
-				<select id = "inputState" class = "form-control" formControlName="englishLevel">
-					<option selected disabled value="">English Level</option>
-					<option>Native</option>
-					<option>Basic</option>
-					<option>Advance</option>
-					<option>Fluent</option>
-				</select>
-			</div>
-			<div class = "form-group">
-				<label class="font-700 text-muted">Employee Type</label>
-				<select id = "inputState" class = "form-control" formControlName="employeType">
-					<option selected disabled value="">Employee Type</option>
-					<option>Free Lancer</option>
-					<option>Agencies</option>
-				</select>
-			</div>
-			<div class = "form-row">
-				<div class = "form-group col-md-12">
-					<label>About you</label>
-					<br>
-					<textarea   class="w-100 textarea" row= "5" name="text" placeholder = "Enter more about you..." formControlName="about">
-					</textarea>
-				</div>
-			</div>
-			<div class = "form-group">
-				<label for = "inputAddress" class="font-700 text-muted">Work Photos</label>
+			<div class="form-group">
+				<label for="inputAddress" class="font-700 text-muted">Work Photos</label>
 				<label for="work-file" class="inputLabelLarge">
-					<img for="work-file" src="assets/img/construction.jpg" [ngClass]="{'inputBoxError': isWorkImages}">
+					<img for="work-file" class="mx-auto d-block" height="150px" src="assets/img/construction.jpg" [ngClass]="{'inputBoxError': isWorkImages}">
 					<div class="btn">
 						<span><i class="fa fa-upload"></i></span>
 						<div>Image Uplaod Here</div>
 					</div>
 				</label>
-				<input class="inputField" type="file" id="work-file" formControlName="photo" multiple accept="image/*" (change)="onSelect($event)">
+				<input class="inputField" type="file" id="work-file" formControlName="photo" multiple accept="image/*"
+					(change)="onSelect($event)">
 				<div class="imageGrid">
 					<div class="row" *ngIf="workImages && workImages.length>0">
-						<div class="col-3" size="4" *ngFor="let image of workImages; index as i;" (click)="removeImage(i)">
+						<div class="col-3" size="4" *ngFor="let image of workImages; index as i;"
+							(click)="removeImage(i)">
 							<div class="selectedImage">
 								<i class="fa fa-times-circle float-right"></i>
 								<img [src]="image" alt="">
@@ -97,10 +94,14 @@
 				<!-- <input type = "file" class = "form-control" id = "inputAddress" 
 				placeholder = "ID proof" formControlName="photo"> -->
 			</div>
-			<div class="float-right">
-				
-				<button  *ngIf="!isWorkInfo" type = "submit" class = "btn btn-primary pr-4 pl-4 btn-theme-labour" [disabled]="workInformationForm.status=='INVALID' || !workImages" (click)="savedWorkInformation()">Submit</button>
-				<button *ngIf="isWorkInfo" type = "submit" class = "btn btn-primary pr-4 pl-4 btn-theme-labour" [disabled]="workInformationForm.status=='INVALID' || !workImages" (click)="savedWorkInformation()">Update</button>
+			<div class="w-100">
+
+				<button *ngIf="!isWorkInfo" type="submit" class="btn btn-primary p-3 input-border btn-theme-labour w-100"
+					[disabled]="workInformationForm.status=='INVALID' || !workImages"
+					(click)="savedWorkInformation()">Submit</button>
+				<button *ngIf="isWorkInfo" type="submit" class="btn btn-primary p-3 input-border btn-theme-labour w-100"
+					[disabled]="workInformationForm.status=='INVALID' || !workImages"
+					(click)="savedWorkInformation()">Update</button>
 			</div>
 		</div>
 	</form>
@@ -109,7 +110,7 @@
 <jw-modal id="google-map">
 	<!-- <div #mapElement class="map" (click)="serviceInfo($event)"></div> -->
 
-    <div class="modal-dialog modal-dialog-centered" role="document">
+	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content" style="height: 500px;">
 			<div class="modal-header">
 				<button type="button" class="close" (click)="closeModal('google-map')" aria-label="Close">
