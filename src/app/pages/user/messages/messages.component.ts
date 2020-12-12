@@ -1,8 +1,10 @@
-import { Component, OnInit, AfterContentInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, AfterContentInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterEvent, NavigationEnd } from '@angular/router';
 import { ApiService } from '../../../services/api.service';
 import { ToastrService } from 'ngx-toastr';
 import { NotificationService } from '../../../services/notification.service';
+import { DatePipe } from '@angular/common';
+declare var $:any;
 @Component({
 	selector: 'app-messages',
 	templateUrl: './messages.component.html',
@@ -35,12 +37,9 @@ export class MessagesComponent implements OnInit {
 		this.w3channel = this.notificationService.subscribeEvent('labour-dairy');
 		this.w3channel.bindEvent(`message-${this.user.id}`, async (msg) => {
 			console.log(msg)
-		})
+		});
 	}
-	ngAfterViewChecked() {        
-     this.scrollToBottom();        
-    } 
-
+	
 	ngOnInit(): void {
 		this.isUserOrProvider = this.router.url.split('/')[1]
 		this.route.params.subscribe((params) => {
@@ -49,19 +48,29 @@ export class MessagesComponent implements OnInit {
 			}
 		})
 		// this.getMessage()
-		this.scrollToBottom();
 		this.getRecentUsers()
-		this.messages = [
-			{ texts: '1234', sender: true },
-			{ texts: '1234', sender: true },
-			{ texts: '1234', sender: false },
-			{ texts: '1234', sender: true },
-		]
+		this.scrollToBottom();
+		setTimeout(()=>{
+			if(!!this.userChat) {
+
+				let id = 'user_'+this.userChat.id 
+				console.log($('#'+id), 'user chatttttttttttttttttttttt')
+				// console.log("'"+'user_'+this.userChat.id +"'")
+				$('#'+id).click()
+			}  else {
+				// console.log($('.chat-window')[0], 'user chatttttttttttttttttttttt')
+				$('.chat-window')[0].click()
+			}
+
+		},2000)
+
 	}
 	scrollToBottom(): void {
-        try {
+		setTimeout(() => {
+			try {
             this.scrollBottom.nativeElement.scrollTop = this.scrollBottom.nativeElement.scrollHeight;
-        } catch(err) { }
+			} catch (err) { }
+		}, 2000)
     }
 	createChannel(serviceId) {
 		let data = {
@@ -86,7 +95,7 @@ export class MessagesComponent implements OnInit {
 	}
 
 	getMessage(channelId) {
-		console.log('messageeeeeeeee')
+		console.log('get messageeeeeeeee')
 		let data = {
 			id: channelId,
 			page_num: 10,
@@ -100,6 +109,7 @@ export class MessagesComponent implements OnInit {
 				this.page_size++;
 				console.log(res, 'responseeeeeeeee')
 			} else {
+				this.userMessage = []
 				this.isLoading = false
 				this.page_size = 0;
 			}
@@ -154,7 +164,7 @@ export class MessagesComponent implements OnInit {
 		if (!this.newMsg) {
 			return;
 		}
-
+		this.scrollToBottom()
 		let data: any = {
 			sender: this.user.id,
 			receiver: this.reciverUser.id,
@@ -169,6 +179,7 @@ export class MessagesComponent implements OnInit {
 				this.userMessage.push(res.message)
 				this.getRecentUsers()
 				this.newMsg = ''
+
 				// this.getMessage(data.channelId);
 			}
 
@@ -176,14 +187,80 @@ export class MessagesComponent implements OnInit {
 	}
 
 	userChatWindow(user) {
+		this.scrollToBottom(); 
 		this.reciverUser = user;
 		console.log(this.reciverUser, 'userrr')
 		this.message.forEach((msg)=>{
 			msg.selected = (msg.id == user.id ? true : false);
+			if(msg.id == user.id){
+				msg.count = 0
+			}
 		});
 		const selectedUser = this.message.find((msg)=>msg.selected == true)
+		this.markAsRead(selectedUser)
 		localStorage.setItem('user-chat', JSON.stringify(selectedUser));
 		this.getMessage(user.channelId);
 
 	}
+	getMessagesDate(user: any) {
+		if (!user.lastMessage.length)
+			return '---'
+
+		let value = user.lastMessage[0].createdAt;
+		var _value = Number(value);
+
+		var dif = Math.floor(((Date.now() - _value) / 1000) / 86400);
+
+		if (dif < 30) {
+			return this.convertToNiceDate(value);
+		} else {
+			var datePipe = new DatePipe("en-US");
+			value = datePipe.transform(value, 'MMM-dd-yyyy');
+			return value;
+		}
+	}
+	convertToNiceDate(time: string) {
+		var date = new Date(time),
+			diff = (((new Date()).getTime() - date.getTime()) / 1000),
+			daydiff = Math.floor(diff / 86400);
+
+		if (isNaN(daydiff) || daydiff < 0 || daydiff >= 31)
+			return '';
+
+		return daydiff == 0 && (
+			diff < 60 && "Just now" ||
+			diff < 120 && "1 minute ago" ||
+			diff < 3600 && Math.floor(diff / 60) + " minutes ago" ||
+			diff < 7200 && "1 hour ago" ||
+			diff < 86400 && Math.floor(diff / 3600) + " hours ago") ||
+			daydiff == 1 && "Yesterday" ||
+			daydiff < 7 && daydiff + " days ago" ||
+			daydiff < 31 && Math.ceil(daydiff / 7) + " week(s) ago";
+	}
+
+	markAsRead(user) {
+		let data = {
+			channelId: user.channelId,
+			senderId: user.receiverId,
+			deliveryStatus: 'Read'
+		}
+		this.api.markAsRead(data).subscribe((res) => { })
+	}
+
+	delete(userChat: any, i: number) {
+		this.message.splice(i, 1);
+		// this.api.deleteChannel(userChat.channelId).subscribe((res: any) => {
+		// 	console.log('delete res[onse', res)
+		// 	if (res.success) {
+
+		// 		// this.message.length ? this.noServices = false : this.noServices = true;
+		// 	} else {
+		// 		this.message.splice(i, 0, userChat);
+		// 		// this.message.length ? this.noServices = false : this.noServices = true;
+		// 	}
+		// }, (error) => {
+		// 	this.message.splice(i, 0, userChat);
+		// })
+	}
+
 }

@@ -13,6 +13,24 @@
     /*Lets add the numbers for each link using CSS counters. flag is the name of the counter. to be defined using counter-reset in the parent element of the links*/
     counter-reset: flag; 
 }
+.timeCount {
+    text-align: right;
+    position: absolute;
+    right: 50px;
+    .msgTime {
+        font-size: 12px;
+        padding: 6px 0px;
+    }
+
+    .messageCount {
+        background-color: #8F1E3D;
+        color: white;
+        font-weight: bold;
+        padding: 2px 6px;
+        border-radius: 50px;
+    }
+}
+
 .border-confirm {
     border-top: solid 1px #cccccc;
     padding: 16px;
