@@ -1,0 +1,24 @@
+<div class="container-fluid plr-10-sm mb-5 mt-5 pb-5">
+	<div class="pt-4 plr-10-sm">
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<div class="row">
+					<div class="col-md-6 offset-md-3 mt-4">
+						<div class="font-34 font-weight-bold mb-4">Verify Email</div>
+						<div class="text-center">
+							<form [formGroup]="verify" (ngSubmit)="onSubmit()" class="digit-group" data-group-name="digits" data-autosubmit="false" autocomplete="off">
+								<input class="input-border" formControlName="code1" type="text" id="digit-1" name="digit-1" data-current="digit-1" data-next="digit-2" />
+								<input class="input-border" formControlName="code2" type="text" id="digit-2" name="digit-2" data-current="digit-2" data-next="digit-3" data-previous="digit-1" />
+								<input class="input-border" formControlName="code3" type="text" id="digit-3" name="digit-3" data-current="digit-3" data-next="digit-4" data-previous="digit-2" />
+								<input class="input-border" formControlName="code4" type="text" id="digit-4" name="digit-4" data-current="digit-4" data-next="digit-5" data-previous="digit-3" />
+								<input class="input-border" formControlName="code5" type="text" id="digit-5" name="digit-5" data-current="digit-5" data-next="digit-6" data-previous="digit-4" />
+								<input class="input-border" formControlName="code6" type="text" id="digit-6" name="digit-6" data-current="digit-6" data-previous="digit-5" />
+								<input class="btn btn-primary input-border p-2 btn-theme-labour font-12 w-100 mt-5" type="submit" [disabled]="verify.status == 'INVALID'" value="Verify">
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

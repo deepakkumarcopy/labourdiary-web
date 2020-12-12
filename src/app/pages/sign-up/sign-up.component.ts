@@ -3,6 +3,7 @@ import { Validators, FormBuilder, FormGroup, FormControl, ReactiveFormsModule } 
 import { AuthService } from '../../services/auth.service';
 import { ModalService } from '../../services/modal.service';
 import { CommonService } from '../../services/common.service';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-sign-up',
@@ -18,10 +19,11 @@ export class SignUpComponent implements OnInit {
 	base64String: string = '';
 
 	constructor(
+		private route: Router,
 		private authService: AuthService,
 		private modalService: ModalService,
 		private common: CommonService,
-		) { }
+	) { }
 
 	ngOnInit(): void {
 		let EmailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
@@ -36,7 +38,6 @@ export class SignUpComponent implements OnInit {
 	}
 
 	onSubmit() {
-
 		let data = {
 			firstName: this.signUpForm.value.firstName,
 			lastName: this.signUpForm.value.lastName,
@@ -46,10 +47,9 @@ export class SignUpComponent implements OnInit {
 		}
 		this.authService.signUp(data).subscribe((res) => {
 			if (res.success) {
-				this.modalService.close('sign-up');
 				localStorage.setItem('token', JSON.stringify(res.token));
 				localStorage.setItem('user', JSON.stringify(res.user));
-				this.common.publishData({login: res.user});
+				this.route.navigate(['verify', this.signUpForm.value.email]);
 			}
 		})
 	}
@@ -60,7 +60,7 @@ export class SignUpComponent implements OnInit {
 				if (res.user.active) {
 					localStorage.setItem('token', JSON.stringify(res.token));
 					localStorage.setItem('user', JSON.stringify(res.user));
-					this.modalService.close('login');
+					this.route.navigate(['']);
 				} else {
 					this.isAccountActive = true;
 				}
@@ -70,8 +70,16 @@ export class SignUpComponent implements OnInit {
 	}
 
 	facebookLogin() {
-		this.authService.facebookLogin().then((res) => {
-			console.log(res)
+		this.authService.facebookLogin().then((res: any) => {
+			if (res.success) {
+				if (res.user.active) {
+					localStorage.setItem('token', JSON.stringify(res.token));
+					localStorage.setItem('user', JSON.stringify(res.user));
+					this.route.navigate(['']);
+				} else {
+					this.isAccountActive = true;
+				}
+			}
 		})
 	}
 
@@ -93,10 +101,9 @@ export class SignUpComponent implements OnInit {
 	onselect(event) {
 		this.imageData = event[0];
 		let readBase64 = new FileReader();
-			readBase64.onload = (e: any) => {
-				this.base64String = e.target.result
-			};
-			readBase64.readAsDataURL(this.imageData);
-		console.log(event)
+		readBase64.onload = (e: any) => {
+			this.base64String = e.target.result
+		};
+		readBase64.readAsDataURL(this.imageData);
 	}
 }

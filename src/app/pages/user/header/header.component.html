@@ -59,22 +59,19 @@
   	</div> -->
 	<div class="dropdown">
   		<button *ngIf="user"  type="button" class="btn btn-light switch-button" (click)="switchToHost()">Switch to host</button>
-		<img class="logo btn-primary dropdown-toggle" data-toggle="dropdown" id="selectedOption"  [src]="userImage ? userImage : 'assets/img/personImg1.jpg'" alt="">
+		<img class="logo dropdown-toggle" data-toggle="dropdown" id="selectedOption"  [src]="((userImage == '') || (userImage == 'null')) ? 'assets/img/personImg.jpg' : userImage" alt="">
 		<div class="dropdown_div dropdown-menu">
-			<a class="dropdown-item pb-3 " *ngIf="!user" (click)="openModal('login')" href="#">Log In</a>
-			<a class="dropdown-item pb-3" *ngIf="!user" (click)="openModal('sign-up')" href="#">Sign Up</a>
-			<a class="dropdown-item pb-3 font-700" *ngIf="user" (click)="getUserSavedService()" href="javascript:void(0)">Saved</a>
-			<a class="dropdown-item pb-3 font-700" *ngIf="user" href="/message">Message</a>
-			<a class="dropdown-item pb-3 font-700" *ngIf="user" [routerLink]="['profile']">Profile</a>
-			<a class="dropdown-item pb-3 font-700" *ngIf="user" (click)="navigateToOrders()">My Orders</a>
-			<hr>
-			<a class="dropdown-item pb-3" *ngIf="user" (click)="openModal('log-out')" href="#">Saved</a>
-			<a class="dropdown-item pb-3" *ngIf="user" (click)="navigateToStats()">Stats</a>
-			<a class="dropdown-item pb-3" *ngIf="user" (click)="openModal('log-out')" href="#">Log Out</a>
+			<a class="dropdown-item py-2" *ngIf="!user" href="javascript:void();" [routerLink]="['/login']">Log In</a>
+			<a class="dropdown-item py-2" *ngIf="!user" href="javascript:void();" [routerLink]="['/sign-up']">Sign Up</a>
+			<a class="dropdown-item py-2 font-700" *ngIf="user" (click)="getUserSavedService()" href="javascript:void(0)">Saved</a>
+			<a class="dropdown-item py-2 font-700" *ngIf="user" href="/message">Message</a>
+			<a class="dropdown-item py-2 font-700" *ngIf="user" [routerLink]="['profile']">Profile</a>
+			<a class="dropdown-item py-2 font-700" *ngIf="user" (click)="navigateToOrders()">My Orders</a>
+			<hr *ngIf="user">
+			<a class="dropdown-item py-2" *ngIf="user" (click)="openModal('log-out')" href="#">Saved</a>
+			<a class="dropdown-item py-2" *ngIf="user" (click)="navigateToStats()">Stats</a>
+			<a class="dropdown-item py-2 logoutBtn" *ngIf="user" (click)="openModal('log-out')" href="#">Log Out</a>
 		</div>
 	</div>
 </nav>
 <div id="map" style="display: none;"></div>
-
-<app-login></app-login>
-<app-sign-up></app-sign-up>

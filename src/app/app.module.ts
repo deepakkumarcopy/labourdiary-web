@@ -65,6 +65,7 @@ import { ServicerProviderBreadCrumbComponent } from './pages/service-provider/se
 import { ProfileComponent } from './pages/profile/profile.component';
 import { ListOfServicesComponent } from './pages/service-provider/list-of-services/list-of-services.component';
 import { ConfirmationDialogComponent } from './shared/confirmation-dialog/confirmation-dialog.component';
+import { VerifyComponent } from './pages/verify/verify.component';
 
 @NgModule({
 	declarations: [
@@ -106,6 +107,7 @@ import { ConfirmationDialogComponent } from './shared/confirmation-dialog/confir
 		ProfileComponent,
 		ListOfServicesComponent,
 		ConfirmationDialogComponent,
+		VerifyComponent,
 		
 	],
 	imports: [

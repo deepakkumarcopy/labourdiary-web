@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './pages/user/home/home.component';
 import { ErrorComponent } from './pages/error/error.component';
 import { LoginComponent } from './pages/login/login.component';
+import { VerifyComponent } from './pages/verify/verify.component';
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { SearchComponent } from './pages/user/search/search.component';
 import { CategoryComponent } from './pages/user/category/category.component';
@@ -29,63 +30,58 @@ import { BusinessInformationComponent } from './pages/service-provider/business-
 import { ProfileComponent } from './pages/profile/profile.component';
 
 const routes: Routes = [
-  {
-    path: 'user',
-    component: UserComponent,
-    children: [
-      { path: 'category/:id', component: CategoryComponent },
-      { path: 'search/:location/:category', component: CategoryComponent },
-      { path: 'saved/service/:userId', component: CategoryComponent },
-      { path: "search/:id", component: SearchComponent },
-      { path: "payment/:serviceId/:orderId/:totalAmount", component: PaymentComponent },
-      { path: 'order-confirmation/:serviceId/:reserveDate', component: OrderConfirmationComponent },
-      { path: "service/:id", component: ServiceComponent },
-      { path: "orders", component: MyOrderComponent }
-    ]
-  },
-  {
-    path: 'service-provider',
-    component: ServiceProviderComponent,
-    children: [
-      { path: 'stats', component: StatsComponent },
-      { path: 'inbox', component: InboxComponent },
-      { path: 'listing', component: ListingComponent },
-      { path: 'calender', component: CalenderComponent },
-      { path: 'jobs', component: JobsComponent },
-      
-      // { path: 'private-information', component: PrivateInformationComponent },
-      // { path: 'emergency-contact', component: EmergencyContactComponent },
-      // { path: 'work-information', component: WorkInformationComponent },
-      // { path: 'business-information', component: BusinessInformationComponent },
-
-
-      {path: 'performance', 
-      component: PerformanceComponent,
-        children: [
-          { path: 'reviews', component: ReviewsComponent },
-          { path: 'earning', component: EarningComponent },
-          { path: 'views-and-bookings', component: ViewsAndBookingsComponent }
-        ]
-      }
-    ]
-  },
-  { path: 'private-information', component: PrivateInformationComponent },
-  { path: 'private-information/:source', component: PrivateInformationComponent },
-  { path: 'emergency-contact', component: EmergencyContactComponent },
-  { path: 'work-information', component: WorkInformationComponent },
-  { path: 'business-information', component: BusinessInformationComponent },
-  { path: "", component: HomeComponent },
-  { path: "login", component: LoginComponent },
-  {path:'profile', component: ProfileComponent},
-  { path: "payment/:serviceId/:orderId/:totalAmount", component: PaymentComponent },
-  { path: "message", component: MessagesComponent },
-  { path: "sign-up", component: SignUpComponent },
-  { path: "**", component: ErrorComponent }
+	{
+		path: 'user',
+		component: UserComponent,
+		children: [
+			{ path: 'category/:id', component: CategoryComponent },
+			{ path: 'search/:location/:category', component: CategoryComponent },
+			{ path: 'saved/service/:userId', component: CategoryComponent },
+			{ path: "search/:id", component: SearchComponent },
+			{ path: "payment/:serviceId/:orderId/:totalAmount", component: PaymentComponent },
+			{ path: 'order-confirmation/:serviceId/:reserveDate', component: OrderConfirmationComponent },
+			{ path: "service/:id", component: ServiceComponent },
+			{ path: "orders", component: MyOrderComponent }
+		]
+	},
+	{
+		path: 'service-provider',
+		component: ServiceProviderComponent,
+		children: [
+			{ path: 'stats', component: StatsComponent },
+			{ path: 'inbox', component: InboxComponent },
+			{ path: 'listing', component: ListingComponent },
+			{ path: 'calender', component: CalenderComponent },
+			{ path: 'jobs', component: JobsComponent },
+			{
+				path: 'performance',
+				component: PerformanceComponent,
+				children: [
+					{ path: 'reviews', component: ReviewsComponent },
+					{ path: 'earning', component: EarningComponent },
+					{ path: 'views-and-bookings', component: ViewsAndBookingsComponent }
+				]
+			}
+		]
+	},
+	{ path: 'private-information', component: PrivateInformationComponent },
+	{ path: 'private-information/:source', component: PrivateInformationComponent },
+	{ path: 'emergency-contact', component: EmergencyContactComponent },
+	{ path: 'work-information', component: WorkInformationComponent },
+	{ path: 'business-information', component: BusinessInformationComponent },
+	{ path: "", component: HomeComponent },
+	{ path: "login", component: LoginComponent },
+	{ path: "verify/:email", component: VerifyComponent },
+	{ path: 'profile', component: ProfileComponent },
+	{ path: "payment/:serviceId/:orderId/:totalAmount", component: PaymentComponent },
+	{ path: "message", component: MessagesComponent },
+	{ path: "sign-up", component: SignUpComponent },
+	{ path: "**", component: ErrorComponent }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+	imports: [RouterModule.forRoot(routes)],
+	exports: [RouterModule]
 })
 
 export class AppRoutingModule { }

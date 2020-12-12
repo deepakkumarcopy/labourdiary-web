@@ -518,8 +518,8 @@ color-grey{
 }
 .loginError {
     border: 1px solid red;
-    padding: 10px;
-    border-radius: 8px;
+    padding: 16px;
+    border-radius: 16px;
     color: red;
     font-size: 14px;
     background: #ff000012;
@@ -626,14 +626,18 @@ jw-modal {
         width: 380px !important;
         margin: auto;
         position: relative;
+        border-radius: 16px;
 
         .close {
             position: absolute;
-            top: -40px;
-            color: white;
+            top: 25px;
+            color: #403c3c;
             z-index: 99;
             cursor: pointer;
-            right: -24px;
+            right: 25px;
+            background: #ccc;
+            padding: 0 5px;
+            border-radius: 50%;
         }
 
         .back_popup {
@@ -748,7 +752,7 @@ body.jw-modal-open {
 
 #toast-container {
     /*background-image: linear-gradient(purple,red) !important;*/
-    background-image: linear-gradient(5deg, #474AD9, #6F8FEA)!important;
+    // background-image: linear-gradient(5deg, #474AD9, #6F8FEA)!important;
     .ngx-toastr {
         width: calc(100vw/3);
 
@@ -2528,4 +2532,9 @@ a:hover {
 }
 .btn-theme-labour:active {
     background-image: linear-gradient(5deg, #474AD9, #6F8FEA);
+}
+
+.logoutBtn:hover {
+    background-color: red;
+    color: white;
 }

@@ -1,59 +1,60 @@
-<jw-modal id="login">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header p-0 border-0">
-                <div class="close" (click)="closeModal('login')">
-                    <span aria-hidden="true">&times;</span>
+<div class="container-fluid plr-10-sm mb-5 mt-5 pb-5">
+    <div class="pt-4 plr-10-sm">
+        <div class="row">
+            <div class="col-md-10 offset-md-1">
+                <div class="row">
+                    <div class="col-md-6 offset-md-3 mt-4">
+                        <div class="font-34 font-weight-bold mb-4">Login</div>
+
+                        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+                            <div *ngIf="isValidEmailPass" class="form-group loginError">
+                                <i class="fa fa-exclamation-triangle"></i>
+                                Invalid email or password.
+                            </div>
+
+                            <div *ngIf="isAccountActive" class="form-group loginError">
+                                <i class="fa fa-exclamation-triangle"></i>
+                                Sorry, Your account has been suspended.
+                            </div>
+
+                            <div class="form-group">
+                                <div class="input-border">
+                                    <label class="font-13">Email</label>
+                                    <input class="form-control h-45" type="email" formControlName="email" (keydown)="checkFields()" placeholder="Enter your email">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="input-border">
+                                    <label class="font-13">Password</label>
+                                    <input class="form-control h-45" type="password" (keydown)="checkFields()" formControlName="password" placeholder="Enter your password">
+                                </div>
+                            </div>
+
+                            <p class="text-right"><a class="cursor-pointer enable-text font-13" (click)="openModal('forgetPassword')">Forgot Password?</a></p>
+
+                            <input class="btn btn-primary input-border p-4 btn-theme-labour w-100" type="submit" [disabled]="loginForm.status == 'INVALID'" value="Login">
+
+                        </form>
+
+                        <div class="row socialLogin">
+                            <div class="col">
+                                <img (click)="googleLogin()" class="socialIcon" src="assets/img/google.png" alt="">
+                            </div>
+                            <div (click)="facebookLogin()" class="col">
+                                <img class="socialIcon" src="assets/img/facebook.png" alt="">
+                            </div>
+                            <div (click)="linkedInLogin()" class="col">
+                                <img class="socialIcon" src="assets/img/linkedIn.png" alt="">
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-
-            <div class="p-4">
-                <div class="text-center font-34 font-weight-bold mb-4">Login</div>
-
-                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-
-                    <div *ngIf="isValidEmailPass" class="form-group loginError">
-                        <i class="fa fa-exclamation-triangle"></i>
-                        Invalid email or password.
-                    </div>
-
-                    <div *ngIf="isAccountActive" class="form-group loginError">
-                        <i class="fa fa-exclamation-triangle"></i>
-                        Sorry, Your account has been suspended.
-                    </div>
-
-                    <div class="form-group">
-                        <label class="font-13">Email</label>
-                        <input class="form-control h-45" type="email" formControlName="email" (keydown)="checkFields()" placeholder="Enter your email">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="font-13">Password</label>
-                        <input class="form-control h-45" type="password" (keydown)="checkFields()" formControlName="password" placeholder="Enter your password">
-                    </div>
-
-                    <p class="text-right"><a class="cursor-pointer enable-text font-13" (click)="openModal('forgetPassword')">Forgot Password?</a></p>
-
-                    <input class="btn-theme ln-40  text-center btn-block font-14 text-uppercase nowrap mt-4 caret-transparent" type="submit" [disabled]="loginForm.status == 'INVALID'" value="Login">
-
-                </form>
-               
-				<div class="row socialLogin">
-					<div class="col">
-						<img (click)="googleLogin()" class="socialIcon" src="assets/img/google.png" alt="">
-					</div>
-					<div (click)="facebookLogin()" class="col">
-						<img class="socialIcon" src="assets/img/facebook.png" alt="">
-					</div>
-					<div (click)="linkedInLogin()" class="col">
-						<img class="socialIcon" src="assets/img/linkedIn.png" alt="">
-					</div>
-				</div>
             </div>
         </div>
     </div>
-</jw-modal>
-
+</div>
 
 <!-- find account modal -->
 <jw-modal id="forgetPassword">
@@ -71,4 +72,3 @@
         </div>
     </div>
 </jw-modal>
-

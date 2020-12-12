@@ -1,78 +1,84 @@
-<jw-modal id="sign-up">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header p-0 border-0">
-				<div class="close" (click)="closeModal('sign-up')">
-					<span aria-hidden="true">&times;</span>
-				</div>
-			</div>
-
-			<div class="p-4">
-				<div class="text-center font-34 font-weight-bold mb-4">Sign Up</div>
-				
-				<div class="text-center">
-					<span>
-						<label for="myfile">
-							<img for="myfile" class="rounded-circle" [src]="base64String ? base64String : 'assets/img/personImg1.jpg'" alt="" width="100px">
-						</label>
-						<input (change)="onselect($event.target.files)" class="d-none" type="file" id="myfile" name="myfile">
-					</span>
-				</div>
-
-				<form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
-
-					<div *ngIf="isAccountActive" class="form-group loginError">
-						<i class="fa fa-exclamation-triangle"></i>
-						Sorry, Your account has been suspended.
-					</div>
-
-					<div class="row form-group">
-						<div class="col">
-							<label class="font-14 m-0">First Name</label>
-							<input class="form-control h-45" type="text" formControlName="firstName" placeholder="Enter your email">
+<div class="container-fluid plr-10-sm mb-5 mt-5 pb-5">
+	<div class="pt-4 plr-10-sm">
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<div class="row">
+					<div class="col-md-6 offset-md-3 mt-4">
+						
+						<div class="font-34 font-weight-bold mb-4">Sign Up</div>
+						
+						<form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+							
+							<div *ngIf="isAccountActive" class="form-group loginError">
+								<i class="fa fa-exclamation-triangle"></i>
+								Sorry, Your account has been suspended.
+							</div>
+							
+							<div class="row form-group">
+								<div class="col-md-4">
+									<div class="text-center">
+										<span>
+											<label for="myfile">
+												<img for="myfile" class="rounded-circle" [src]="base64String ? base64String : 'assets/img/personImg1.jpg'" alt="" width="150px" height="150px">
+											</label>
+											<input (change)="onselect($event.target.files)" class="d-none" type="file" id="myfile" name="myfile">
+										</span>
+									</div>
+								</div>
+								<div class="col-md-8">
+									<div class="input-border mb-3">
+										<label class="font-14 m-0">First Name</label>
+										<input class="form-control h-45" type="text" formControlName="firstName" placeholder="Enter your email">
+									</div>
+									<div class="input-border">
+										<label class="font-14 m-0">Last Name</label>
+										<input class="form-control h-45" type="text" formControlName="lastName" placeholder="Enter your email">
+									</div>
+								</div>
+							</div>
+						
+							<div class="form-group">
+								<div class="input-border">
+									<label class="font-14 m-0">Email<span class="text-danger">*</span></label>
+									<input class="form-control h-45" type="email" formControlName="email" placeholder="Enter your email">
+								</div>
+							</div>
+						
+							<div class="form-group">
+								<div class="input-border">
+									<label class="font-14 m-0">Password<span class="text-danger">*</span></label>
+									<input class="form-control h-45" type="password" formControlName="password" placeholder="Enter your password">
+								</div>
+							</div>
+						
+							<div class="">
+								<input type="radio" id="tc" value="checked" class="cursor-pointer" formControlName="tc">
+								<label for="tc" class="cursor-pointer font-13 ml-2">I agree to the terms and conditions.<span class="text-danger">*</span></label>
+							</div>
+							<div class="">
+								<input id="gdpr" type="radio" value="checked" class="cursor-pointer" formControlName="gdpr">
+								<label for="gdpr" class="cursor-pointer font-13 ml-2">I agree to the GDPR.<span class="text-danger">*</span></label>
+							</div>
+						
+							<input class="font-20 text-uppercase nowrap mt-4 btn btn-primary input-border p-3 btn-theme-labour w-100" type="submit" [disabled]="signUpForm.status == 'INVALID'" value="Sign Up">
+						
+						</form>
+						
+						<div class="row socialLogin">
+							<div class="col">
+								<img (click)="googleLogin()" class="socialIcon" src="assets/img/google.png" alt="">
+							</div>
+							<div class="col">
+								<img class="socialIcon" src="assets/img/facebook.png" alt="">
+							</div>
+							<div class="col">
+								<img class="socialIcon" src="assets/img/linkedIn.png" alt="">
+							</div>
 						</div>
-						<div class="col">
-							<label class="font-14 m-0">Last Name</label>
-							<input class="form-control h-45" type="text" formControlName="lastName" placeholder="Enter your email">
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="font-14 m-0">Email<span class="text-danger">*</span></label>
-						<input class="form-control h-45" type="email" formControlName="email" placeholder="Enter your email">
-					</div>
-
-					<div class="form-group">
-						<label class="font-14 m-0">Password<span class="text-danger">*</span></label>
-						<input class="form-control h-45" type="password" formControlName="password" placeholder="Enter your password">
-					</div>
-
-					<div class="">
-						<input type="radio" id="tc" value="checked" class="cursor-pointer" formControlName="tc">
-						<label for="tc" class="cursor-pointer font-13 ml-2">I agree to the terms and conditions.<span class="text-danger">*</span></label>
-					</div>
-					<div class="">
-						<input id="gdpr" type="radio" value="checked" class="cursor-pointer" formControlName="gdpr">
-						<label for="gdpr" class="cursor-pointer font-13 ml-2">I agree to the GDPR.<span class="text-danger">*</span></label>
-					</div>
-
-					<input class="btn-theme ln-40  text-center btn-block font-14 text-uppercase nowrap mt-4 caret-transparent" type="submit" [disabled]="signUpForm.status == 'INVALID'" value="Sign Up">
-
-				</form>
-
-				<div class="row socialLogin">
-					<div class="col">
-						<img (click)="googleLogin()" class="socialIcon" src="assets/img/google.png" alt="">
-					</div>
-					<div class="col">
-						<img class="socialIcon" src="assets/img/facebook.png" alt="">
-					</div>
-					<div class="col">
-						<img class="socialIcon" src="assets/img/linkedIn.png" alt="">
+						<p class="font-12 text-center pt-4 mb-0">Already have an account? <span><a class="enable-text" (click)="goToLogin()">Log in</a></span></p>
 					</div>
 				</div>
-				<p class="font-12 text-center pt-4 mb-0">Already have an account? <span><a class="enable-text" (click)="goToLogin()">Log in</a></span></p>
 			</div>
 		</div>
 	</div>
-</jw-modal>
+</div>

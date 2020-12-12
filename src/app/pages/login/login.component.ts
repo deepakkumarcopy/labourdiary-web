@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule, FormBuilder, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { error } from 'protractor';
 import { ToastrService } from 'ngx-toastr';
+import { Location } from '@angular/common';
+import { Router, ActivatedRoute } from '@angular/router';
 
 // Services
 import { AuthService } from '../../services/auth.service';
@@ -21,14 +23,16 @@ export class LoginComponent implements OnInit {
 	isAccountActive: boolean = false;
 
 	constructor(
+		private router: Router,
 		private modalService: ModalService,
 		private FormBuilder: FormBuilder,
 		private authService: AuthService,
 		private common: CommonService,
-		private toastr: ToastrService
+		private toastr: ToastrService,
+		private location: Location
 	) {
 	}
-	
+
 	ngOnInit(): void {
 		let emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
 		this.loginForm = this.FormBuilder.group({
@@ -36,19 +40,21 @@ export class LoginComponent implements OnInit {
 			password: new FormControl('', [Validators.required, Validators.maxLength(30), Validators.minLength(6)]),
 		});
 	}
-	
+
 	onSubmit() {
 		this.isValidEmailPass = false;
 		this.isAccountActive = false;
 		this.authService.login(this.loginForm.value).subscribe((res) => {
 			if (res.success) {
-				this.toastr.success('Successfully login!');
 				if (res.user.active) {
-					this.modalService.close('login')
-					localStorage.setItem('token', JSON.stringify(res.token));
-					localStorage.setItem('user', JSON.stringify(res.user));
-					this.common.publishData({login: res.user});
-
+					if (res.user.verified) {
+						this.toastr.success('Successfully login!');
+						localStorage.setItem('token', JSON.stringify(res.token));
+						localStorage.setItem('user', JSON.stringify(res.user));
+						this.location.back();
+					} else {
+						this.router.navigate(['verify', this.loginForm.value.email])
+					}
 				} else {
 					this.isAccountActive = true;
 				}
@@ -61,7 +67,6 @@ export class LoginComponent implements OnInit {
 			this.isValidEmailPass = true;
 		})
 	}
-
 
 	closeModal(id: string) {
 		this.modalService.close(id)
@@ -85,7 +90,7 @@ export class LoginComponent implements OnInit {
 				if (res.user.active) {
 					localStorage.setItem('token', JSON.stringify(res.token));
 					localStorage.setItem('user', JSON.stringify(res.user));
-					this.modalService.close('login');
+					this.location.back();
 				} else {
 					this.isAccountActive = true;
 				}
@@ -103,7 +108,7 @@ export class LoginComponent implements OnInit {
 				if (res.user.active) {
 					localStorage.setItem('token', JSON.stringify(res.token));
 					localStorage.setItem('user', JSON.stringify(res.user));
-					this.modalService.close('login');
+					this.location.back();
 				} else {
 					this.isAccountActive = true;
 				}
