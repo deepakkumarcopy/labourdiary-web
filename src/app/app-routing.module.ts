@@ -11,6 +11,7 @@ import { ServiceComponent } from './pages/user/service/service.component';
 import { PaymentComponent } from './pages/user/payment/payment.component';
 import { MessagesComponent } from './pages/user/messages/messages.component';
 import { OrderConfirmationComponent } from './pages/user/order-confirmation/order-confirmation.component';
+import { ForgetPasswordComponent } from './pages/forget-password/forget-password.component';
 import { UserComponent } from './layouts/user/user.component';
 import { StatsComponent } from './pages/service-provider/stats/stats.component';
 import { ServiceProviderComponent } from './layouts/service-provider/service-provider.component';
@@ -71,6 +72,7 @@ const routes: Routes = [
 	{ path: 'business-information', component: BusinessInformationComponent },
 	{ path: "", component: HomeComponent },
 	{ path: "login", component: LoginComponent },
+	{ path: "forget-password", component: ForgetPasswordComponent },
 	{ path: "verify/:email", component: VerifyComponent },
 	{ path: 'profile', component: ProfileComponent },
 	{ path: "payment/:serviceId/:orderId/:totalAmount", component: PaymentComponent },

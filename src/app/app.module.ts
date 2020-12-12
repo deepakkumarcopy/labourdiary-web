@@ -66,6 +66,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { ListOfServicesComponent } from './pages/service-provider/list-of-services/list-of-services.component';
 import { ConfirmationDialogComponent } from './shared/confirmation-dialog/confirmation-dialog.component';
 import { VerifyComponent } from './pages/verify/verify.component';
+import { ForgetPasswordComponent } from './pages/forget-password/forget-password.component';
 
 @NgModule({
 	declarations: [
@@ -108,6 +109,7 @@ import { VerifyComponent } from './pages/verify/verify.component';
 		ListOfServicesComponent,
 		ConfirmationDialogComponent,
 		VerifyComponent,
+		ForgetPasswordComponent,
 		
 	],
 	imports: [
