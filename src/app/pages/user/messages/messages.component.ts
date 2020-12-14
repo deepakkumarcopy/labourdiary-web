@@ -50,12 +50,13 @@ export class MessagesComponent implements OnInit {
 		// this.getMessage()
 		this.getRecentUsers()
 		this.scrollToBottom();
+		
+
+	}
+	ngAfterViewInit() {
 		setTimeout(()=>{
 			if(!!this.userChat) {
-
 				let id = 'user_'+this.userChat.id 
-				console.log($('#'+id), 'user chatttttttttttttttttttttt')
-				// console.log("'"+'user_'+this.userChat.id +"'")
 				$('#'+id).click()
 			}  else {
 				// console.log($('.chat-window')[0], 'user chatttttttttttttttttttttt')
@@ -63,7 +64,6 @@ export class MessagesComponent implements OnInit {
 			}
 
 		},2000)
-
 	}
 	scrollToBottom(): void {
 		setTimeout(() => {
@@ -80,7 +80,6 @@ export class MessagesComponent implements OnInit {
 			providerChatId: serviceId
 		}
 		this.api.createChannel(data).subscribe((res) => {
-			console.log(res, 'create channelllllllll')
 			if (res.success) {
 				this.getRecentUsers();
 				this.getMessage(res.channel.id)
@@ -95,19 +94,17 @@ export class MessagesComponent implements OnInit {
 	}
 
 	getMessage(channelId) {
-		console.log('get messageeeeeeeee')
 		let data = {
 			id: channelId,
 			page_num: 10,
 			skips: this.page_size * this.page_num,
 		}
+		console.log(this.page_size, this.page_num, 'page numberrr')
 		this.api.getMessage(data).subscribe((res) => {
-			console.log(res, 'messageeeeeeeee rrrrrrrrrrr')
 			if (res.success) {
 				this.isLoading = false;
 				this.userMessage = this.userMessage.concat(res.messages);
 				this.page_size++;
-				console.log(res, 'responseeeeeeeee')
 			} else {
 				this.userMessage = []
 				this.isLoading = false
@@ -187,6 +184,7 @@ export class MessagesComponent implements OnInit {
 	}
 
 	userChatWindow(user) {
+		this.page_size = 0
 		this.scrollToBottom(); 
 		this.reciverUser = user;
 		console.log(this.reciverUser, 'userrr')
@@ -249,18 +247,19 @@ export class MessagesComponent implements OnInit {
 
 	delete(userChat: any, i: number) {
 		this.message.splice(i, 1);
-		// this.api.deleteChannel(userChat.channelId).subscribe((res: any) => {
-		// 	console.log('delete res[onse', res)
-		// 	if (res.success) {
-
-		// 		// this.message.length ? this.noServices = false : this.noServices = true;
-		// 	} else {
-		// 		this.message.splice(i, 0, userChat);
-		// 		// this.message.length ? this.noServices = false : this.noServices = true;
-		// 	}
-		// }, (error) => {
-		// 	this.message.splice(i, 0, userChat);
-		// })
+		this.api.deleteChannel(userChat.channelId).subscribe((res: any) => {
+			if (res.success) {
+				let msg = this.message[this.message.length -1]
+				let id = 'user_'+ msg.id 
+				$('#'+id).click();
+				// this.message.length ? this.noServices = false : this.noServices = true;
+			} else {
+				this.message.splice(i, 0, userChat);
+				// this.message.length ? this.noServices = false : this.noServices = true;
+			}
+		}, (error) => {
+			this.message.splice(i, 0, userChat);
+		})
 	}
 
 }

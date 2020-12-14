@@ -30,7 +30,26 @@
         border-radius: 50px;
     }
 }
-
+.dropdown-message{
+    position: absolute;
+    top: 100%;
+    right:0;
+    /* left: -45px; */
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 10rem;
+    padding: .5rem 0;
+    margin: .125rem 0 0;
+    font-size: 1rem;
+    color: #212529;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: .25rem;
+}
 .border-confirm {
     border-top: solid 1px #cccccc;
     padding: 16px;
