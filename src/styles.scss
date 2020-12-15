@@ -976,6 +976,11 @@ ngb-modal-window {
     margin-right: auto; 
     margin-left: auto;
 }
+.send-icon {
+    border-radius: 50%!important;
+    background: #ece8e8!important;
+    padding: 12px!important;
+}
 
 .box-sizing-box {
     box-sizing: border-box;
@@ -1527,6 +1532,7 @@ a:hover {
 .background-white {
     background: #fff !important;
 }
+
 
 .ng-select.disable-arrow .ng-arrow-wrapper .ng-arrow {
     display: none;
