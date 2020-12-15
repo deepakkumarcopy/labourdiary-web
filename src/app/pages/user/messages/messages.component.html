@@ -72,12 +72,12 @@
                         [scrollWindow]="true"
                      >
                         <div *ngIf="userMessage && userMessage.length>0; else noMessageFound">
-                            <div *ngFor="let msg of userMessage">
+                            <div *ngFor="let msg of userMessage ; let i = index;">
                                 <div class="div-in-centre pt-4">
                                     <p>{{msg.createdAt |date: 'MMM d, yyy'}}</p>
                                 </div>
                                 <div class="div-in-centre " style="width: 590px;">
-                                    <div class="background-border"> 
+                                    <div class="background-border" *ngIf="i==0"> 
                                         <p class="p-3 f-14 text-muted"><i class="fa fa-star pl-2 pr-2" aria-hidden="true"></i>To protect your payment, always communicate and pay through the Labourdiary website or app.•9:13 PM</p>
                                     </div>
                                     
@@ -111,7 +111,10 @@
                 <div class="d-flex">
 
                     <!-- <i class="fa fa-picture-o pt-3 pr-2 f-25" aria-hidden="true"></i> -->
-                    <input type="text" id="fname" class="input-style" [(ngModel)]="newMsg" name="fname" (keydown.enter)="sendMessage()" placeholder="Type a message"><br>
+                    <input type="text" id="fname" class="input-style" [(ngModel)]="newMsg" name="fname" (keydown.enter)="sendMessage()" placeholder="Type a message">
+                    <div >
+                        <i class="fa fa-paper-plane mt-1 ml-2 send-icon" (click)="sendMessage()" aria-hidden="true"></i>
+                    </div>
                 </div>
             </div>
         </div>

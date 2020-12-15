@@ -174,7 +174,7 @@ export class MessagesComponent implements OnInit {
 			if (res.success) {
 				console.log(res, 'responseee of send message')
 				this.userMessage.push(res.message)
-				this.getRecentUsers()
+				// this.getRecentUsers()
 				this.newMsg = ''
 
 				// this.getMessage(data.channelId);
