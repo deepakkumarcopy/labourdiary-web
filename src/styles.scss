@@ -13,6 +13,43 @@
     /*Lets add the numbers for each link using CSS counters. flag is the name of the counter. to be defined using counter-reset in the parent element of the links*/
     counter-reset: flag; 
 }
+.timeCount {
+    text-align: right;
+    position: absolute;
+    right: 50px;
+    .msgTime {
+        font-size: 12px;
+        padding: 6px 0px;
+    }
+
+    .messageCount {
+        background-color: #8F1E3D;
+        color: white;
+        font-weight: bold;
+        padding: 2px 6px;
+        border-radius: 50px;
+    }
+}
+.dropdown-message{
+    position: absolute;
+    top: 100%;
+    right:0;
+    /* left: -45px; */
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 10rem;
+    padding: .5rem 0;
+    margin: .125rem 0 0;
+    font-size: 1rem;
+    color: #212529;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: .25rem;
+}
 .border-confirm {
     border-top: solid 1px #cccccc;
     padding: 16px;
@@ -315,8 +352,30 @@ color-grey{
 .f-13{
     font-size: 13px;
 }
+.f-25 {
+    font-size: 25px;
+}
 .border-radius-20 {
     border-radius: 20px;
+}
+.border-radius-50 {
+    border-radius: 50%;
+}
+.on-hover:hover {
+    background-color: #f8f9fa;
+}
+.selected-chat {
+  background-color: #f8f9fa;
+}
+.message-scroll {
+    overflow-y: scroll;
+    height: 826px;
+}
+.input-style {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 45px;
 }
 .plr {
     padding: 0px 26px 0px 70px;
@@ -326,6 +385,10 @@ color-grey{
 }
 .color-grey{
     color: grey;
+}
+
+.mt-in-negative {
+    margin-top: -10px;
 }
 .form-border {
     /*border: 1px solid;*/
@@ -715,7 +778,10 @@ jw-modal {
 .dull-text {
     opacity: 0.7;
 }
-
+.border-top {
+    border-top: 1px solid!important;
+    border-bottom: 1px solid!important;
+}
 .cancel {
     background-color: #D3D3D3;
     color: white;
@@ -732,7 +798,9 @@ jw-modal {
 .pt-15 {
     padding-top: 15%;
 }
-
+.pt-74 {
+    padding-top: 74px;
+}
 .bg-unset-img {
     background-image: unset !important;
 }
@@ -898,6 +966,15 @@ ngb-modal-window {
     input {
         padding-right: 120px;
     }
+}
+.background-border {
+    background: #f8f9fa;
+    border-radius: 45px;
+}
+.div-in-centre {
+    width:165px; 
+    margin-right: auto; 
+    margin-left: auto;
 }
 
 .box-sizing-box {
