@@ -820,7 +820,7 @@ body.jw-modal-open {
 
 #toast-container {
     /*background-image: linear-gradient(purple,red) !important;*/
-    // background-image: linear-gradient(5deg, #474AD9, #6F8FEA)!important;
+    /*// background-image: linear-gradient(5deg, #474AD9, #6F8FEA)!important;*/
     .ngx-toastr {
         width: calc(100vw/3);
 
@@ -828,7 +828,7 @@ body.jw-modal-open {
 
     .toast-success {
         /*background-image: linear-gradient(20deg, #474AD9, #6F8FEA);*/
-        background-image: none !important;
+        /*background-image: none !important;*/
     }
 }
 
@@ -2576,14 +2576,14 @@ a:hover {
 
 @media screen and (max-width: 819px) {
     #toast-container {
-        background-image: linear-gradient(20deg, #474AD9, #6F8FEA)!important;
+        /*background-image: linear-gradient(20deg, #474AD9, #6F8FEA)!important;*/
         .ngx-toastr {
             width: calc(94vw);
 
         }
 
         .toast-success {
-            background-image: none !important;
+            /*background-image: none !important;*/
         }
     }
 }

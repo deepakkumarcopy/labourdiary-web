@@ -5,6 +5,7 @@ declare let google: any;
 import { ApiService } from '../../../services/api.service';
 import { ActivatedRoute, Router, RouterEvent, NavigationEnd } from '@angular/router';
 declare var $: any;
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
 	selector: 'app-header',
@@ -37,6 +38,7 @@ export class HeaderComponent implements OnInit, OnChanges {
 		private changeDetectorRef: ChangeDetectorRef,
 		private api: ApiService,
 		private router: Router,
+		private toastr: ToastrService
 	) {
 		this.common.subscribeData().subscribe(res => {
 			if (!!res.login) {
@@ -80,7 +82,14 @@ export class HeaderComponent implements OnInit, OnChanges {
 	closeModal(id) {
 		this.modalService.close(id);
 	}
-
+	
+	logout(id) {
+		this.modalService.close(id);
+		localStorage.clear();
+		this.toastr.success('Sucessfully logout!')
+		this.user = null;
+		this.userImage = null;
+	}
 	parseDate(dateString: string) {
 		console.log(new Date(dateString))
 		if (dateString) {
