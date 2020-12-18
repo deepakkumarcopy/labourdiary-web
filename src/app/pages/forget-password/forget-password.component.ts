@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, FormBuilder, FormControl, Validators, AbstractControl } from '@angular/forms';
-import * as $ from 'jquery';
+declare var $: any;
 import { ApiService } from '../../services/api.service';
 import { ToastrService } from 'ngx-toastr';
 import { Location } from '@angular/common';

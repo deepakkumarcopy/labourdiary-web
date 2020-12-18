@@ -7,8 +7,6 @@ import { ToastrModule } from 'ngx-toastr';
 import { TranslateModule, TranslateLoader, MissingTranslationHandler, MissingTranslationHandlerParams } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { AngularFireAuthModule } from "@angular/fire/auth";
-import { AngularFireModule } from "@angular/fire";
 import { environment } from '../environments/environment.prod';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -138,8 +136,8 @@ import { ForgetPasswordComponent } from './pages/forget-password/forget-password
 				deps: [HttpClient]
 			}
 		}),
-		AngularFireModule.initializeApp(environment.firebaseConfig),
-		AngularFireAuthModule,
+		// AngularFireModule.initializeApp(environment.firebaseConfig),
+		// AngularFireAuthModule,
 	],
 	providers: [
 		ModalService,

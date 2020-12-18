@@ -6,8 +6,8 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment.prod';
 import { resolve } from 'dns';
 import { rejects } from 'assert';
-import { AngularFireAuth } from "@angular/fire/auth";
-import { auth } from 'firebase/app';
+// import { AngularFireAuth } from "@angular/fire/auth";
+// import { auth } from 'firebase/app';
 declare var FB: any;
 import { switchMap } from "rxjs/operators";
 
@@ -21,7 +21,7 @@ export class AuthService {
 
 	constructor(
 		private http: HttpClient,
-		private angularFire: AngularFireAuth,
+		// private angularFire: AngularFireAuth,
 		// @Inject("window") private _window: any,
 
 	) {
@@ -46,16 +46,16 @@ export class AuthService {
 
 	googleLogin() {
 		return new Promise((resolve, rejects) => {
-			this.angularFire.signInWithPopup(new auth.GoogleAuthProvider()).then((result) => {
-				let user: any = result.additionalUserInfo.profile;
-				this.socialLoginProcess(user.givenName, user.familyName, user.picture, user.email, user.email.substring(0, user.email.indexOf("@")), 0, user.userId, 0).then(res => {
-					resolve(res)
-				}).catch((error) => {
-					rejects(error)
-				});
-			}).catch((error) => {
-				rejects(error)
-			})
+			// this.angularFire.signInWithPopup(new auth.GoogleAuthProvider()).then((result) => {
+			// 	let user: any = result.additionalUserInfo.profile;
+			// 	this.socialLoginProcess(user.givenName, user.familyName, user.picture, user.email, user.email.substring(0, user.email.indexOf("@")), 0, user.userId, 0).then(res => {
+			// 		resolve(res)
+			// 	}).catch((error) => {
+			// 		rejects(error)
+			// 	});
+			// }).catch((error) => {
+			// 	rejects(error)
+			// })
 		})
 	}
 
