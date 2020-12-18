@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterEvent, NavigationEnd } from '@angular/router';
 import { ApiService } from '../../../../services/api.service';
-import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
-import { Label } from 'ng2-charts';
+// import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
+// import { Label } from 'ng2-charts';
 
 @Component({
   selector: 'app-views-and-bookings',
@@ -15,14 +15,14 @@ export class ViewsAndBookingsComponent implements OnInit {
   viewsAndBookings:any = [];
   views:any=[];
   bookings:any =[];
-  public barChartOptions: ChartOptions = {
-    responsive: true,
-  };
-  public barChartData: ChartDataSets[];
-  public barChartLabels: Label[] = [];
-  public barChartType: ChartType = 'bar';
-  public barChartLegend = true;
-  public barChartPlugins = [];
+  // public barChartOptions: ChartOptions = {
+  //   responsive: true,
+  // };
+  // public barChartData: ChartDataSets[];
+  // public barChartLabels: Label[] = [];
+  // public barChartType: ChartType = 'bar';
+  // public barChartLegend = true;
+  // public barChartPlugins = [];
 
   constructor(private api: ApiService,
     private route: ActivatedRoute,
@@ -37,10 +37,10 @@ export class ViewsAndBookingsComponent implements OnInit {
         this.isLoading = false;
         this.viewsAndBookings = res.viewsBookingsEarning;
         this.viewsAndBookings.forEach((data) => {
-          this.barChartLabels.push(data.date);
+          // this.barChartLabels.push(data.date);
           this.views.push(data.viewsCount);
           this.bookings.push(data.bookingsCount);
-          this.barChartData = [{data: this.views, barThickness: 100, label: 'Views'}, {data: this.bookings, barThickness: 100, label: 'Bookings'}]
+          // this.barChartData = [{data: this.views, barThickness: 100, label: 'Views'}, {data: this.bookings, barThickness: 100, label: 'Bookings'}]
         });
       } else {
         this.isLoading = false;

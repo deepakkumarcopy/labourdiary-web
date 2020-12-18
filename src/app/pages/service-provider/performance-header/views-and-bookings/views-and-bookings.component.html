@@ -2,14 +2,14 @@
 	<div *ngIf="isLoading; else showData">Loading..</div>
 	<ng-template #showData>
 		<div style="display: block;" *ngIf="!!viewsAndBookings && viewsAndBookings.length>0;else noDataFound">
-		  <canvas baseChart 
+		  <!-- <canvas baseChart 
 		    [datasets]="barChartData"
 		    [labels]="barChartLabels"
 		    [options]="barChartOptions"
 		    [plugins]="barChartPlugins"
 		    [legend]="barChartLegend"
 		    [chartType]="barChartType">
-		  </canvas>
+		  </canvas> -->
 		</div>
 	</ng-template>
 	<ng-template #noDataFound>
