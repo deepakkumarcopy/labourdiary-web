@@ -14,7 +14,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { ChartsModule } from 'ng2-charts';
+// import { ChartsModule } from 'ng2-charts';
 import { NgSelect2Module } from 'ng-select2';
 import { ImageCropperModule } from 'ngx-image-cropper';
 
@@ -129,7 +129,7 @@ import { ForgetPasswordComponent } from './pages/forget-password/forget-password
 		BrowserAnimationsModule,
 		DpDatePickerModule,
 		ImageCropperModule,
-		ChartsModule,
+		// ChartsModule,
 		NgSelect2Module,
 		TranslateModule.forRoot({
 			loader: {
