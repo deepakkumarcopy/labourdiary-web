@@ -17,6 +17,12 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "chart.js",
+              "firebase/app",
+              "@firebase/auth",
+              "jquery"
+            ],
             "outputPath": "dist/labourDiaryWeb",
             "index": "src/index.html",
             "main": "src/main.ts",
