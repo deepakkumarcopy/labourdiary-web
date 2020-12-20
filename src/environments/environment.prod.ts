@@ -1,8 +1,8 @@
 export const environment = {
 	production: true,
-	baseUrl: 'http://54.174.40.59:1337',
+	// baseUrl: 'http://54.174.40.59:1337',
 	// baseUrl: 'http://localhost:1337',
-	// baseUrl: 'http://479c5926b8fe.ngrok.io',
+	baseUrl: 'http://52.15.171.139:1337',
 	firebaseConfig: {
 		apiKey: "AIzaSyC3FxCx2OjJ0quqxAfYvbuKjDWbVwTBkzc",
 		authDomain: "labourdiary-1722c.firebaseapp.com",

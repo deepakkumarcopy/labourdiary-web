@@ -14,7 +14,7 @@ module.exports = {
     deploy: {
       production: {
         'user': 'ubuntu',
-        'host': '52.14.3.171',
+        'host': '3.23.64.231',
         'ref': 'origin/master',
         'repo': 'git@github.com:deepakkumarcopy/labourdiary-web.git',
         'path': 'home/ubuntu/labourdiary-web',
