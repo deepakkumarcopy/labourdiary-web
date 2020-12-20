@@ -17,7 +17,7 @@ module.exports = {
         'host': '3.23.64.231',
         'ref': 'origin/master',
         'repo': 'git@github.com:deepakkumarcopy/labourdiary-web.git',
-        'path': 'home/ubuntu/labourdiary-web',
+        'path': '/home/ubuntu/labourdiary-web',
         'post-deploy': 'npm install && pm2 reload ecosystem.config.js --env production && npm run build-prod'
       },
     //   stagingold: {
