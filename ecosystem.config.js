@@ -14,10 +14,10 @@ module.exports = {
     deploy: {
       production: {
         'user': 'ubuntu',
-        'host': '52.14.3.171',
+        'host': '3.23.64.231',
         'ref': 'origin/new_master',
         'repo': 'git@github.com:deepakkumarcopy/labourdiary-web.git',
-        'path': 'home/ubuntu/labourdiary-web',
+        'path': '/home/ubuntu/labourdiary-web',
         'post-deploy': 'npm install && pm2 reload ecosystem.config.js --env production && npm run build-prod'
       },
     //   stagingold: {
