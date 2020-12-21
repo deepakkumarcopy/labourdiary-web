@@ -15,7 +15,7 @@ module.exports = {
       production: {
         'user': 'ubuntu',
         'host': '52.14.3.171',
-        'ref': 'origin/master',
+        'ref': 'origin/new_master',
         'repo': 'git@github.com:deepakkumarcopy/labourdiary-web.git',
         'path': 'home/ubuntu/labourdiary-web',
         'post-deploy': 'npm install && pm2 reload ecosystem.config.js --env production && npm run build-prod'
