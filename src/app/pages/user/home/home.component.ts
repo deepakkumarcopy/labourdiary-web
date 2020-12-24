@@ -138,11 +138,11 @@ export class HomeComponent implements OnInit {
 		this.modalService.close(id);
 	}
 
-	logout(id) {
-		this.modalService.close(id);
-		localStorage.clear();
-		this.toastr.success('Sucessfully logout!')
-		this.user = null;
-		this.userImage = null;
-	}
+	// logout(id) {
+	// 	this.modalService.close(id);
+	// 	localStorage.clear();
+	// 	this.toastr.success('Sucessfully logout!')
+	// 	this.user = null;
+	// 	this.userImage = null;
+	// }
 }

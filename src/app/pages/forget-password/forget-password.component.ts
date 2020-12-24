@@ -155,8 +155,11 @@ export class ForgetPasswordComponent implements OnInit {
 	changePassword() {
 		if (this.passwordForm.status == 'VALID') {
 			this.api.changePassword({ email: this.emailForm.value.email, password: this.passwordForm.value.password }).subscribe((res) => {
+				console.log('response of apiiii', res)
 				if(res.success) {
+					this.toaster.success(res.message);
 					this.location.back();
+
 				} else {
 					this.toaster.warning('unable to change password !');
 				}
