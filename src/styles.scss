@@ -13,6 +13,12 @@
     /*Lets add the numbers for each link using CSS counters. flag is the name of the counter. to be defined using counter-reset in the parent element of the links*/
     counter-reset: flag; 
 }
+.color-blue {
+    color: blue;
+}
+.padding-top-5 {
+    padding-top: 5px !important;
+}
 .timeCount {
     text-align: right;
     position: absolute;
@@ -430,6 +436,9 @@ color-grey{
 .mbt {
     margin-bottom: 85px;
     margin-top: 46px;
+}
+.font-bold {
+    font-weight: bold;
 }
 .font-700 {
     font-weight: 700;
@@ -2414,7 +2423,7 @@ a:hover {
             top: 1px;
         }
     }
-
+    
     .pl-5-sm {
         padding-left: 5px;
     }
