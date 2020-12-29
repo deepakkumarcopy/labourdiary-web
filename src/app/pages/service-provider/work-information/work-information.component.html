@@ -97,10 +97,10 @@
 			<div class="w-100">
 
 				<button *ngIf="!isWorkInfo" type="submit" class="btn btn-primary p-3 input-border btn-theme-labour w-100"
-					[disabled]="workInformationForm.status=='INVALID' || !workImages"
+					[disabled]="workInformationForm.status=='INVALID' || workImages.length==0"
 					(click)="savedWorkInformation()">Submit</button>
 				<button *ngIf="isWorkInfo" type="submit" class="btn btn-primary p-3 input-border btn-theme-labour w-100"
-					[disabled]="workInformationForm.status=='INVALID' || !workImages"
+					[disabled]="workInformationForm.status=='INVALID' || workImages.length==0"
 					(click)="savedWorkInformation()">Update</button>
 			</div>
 		</div>

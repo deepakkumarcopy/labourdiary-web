@@ -170,7 +170,9 @@ export class WorkInformationComponent implements OnInit {
 
     if(e && e.length <= 3) {
       const categoryId = e[e.length-1];
+      this.workInformationForm.controls['category'].setValue(e);
       this.getSubCategory(categoryId);
+
     } else {
       e = e.slice(0, -1);
       this.workInformationForm.controls['category'].setValue(e);
