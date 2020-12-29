@@ -17,7 +17,7 @@ import { switchMap } from "rxjs/operators";
 
 export class AuthService {
 
-	baseUrl = environment.baseUrl;
+	baseUrl = `${environment.baseUrl}:1337`;
 
 	constructor(
 		private http: HttpClient,

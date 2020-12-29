@@ -1,5 +1,6 @@
 <div class="container">
-	<img class="mt-5" [routerLink]="['/private-information']" src="assets/img/back-icon.jpg" alt="" height="20px" width="20px">
+	<img class="mt-5" [routerLink]="['/private-information']" src="assets/img/back-icon.jpg" alt="" height="20px"
+		width="20px">
 	<h4 class="pt-5 pb-3 font-700">Emergency Contact</h4>
 
 	<div class="row">
@@ -11,17 +12,14 @@
 							<h5>{{contact.name}}</h5>
 							<div class="edit-delete-position">
 								<div class="dropdown">
-									<span class="show-dot" data-toggle="dropdown">...</span>
+									<span class="show-dot cursor-pointer" data-toggle="dropdown">...</span>
 									<div class="dropdown-menu">
-										<a class="dropdown-item" href="#" (click)="editEmergencyContact(contact)">Edit</a>
-										<a class="dropdown-item" href="#" (click)="deleteEmergencyContact(contact)">Delete</a>
+										<a class="dropdown-item cursor-pointer" href="javaScript:void()" (click)="editEmergencyContact(contact)">Edit</a>
+										<a class="dropdown-item cursor-pointer" href="javaScript:void()" (click)="deleteEmergencyContact(contact)">Delete</a>
 									</div>
 								</div>
-								<!-- <i class="fa fa-pencil pr-2 cursor-pointer" (click)="editEmergencyContact(contact)" aria-hidden="true"></i>
-								<i class="fa fa-trash text-red cursor-pointer" (click)="deleteEmergencyContact(contact)"aria-hidden="true"></i> -->
 							</div>
 						</div>
-
 						<span>{{contact.relation}}</span>
 						<!-- <span>{{contact}},{{address.address}},{{address.city}}</span> -->
 						<i *ngIf="contact.selected" class="fa fa-check-circle" aria-hidden="true"></i>
@@ -34,49 +32,47 @@
 
 		<div class="col-6 border-left">
 			<form class="form-in-centre m-1" [formGroup]="emergencyContactForm">
-				<!-- <div class="form-border"> -->
-					<div class="form-row">
-						<div class="form-group input-border col-md-12">
-							<label class="font-700 text-muted">Name</label>
-							<input type="text" class="form-control" id="inputPassword4" placeholder="Enter name" formControlName="name">
-						</div>
+				<div class="form-row">
+					<div class="form-group input-border col-md-12">
+						<label class="font-700 text-muted">Name</label>
+						<input type="text" class="form-control" id="inputPassword4" placeholder="Enter name" formControlName="name">
 					</div>
-					<div class="form-row">
-						<div class="form-group input-border col-md-12">
-							<label class="font-700 text-muted">Relation</label>
-							<select id="inputState" class="form-control" formControlName="relation">
-								<option selected disabled value=''>Select Relation</option>
-								<option>Father</option>
-								<option>Mother</option>
-								<option>Sister</option>
-								<option>Brother</option>
-								<option>Cousin</option>
-							</select>
-						</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group input-border col-md-12">
+						<label class="font-700 text-muted">Relation</label>
+						<select id="inputState" class="form-control" formControlName="relation">
+							<option selected disabled value=''>Select Relation</option>
+							<option>Father</option>
+							<option>Mother</option>
+							<option>Sister</option>
+							<option>Brother</option>
+							<option>Cousin</option>
+						</select>
 					</div>
-					<div class="form-row">
-						<div class="form-group col-md-12 input-border">
-							<label class="font-700 text-muted">Email</label>
-							<input type="email" class="form-control" id="inputPassword4" placeholder="Enter email" formControlName="email">
-						</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-md-12 input-border">
+						<label class="font-700 text-muted">Email</label>
+						<input type="email" class="form-control" id="inputPassword4" placeholder="Enter email" formControlName="email">
 					</div>
-					<div class="form-row">
-						<div class="form-group col-md-12 input-border">
-							<label for="inputAddress" class="font-700 text-muted">Phone Number</label>
-							<app-country-input [countryCode]="countryDialCode" (onCountryChange)="resetPhoneNumber($event)"> </app-country-input>
-						</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-md-12 input-border">
+						<label for="inputAddress" class="font-700 text-muted">Phone Number</label>
+						<app-country-input [countryCode]="countryDialCode" (onCountryChange)="resetPhoneNumber($event)"></app-country-input>
 					</div>
-					<div class="form-row">
-						<div class="form-group col-md-12 input-border">
-							<label for="inputAddress" class="font-700 text-muted">Phone Number</label>
-							<input type="tel" class="form-control" id="inputAddress" placeholder="Phone Number" (keydown)="numberOnly($event)" formControlName="phone" maxLength="14">
-						</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-md-12 input-border">
+						<label for="inputAddress" class="font-700 text-muted">Phone Number</label>
+						<input type="tel" class="form-control" id="inputAddress" placeholder="Phone Number" (keydown)="numberOnly($event)" formControlName="phone" maxLength="14">
 					</div>
-					<button *ngIf="!isUpdate" type="submit" class="w-100 btn btn-primary p-3 input-border font-24 btn-theme-labour" [disabled]="emergencyContactForm.status=='INVALID'" (click)="savedEmergencyContact()">Add</button>
-					<button *ngIf="isUpdate" type="submit" class="btn btn-primary btn-theme-labour pr-4 pl-4" [disabled]="emergencyContactForm.status=='INVALID'" (click)="updateEmergencyContact()">Update</button>
-				<!-- </div> -->
+				</div>
+				<button *ngIf="!isUpdate" type="submit" class="w-100 btn btn-primary p-3 input-border font-24 btn-theme-labour" [disabled]="emergencyContactForm.status=='INVALID'" (click)="savedEmergencyContact()">Add</button>
+				<button *ngIf="isUpdate" type="submit" class="btn btn-primary btn-theme-labour pr-4 pl-4" [disabled]="emergencyContactForm.status=='INVALID'" (click)="updateEmergencyContact()">Update</button>
 			</form>
 		</div>
 	</div>
-	<button type="submit" class="w-100 btn btn-primary p-3 input-border font-24 btn-theme-labour pr-4 pl-4" (click)="updateEmergencyContact()">Continue</button>
+	<button type="submit" class="w-100 btn btn-primary p-3 input-border font-24 btn-theme-labour pr-4 pl-4" [routerLink]="['/work-information']">Continue</button>
 </div>

@@ -32,9 +32,9 @@
                                 </div>
                             </div>
 
-                            <p class="text-right"><a class="cursor-pointer enable-text font-13" href="javascript:void();" (click)="openModal('forgetPassword')">Forgot Password?</a></p>
+                            <p class="text-right"><a class="cursor-pointer enable-text font-13" href="javascript:void();" [routerLink]="['/forget-password']">Forgot Password?</a></p>
 
-                            <input class="btn btn-primary input-border p-4 btn-theme-labour w-100" type="submit" [disabled]="loginForm.status == 'INVALID'" value="Login">
+                            <input class="btn btn-primary input-border p-3 btn-theme-labour w-100" type="submit" [disabled]="loginForm.status == 'INVALID'" value="Login">
 
                         </form>
 

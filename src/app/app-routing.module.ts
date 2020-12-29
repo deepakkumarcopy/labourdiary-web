@@ -78,6 +78,7 @@ const routes: Routes = [
 	{ path: 'profile', component: ProfileComponent },
 	{ path: "payment/:serviceId/:orderId/:totalAmount", component: PaymentComponent },
 	{ path: "message", component: MessagesComponent },
+	{ path: "message/:id", component: MessagesComponent },
 	{ path: "sign-up", component: SignUpComponent },
 	{ path: "**", component: ErrorComponent }
 ];

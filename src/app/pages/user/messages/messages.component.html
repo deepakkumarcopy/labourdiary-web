@@ -1,127 +1,117 @@
 <div *ngIf="isUserOrProvider == 'message'">
-    <app-header></app-header>
+	<app-header></app-header>
 </div>
-<!-- <nav class="navbar bg-light pt-15"> -->
-    <!-- <img [routerLink]="['/']" class="logo" src="assets/img/icon.png" alt=""> -->
-    <!-- <a class="navbar-brand" href="/"></a> -->
-            
-<div class="container-fluid" [ngClass]="{'pt-74': isUserOrProvider == 'message'}">
-    <div class="row">
-        <div class="col-3">
-            <div class="card" style="margin-left: -10px;">
-                <div class="card-body">
-                    <h6 class="font-700">Messaging</h6>
-                </div>
-            </div>
-            <div class="message-scroll">
-                <div *ngIf="message">
-                    <div *ngFor="let msg of message;index as i">
-                        <div class="card-body d-flex chat-window display-dropdown" [ngClass]="{'selected-chat': msg.selected == true}" (click)="userChatWindow(msg)" id="user_{{msg.id}}">
-                            
-                            <img class="logo btn-primary border-radius-50"  id="selectedOption"  [src]="msg.imageUrl!= 'null'? msg.imageUrl: 'assets/img/construction.jpg'" alt="" width="40px" height="40px">
-                            <div>
-                                <div class="d-flex">
-                                    <h5 class="pl-2">{{msg.firstName}}</h5>
-                                    <div class="edit-delete-position" style="right:71px;">
-                                        <div class="dropdown">
-                                            
-                                            <span class="show-dot" data-toggle="dropdown">...</span>
-                                             <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="javascript:void(0)" (click)="delete(msg, i)">Delete</a>
-                                                <!-- <a class="dropdown-item" href="#" (click)="deleteEmergencyContact(contact)">Delete</a> -->
-                                            </div>
-                                        </div>
-                                        <!-- <i class="fa fa-pencil pr-2 cursor-pointer" (click)="editEmergencyContact(contact)" aria-hidden="true"></i>
-                                        <i class="fa fa-trash text-red cursor-pointer" (click)="deleteEmergencyContact(contact)"aria-hidden="true"></i> -->
-                                    </div>
-                                </div>
-                                <div *ngIf="msg.lastMessage && msg.lastMessage[0]">
-                                    <div class="d-flex">
 
-                                        <p class="pl-2 ">{{msg.lastMessage[0].texts}}</p>
-                                        <div class=" float-right pl-4 text-muted">{{getMessagesDate(msg)}}</div>
-                                        
-                                        <!-- <p class="float-right pl-4 text-muted">{{msg.lastMessage[0].createdAt |date: 'MMM d'}}</p> -->
-                                    </div>
-                                </div>
-                                <!-- <p class="pl-2 mt-in-negative text-muted">Completed 18 Jan-25 Jan</p> -->
-                            </div>
+<div class="container-fluid" [ngClass]="{'pt-60': isUserOrProvider == 'message'}" >
+	<div class="row preview">
+		<div class="col-3 p-0" style="height: 100%;">
+			<div class="card">
+				<div class="card-body">
+					<h6 class="font-700 m-0">Messaging</h6>
+				</div>
+			</div>
+			<div class="message-scroll">
+				<div *ngIf="message">
+					<div *ngFor="let msg of message;index as i">
+						<div class="card-body d-flex chat-window display-dropdown m-2 p-3" [ngClass]="{'selected-chat': msg.selected == true}" (click)="userChatWindow(msg)" id="user_{{msg.id}}">
 
-                            <div class="timeCount">
-                            <!-- <div class="msgTime">{{getMessagesDate(msg)}}</div> -->
-                            <span class="messageCount" *ngIf="msg.count">{{msg.count}}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-9">
-            <div class="card" style="margin-left: -32px;">
-                <div *ngIf="reciverUser">
-                    <div class="card-body"><h6 class="font-700">{{reciverUser.firstName | titlecase}}</h6></div>
-                </div>
-            </div>
-            <div class="message-scroll" style="height: 765px;" #scrollBottom>
-                <div *ngIf="isLoading; else showData">Loading..</div>
-                <ng-template #showData>
-                    <div  infiniteScroll
-                        [infiniteScrollDistance]="0"
-                        [infiniteScrollThrottle]="50"
-                        (scrolled)="getMessage(reciverUser.channelId)"
-                        [scrollWindow]="true"
-                     >
-                        <div *ngIf="userMessage && userMessage.length>0; else noMessageFound">
-                            <div *ngFor="let msg of userMessage ; let i = index;">
-                                <div class="div-in-centre pt-4">
-                                    <p>{{msg.createdAt |date: 'MMM d, yyy'}}</p>
-                                </div>
-                                <div class="div-in-centre " style="width: 590px;">
-                                    <div class="background-border" *ngIf="i==0"> 
-                                        <p class="p-3 f-14 text-muted"><i class="fa fa-star pl-2 pr-2" aria-hidden="true"></i>To protect your payment, always communicate and pay through the Labourdiary website or app.•9:13 PM</p>
-                                    </div>
-                                    
-                                    <div class="card-body d-flex">
-                                        <img class="logo btn-primary border-radius-50"  id="selectedOption"  [src]="msg.sender == user.id ? user.imageUrl : 'assets/img/construction.jpg'"  width="40px" height="40px">
-                                        <!-- <img class="logo btn-primary border-radius-50"  id="selectedOption"  [src]="msg.sender != user.id && reciverUser &&  reciverUser.imgageUrl!='null' ? reciverUser.imgageUrl: 'assets/img/construction.jpg'"  width="40px" height="40px"> -->
-                                        <div>
-                                            <div class="d-flex">
-                                                <h5 class="pl-2 font-700" *ngIf="msg.sender == user.id">{{(user.firstName)}}</h5>
-                                                    <h5 class="pl-2 font-700" *ngIf="reciverUser && msg.sender != user.id">{{(reciverUser.firstName)}}</h5>
+							<img class="logo border-radius-50" id="selectedOption" [src]="((msg.imageUrl == '') || (msg.imageUrl == 'null')) ? 'assets/img/personImg.jpg' : msg.imageUrl" alt="" width="40px" height="40px">
+							<div>
+								<div class="d-flex">
+									<h5 class="pl-2">{{msg.firstName}}</h5>
+									<div class="edit-delete-position" style="right:71px;">
+									<div class="dropdown">
 
-                                                <p class="pt-1 pl-1 f-14 text-muted">{{ msg.createdAt | date:'hh:mm a'}}</p>
-                                            </div>
-                                            <div class="d-flex">
-                                                <p class="pl-2 ">{{msg.texts}}</p>
-                                                <!-- <p class="float-right pl-4 text-muted">Jan 25</p> -->
-                                            </div>
-                                            <!-- <p class="pl-2 mt-in-negative text-muted">Completed 18 Jan-25 Jan</p> -->
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </ng-template>
-                <ng-template #noMessageFound>
-                    No conversation found
-                </ng-template>
-            </div>
-            <div class="div-in-centre " style="width: 590px;">
-                <div class="d-flex">
+										<span class="show-dot" data-toggle="dropdown">...</span>
+										<div class="dropdown-menu">
+											<a class="dropdown-item" href="javascript:void(0)" (click)="delete(msg, i)">Delete</a>
+											<!-- <a class="dropdown-item" href="#" (click)="deleteEmergencyContact(contact)">Delete</a> -->
+										</div>
+									</div>
+									<!-- <i class="fa fa-pencil pr-2 cursor-pointer" (click)="editEmergencyContact(contact)" aria-hidden="true"></i>
+										<i class="fa fa-trash text-red cursor-pointer" (click)="deleteEmergencyContact(contact)"aria-hidden="true"></i> -->
+									</div>
+									<div class=" float-right pl-4 text-muted font-12">{{getMessagesDate(msg)}}</div>
+								</div>
+								<div *ngIf="msg.lastMessage && msg.lastMessage[0]">
+									<div class="d-flex">
 
-                    <!-- <i class="fa fa-picture-o pt-3 pr-2 f-25" aria-hidden="true"></i> -->
-                    <input type="text" id="fname" class="input-style" [(ngModel)]="newMsg" name="fname" (keydown.enter)="sendMessage()" placeholder="Type a message">
-                    <div >
-                        <i class="fa fa-paper-plane mt-1 ml-2 send-icon" (click)="sendMessage()" aria-hidden="true"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+										<p class="pl-2 m-0">{{msg.lastMessage[0].texts}}</p>
+
+										<!-- <p class="float-right pl-4 text-muted">{{msg.lastMessage[0].createdAt |date: 'MMM d'}}</p> -->
+									</div>
+								</div>
+								<!-- <p class="pl-2 mt-in-negative text-muted">Completed 18 Jan-25 Jan</p> -->
+							</div>
+
+							<div class="timeCount">
+								<!-- <div class="msgTime">{{getMessagesDate(msg)}}</div> -->
+								<span class="messageCount" *ngIf="msg.count">{{msg.count}}</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-9 p-0"  style="height: 92%;">
+			<div class="card pl-0">
+				<div *ngIf="reciverUser">
+					<div class="card-body">
+						<h6 class="font-700 m-0">{{ reciverUser.firstName | titlecase }}</h6>
+					</div>
+				</div>
+			</div>
+			<div class="message-scroll" #scrollBottom infiniteScroll [infiniteScrollDistance]="0" [infiniteScrollThrottle]="50" (scrolled)="getMessage(reciverUser.channelId)" [scrollWindow]="true">
+				<div *ngIf="isLoading; else showData" class="text-center pt-5 mt-5">Loading..</div>
+				<ng-template #showData>
+					<div >
+						<div *ngIf="userMessage && userMessage.length>0; else noMessageFound">
+							<div *ngFor="let msg of userMessage ; let i = index;">
+								<div class="div-in-centre">
+									<p class="m-0">{{ msg.createdAt | date: 'MMM d, yyy' }}</p>
+								</div>
+								<div class="div-in-centre chat-box-message" style="width: 590px;">
+									<div class="background-border" *ngIf="i==0">
+										<p class="p-3 f-14 text-muted"><i class="fa fa-star pl-2 pr-2" aria-hidden="true"></i>
+											To protect your payment, always communicate and pay through the Labourdiary website or app.
+										</p>
+									</div>
+
+									<div class="card-body p-0 d-flex">
+										<img class="logo border-radius-50" id="selectedOption" [src]="msg.sender == user.id ? ((user.imageUrl == '') || (user.imageUrl == 'null')) ? 'assets/img/personImg.jpg' : user.imageUrl : ((reciverUser.imageUrl == '') || (reciverUser.imageUrl == 'null')) ? 'assets/img/personImg.jpg' : reciverUser.imageUrl" width="40px" height="40px">
+										<div>
+											<div class="d-flex">
+												<h5 class="pl-2 m-0 font-700" *ngIf="msg.sender == user.id">{{(user.firstName)}}</h5>
+												<h5 class="pl-2 m-0 font-700" *ngIf="reciverUser && msg.sender != user.id">{{(reciverUser.firstName)}}</h5>
+												<p class="pt-1 m-0 pl-1 f-14 text-muted">{{ msg.createdAt | date:'hh:mm a'}}</p>
+											</div>
+											<div class="d-flex">
+												<p class="pl-2 m-0">{{msg.texts}}</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</ng-template>
+				<ng-template #noMessageFound>
+					No conversation found
+				</ng-template>
+			</div>
+			<div class="div-in-centre " style="width: 590px;">
+				<div class="d-flex">
+					<input type="text" id="fname" class="input-style" [(ngModel)]="newMsg" name="fname" (keydown.enter)="sendMessage()" placeholder="Type a message">
+					<div>
+						<i class="fa fa-paper-plane mt-1 ml-2 send-icon" (click)="sendMessage()" aria-hidden="true"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
-    
-    <!-- </nav> -->
+
+<!-- </nav> -->
 <!-- <section>
     <div class="row">
         <div class="col-4">
@@ -143,7 +133,7 @@
                         <div [ngClass]="{'self': sender, 'other': !sender}">
                             <div class="profile-divider"></div>
                             <div class="body">{{ message.texts }} -->
-                                <!-- <span class="messageStatus" *ngIf="user.id == message.sender" class="sent">
+<!-- <span class="messageStatus" *ngIf="user.id == message.sender" class="sent">
                                     <i *ngIf="message.deliveryStatus == 'Sending'" class="far fa-clock"></i>
                                     <i *ngIf="message.deliveryStatus == 'Sent'" class="fa fa-check"></i>
                                     <i *ngIf="message.deliveryStatus == 'Unread'" class='fas fa-check-double'></i>
@@ -151,7 +141,7 @@
                                         <i *ngIf="message.deliveryStatus == 'Read'" class='fas fa-check-double'></i>
                                     </span>
                                 </span> -->
-                           <!--  </div>
+<!--  </div>
                         </div>
                     </label>
                 </ion-item>

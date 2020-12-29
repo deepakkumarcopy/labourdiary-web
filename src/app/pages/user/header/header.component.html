@@ -50,8 +50,33 @@
 			<hr *ngIf="user">
 			<a class="dropdown-item py-2" *ngIf="user" (click)="openModal('log-out')" href="#">Saved</a>
 			<a class="dropdown-item py-2" *ngIf="user" (click)="navigateToStats()">Stats</a>
-			<a class="dropdown-item py-2 logoutBtn" *ngIf="user" (click)="openModal('log-out')" href="#">Log Out</a>
+			<a class="dropdown-item py-2 logoutBtn" *ngIf="user" (click)="openModal('log-out')" href="javascript:void(0)">Log Out</a>
 		</div>
 	</div>
 </nav>
 <div id="map" style="display: none;"></div>
+
+<jw-modal id="log-out">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header p-0 border-0">
+                <div class="close" (click)="closeModal('log-out')">
+                    <span aria-hidden="true">&times;</span>
+                </div>
+            </div>
+
+            <div class="p-4">
+				<div class="font-34 font-weight-bold">Log out</div>
+				<p>Are you sure want to log out?</p>
+				<div class="row">
+					<div class="col">
+						<input (click)="closeModal('log-out')" class="btn-theme ln-40  text-center btn-block font-14 text-uppercase nowrap mt-4 caret-transparent" type="button" value="NO">
+					</div>
+					<div class="col">
+						<input (click)="logout('log-out')" class="btn-theme ln-40  text-center btn-block font-14 text-uppercase nowrap mt-4 caret-transparent" type="button" value="YES">
+					</div>
+				</div>
+            </div>
+        </div>
+    </div>
+</jw-modal>
