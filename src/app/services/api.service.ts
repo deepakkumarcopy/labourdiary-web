@@ -11,7 +11,7 @@ import { environment } from '../../environments/environment.prod';
 
 export class ApiService {
 
-  baseUrl = environment.baseUrl;
+  baseUrl = `${environment.baseUrl}:1337`;
 
   constructor(
     private http: HttpClient,
@@ -34,6 +34,15 @@ export class ApiService {
       return {
         id: item.id,
         text: item.name,
+      }
+    })
+  }
+
+  formatLanguageList(language) {
+    return language.map(function (item) {
+      return {
+        id: item,
+        text: item
       }
     })
   }

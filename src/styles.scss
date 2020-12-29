@@ -369,7 +369,13 @@ color-grey{
 }
 .message-scroll {
     overflow-y: scroll;
-    height: 826px;
+    height: 92%;
+    scroll-behavior: smooth;
+    background: #efefef;
+    .chat-window {
+        border-radius: 16px;
+        background-color: white;
+    }
 }
 .input-style {
     width: 100%;
@@ -573,7 +579,7 @@ color-grey{
 }
 .search {
     // border: 1px solid black;
-    padding: 7px;
+    // padding: 7px;
     border-radius: 60px;
     /*box-shadow: 19px 19px 69px -5px #c1c0c0;*/
     background: #f8f9fa!important;
@@ -686,7 +692,7 @@ jw-modal {
     }
 
     .modal-content {
-        width: 380px !important;
+        width: 500px !important;
         margin: auto;
         position: relative;
         border-radius: 16px;
@@ -800,6 +806,9 @@ jw-modal {
 }
 .pt-74 {
     padding-top: 74px;
+}
+.pt-60 {
+    padding-top: 60px;
 }
 .bg-unset-img {
     background-image: unset !important;
@@ -975,6 +984,9 @@ ngb-modal-window {
     width:165px; 
     margin-right: auto; 
     margin-left: auto;
+    .chat-box-message {
+        background-color: white;
+    }
 }
 .send-icon {
     border-radius: 50%!important;
@@ -2647,4 +2659,13 @@ a:hover {
 	margin-bottom: 20px;
 	font-size: 20px;
 	color: white;
+}
+
+.dropdown_div {
+    right: 0;
+    left: auto;
+    width: 204px;
+    border-radius: 15px;
+    // border: none;
+    margin-top: 16px;
 }

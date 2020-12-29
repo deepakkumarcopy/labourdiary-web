@@ -54,6 +54,7 @@ export class HomeComponent implements OnInit {
 					this.savedServiceList = res.savedServiceList;
 				}
 			});
+		}
 
 			this.api.getTopCategories().subscribe((res) => {
 				if (res.success) {
@@ -74,7 +75,6 @@ export class HomeComponent implements OnInit {
 			}, (error) => {
 				this.isLoadingForCategory = false;
 			});
-		}
 	}
 
 	checkSavedService(id: string) {

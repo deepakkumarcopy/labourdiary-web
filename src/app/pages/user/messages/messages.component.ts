@@ -4,7 +4,7 @@ import { ApiService } from '../../../services/api.service';
 import { ToastrService } from 'ngx-toastr';
 import { NotificationService } from '../../../services/notification.service';
 import { DatePipe } from '@angular/common';
-declare var $:any;
+declare var $: any;
 @Component({
 	selector: 'app-messages',
 	templateUrl: './messages.component.html',
@@ -12,6 +12,7 @@ declare var $:any;
 })
 
 export class MessagesComponent implements OnInit {
+
 	@ViewChild('scrollBottom') private scrollBottom: ElementRef;
 	user: any = JSON.parse(localStorage.getItem('user'));
 	messages: any = [];
@@ -22,24 +23,21 @@ export class MessagesComponent implements OnInit {
 	userMessage: any = [];
 	reciverUser: any;
 	isLoading: boolean = true;
-	page_num: any = 10;
+	page_num: any = 20;
 	page_size: any = 0;
 	w3channel: any;
-	isUserOrProvider:any;
+	isUserOrProvider: any;
 	userChat: any = JSON.parse(localStorage.getItem('user-chat'));
+	channelId: string = "";
+
 	constructor(
 		private api: ApiService,
 		private route: ActivatedRoute,
 		private router: Router,
 		private tostr: ToastrService,
 		private notificationService: NotificationService
-	) {
-		this.w3channel = this.notificationService.subscribeEvent('labour-dairy');
-		this.w3channel.bindEvent(`message-${this.user.id}`, async (msg) => {
-			console.log(msg)
-		});
-	}
-	
+	) { }
+
 	ngOnInit(): void {
 		this.isUserOrProvider = this.router.url.split('/')[1]
 		this.route.params.subscribe((params) => {
@@ -50,29 +48,38 @@ export class MessagesComponent implements OnInit {
 		// this.getMessage()
 		this.getRecentUsers()
 		this.scrollToBottom();
-		
+		this.notificationService.joinRoom(this.user.id);
+		this.notificationService.getMessages(this.user.id).subscribe((message: any) => {
 
+			if (message.channelId == this.reciverUser.channelId) {
+				this.userMessage.push(message);
+				this.scrollToBottom();
+			}
+		});
 	}
+
 	ngAfterViewInit() {
-		setTimeout(()=>{
-			if(!!this.userChat) {
-				let id = 'user_'+this.userChat.id 
-				$('#'+id).click()
-			}  else {
+		setTimeout(() => {
+			if (!!this.userChat) {
+				let id = 'user_' + this.userChat.id
+				$('#' + id).click()
+			} else {
 				// console.log($('.chat-window')[0], 'user chatttttttttttttttttttttt')
 				$('.chat-window')[0].click()
 			}
-
-		},2000)
+		}, 2000)
 	}
+
 	scrollToBottom(): void {
 		setTimeout(() => {
 			try {
-            this.scrollBottom.nativeElement.scrollTop = this.scrollBottom.nativeElement.scrollHeight;
+				this.scrollBottom.nativeElement.scrollTop = this.scrollBottom.nativeElement.scrollHeight;
 			} catch (err) { }
-		}, 2000)
-    }
+		}, 100)
+	}
+
 	createChannel(serviceId) {
+		console.log('aya')
 		let data = {
 			sender: this.user.id,
 			receiver: serviceId,
@@ -80,13 +87,14 @@ export class MessagesComponent implements OnInit {
 			providerChatId: serviceId
 		}
 		this.api.createChannel(data).subscribe((res) => {
+			console.log(res)
 			if (res.success) {
 				this.getRecentUsers();
 				this.getMessage(res.channel.id)
+				this.channelId = res.channel.id;
 			} else {
 				this.router.navigate(['order']);
 				this.tostr.warning(res.message)
-
 			}
 		}, error => {
 			this.tostr.error('Something went wrong')
@@ -96,10 +104,9 @@ export class MessagesComponent implements OnInit {
 	getMessage(channelId) {
 		let data = {
 			id: channelId,
-			page_num: 10,
+			page_num: this.page_num,
 			skips: this.page_size * this.page_num,
 		}
-		console.log(this.page_size, this.page_num, 'page numberrr')
 		this.api.getMessage(data).subscribe((res) => {
 			if (res.success) {
 				this.isLoading = false;
@@ -114,8 +121,7 @@ export class MessagesComponent implements OnInit {
 	}
 
 	getRecentUsers() {
-		console.log('getRecentUsers')
-		let data 
+		let data: any;
 		if (this.isUserOrProvider == 'message') {
 			data = {
 				userId: this.user.id,
@@ -132,11 +138,8 @@ export class MessagesComponent implements OnInit {
 			}
 		}
 		this.api.getRecentUsers(data).subscribe((res) => {
-			console.log(res, 'responsee og getRecentUsers')
 			if (res.success) {
 				this.message = res.users;
-				console.log(this.message, 'get recent usersssssssssssssssss')
-
 				if (this.message) {
 					this.message.forEach((msg) => {
 						if (msg && msg.lastMessage) {
@@ -145,7 +148,6 @@ export class MessagesComponent implements OnInit {
 							this.selectedUser = msg.lastMessage.find((msg) => msg.sender == this.user.id)
 						}
 					})
-					console.log(this.selectedUser, 'msggg')
 				}
 				// this.getMessage(res.users.channelId)
 			} else {
@@ -157,7 +159,6 @@ export class MessagesComponent implements OnInit {
 	}
 
 	sendMessage() {
-		console.log('send messageee')
 		if (!this.newMsg) {
 			return;
 		}
@@ -169,37 +170,33 @@ export class MessagesComponent implements OnInit {
 			channelId: this.reciverUser.channelId,
 			senderType: "User"
 		}
-		console.log(data, 'data', this.selectedUser)
+
 		this.api.createMessage(data).subscribe((res) => {
 			if (res.success) {
-				console.log(res, 'responseee of send message')
+				this.notificationService.sendMessage(res.message);
 				this.userMessage.push(res.message)
-				// this.getRecentUsers()
-				this.newMsg = ''
-
-				// this.getMessage(data.channelId);
+				this.newMsg = '';
+				this.scrollToBottom();
 			}
-
 		})
 	}
 
 	userChatWindow(user) {
 		this.page_size = 0
-		this.scrollToBottom(); 
+		this.scrollToBottom();
 		this.reciverUser = user;
-		console.log(this.reciverUser, 'userrr')
-		this.message.forEach((msg)=>{
+		this.message.forEach((msg) => {
 			msg.selected = (msg.id == user.id ? true : false);
-			if(msg.id == user.id){
+			if (msg.id == user.id) {
 				msg.count = 0
 			}
 		});
-		const selectedUser = this.message.find((msg)=>msg.selected == true)
+		const selectedUser = this.message.find((msg) => msg.selected == true)
 		this.markAsRead(selectedUser)
 		localStorage.setItem('user-chat', JSON.stringify(selectedUser));
 		this.getMessage(user.channelId);
-
 	}
+
 	getMessagesDate(user: any) {
 		if (!user.lastMessage.length)
 			return '---'
@@ -217,6 +214,7 @@ export class MessagesComponent implements OnInit {
 			return value;
 		}
 	}
+
 	convertToNiceDate(time: string) {
 		var date = new Date(time),
 			diff = (((new Date()).getTime() - date.getTime()) / 1000),
@@ -249,9 +247,9 @@ export class MessagesComponent implements OnInit {
 		this.message.splice(i, 1);
 		this.api.deleteChannel(userChat.channelId).subscribe((res: any) => {
 			if (res.success) {
-				let msg = this.message[this.message.length -1]
-				let id = 'user_'+ msg.id 
-				$('#'+id).click();
+				let msg = this.message[this.message.length - 1]
+				let id = 'user_' + msg.id
+				$('#' + id).click();
 				// this.message.length ? this.noServices = false : this.noServices = true;
 			} else {
 				this.message.splice(i, 0, userChat);

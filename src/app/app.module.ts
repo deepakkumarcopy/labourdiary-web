@@ -18,7 +18,6 @@ import { ChartsModule } from 'ng2-charts';
 import { NgSelect2Module } from 'ng-select2';
 import { ImageCropperModule } from 'ngx-image-cropper';
 
-// import { NgSelect2Module } from 'ng-select2';
 //Component
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -67,6 +66,16 @@ import { ListOfServicesComponent } from './pages/service-provider/list-of-servic
 import { ConfirmationDialogComponent } from './shared/confirmation-dialog/confirmation-dialog.component';
 import { VerifyComponent } from './pages/verify/verify.component';
 import { ForgetPasswordComponent } from './pages/forget-password/forget-password.component';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+
+var connectionOptions = {
+	"force new connection": true,
+	"reconnectionAttempts": "Infinity",
+	"timeout": 10000,
+	"transports": ["websocket"]
+};
+
+const config: SocketIoConfig = { url: `${environment.baseUrl}:3000`, options: connectionOptions };
 
 @NgModule({
 	declarations: [
@@ -110,7 +119,6 @@ import { ForgetPasswordComponent } from './pages/forget-password/forget-password
 		ConfirmationDialogComponent,
 		VerifyComponent,
 		ForgetPasswordComponent,
-		
 	],
 	imports: [
 		BrowserModule,
@@ -131,6 +139,7 @@ import { ForgetPasswordComponent } from './pages/forget-password/forget-password
 		ImageCropperModule,
 		ChartsModule,
 		NgSelect2Module,
+		SocketIoModule.forRoot(config),
 		TranslateModule.forRoot({
 			loader: {
 				provide: TranslateLoader,
