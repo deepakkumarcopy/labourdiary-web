@@ -1,19 +1,62 @@
 <div class="container" style="padding-top: 125px;">
-    <div>
+    <div *ngIf="order">
         <div class="card mb-3 box-shadow" >
             <div class="card-body">
-                <div class="row">
+                <div class="row" *ngIf="order.user">
                     <div class="col-4">
                         <div>
                             <h5 class="font-bold">Delivery Address</h5>
-                            <h5>Aman</h5>
-                            <p>Shiv katra road lalbangla harsh building Police chauki lal bangla,Saral nursing home Kanpur-208010,Uttar Pradesh</p>
-                            <p><span class="font-bold">Phone number </span><span>9007000876</span></p>
-                            <p>This order is also tracked by 900700876</p>
+                            <h5>{{order.user.firstName | titlecase}}</h5>
+                            <p>Address of user</p>
+                            <p><span class="font-bold">Phone number </span><span>{{user.profile.phone}}</span></p>
                         </div>
                     </div>
-                    <div class="col-4"></div>
-                    <div class="col-4"></div>
+                    <div class="col-4">
+                        <h5 class="font-bold">Order Status</h5>
+                        <div class="orderStatus inprogress" *ngIf="order.orderStatus == 'IN PROCESS' || order.orderStatus == 'USER_RESCHEDULE' ">IN PROCESS</div>
+                        <!-- <div class="orderStatus inprogress" *ngIf="order.orderStatus == 'USER_ACCEPT_RESCHEDULE'">User accept reschedule</div>
+                        <div class="orderStatus inprogress" *ngIf="order.orderStatus == 'USER_REJECT_RESCHEDULE'">User reject reschedule' }}</div> -->
+                        <div class="orderStatus inprogress" *ngIf="order.orderStatus == 'ACCEPT'">IN PROCCESS</div>
+                        <div class="orderStatus reject" *ngIf="order.orderStatus == 'REJECTED'">REJECTED</div>
+                        <div class="orderStatus inprogress" *ngIf="order.orderStatus == 'WORKDONE'">User Mark as Done</div>
+                        <div class="orderStatus inprogress" *ngIf="order.orderStatus == 'USER_MARK_AS_DONE'">Marked as done</div>
+                        <div class="orderStatus inprogress" *ngIf="order.orderStatus == 'USER_REJECTED'">CANCELLED</div>
+                        <div class="orderStatus complete" *ngIf="order.orderStatus == 'COMPLETED'">COMPLETED</div>
+                        <div class="orderStatus inprogress" *ngIf="order.orderStatus == 'PROVIDER_RESCHEDULE'">Service Provider Reschedule time</div>
+                        <!-- <p>{{order.orderStatus}}</p> -->
+
+                    </div>
+                    <div class="col-4">
+                        <h5 class="font-bold">Action</h5>
+                        <div  *ngIf="order.orderStatus == 'USER_RESCHEDULE' || order.orderStatus == 'IN PROCESS'">Your order is in progress</div>
+                        <div class="orderStatus inprogress" *ngIf="order.orderStatus == 'USER_REJECTED'">Cancelled</div>
+
+                        <div  *ngIf="order.orderStatus == 'ACCEPT' || order.orderStatus == 'IN PROCESS'">Your order is accepted</div>
+                        <div  *ngIf="order.orderStatus == 'USER_MARK_AS_DONE' || order.orderStatus == 'COMPLETED'">Your order is completed</div>
+
+                        <!-- <p>No action is performed by service provider.</p> -->
+                        <div *ngIf="order.orderStatus == 'WORKDONE'" >
+                            <div class="d-flex" (click)="acceptOrRejectReschedule('USER_MARK_AS_DONE')">
+                                <i class="fa fa-check-circle-o pt-2 color-blue" aria-hidden="true"></i>
+                                <p class="pl-2 f-14 font-bold color-blue padding-top-5">MARK AS DONE</p>
+                            </div>
+                        </div>
+                        <div *ngIf="order.orderStatus == 'PROVIDER_RESCHEDULE'">
+                            <div class="d-flex" (click)="acceptOrRejectReschedule('USER_ACCEPT_RESCHEDULE')">
+
+                                <i class="fa fa-check-circle-o pt-2 color-blue" aria-hidden="true"></i>
+                                <p class="pl-2 f-14 font-bold color-blue padding-top-5">ACCEPT RESCHEDULE TIME</p>
+                            </div>
+                            <div class="d-flex">
+                                <!-- <label for="usr" class="search-label mb-0">Reschedule Time</label> -->
+                                <input (input)="parseDate($event.target.value)" type="date" class ="input-search" >
+                                
+                                <!-- <i class="fa fa-times-circle-o pt-2 color-gray" aria-hidden="true"></i>
+                                    <p class="pl-2 f-14 font-bold color-gray padding-top-5">REJECT RESCHEDULE TIME</p> -->
+                            </div>
+                            <button type="button" class="btn btn-secondary mt-2" (click)="acceptOrRejectReschedule('USER_RESCHEDULE')">Reschedule</button>
+                        </div>
+                    </div>
                     <!-- <div class="col-4">
                         {{order.totalAmount}}
                     </div>
@@ -33,30 +76,35 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-4">
-                        <div class="d-flex">
-                            <img src="assets/img/personImg.jpg" width="50px" height="50px">
-                            <h5>Ammi Indie Collection Floral Print women</h5>
+                        <div class="d-flex" *ngIf="order.service">
+                            
+                            <img [src]="order.service.workPhotos ? order.service.workPhotos[0]: 'assets/img/personImg.jpg'" width="50px" height="50px">
+                            <h5 class="pt-2 pl-1">{{order.service.name | titlecase}}</h5>
                             <!-- <h5 class="font-bold">Delivery Address</h5>
                                 <p>Shiv katra road lalbangla harsh building Police chauki lal bangla,Saral nursing home Kanpur-208010,Uttar Pradesh</p>
                                 <p><span class="font-bold">Phone number </span><span>9007000876</span></p>
                                 <p>This order is also tracked by 900700876</p> -->
-                            </div>
-                            <h5 class="font-bold pl-57">$576</h5>
+                        </div>
+                        <h5 class="font-bold pl-57">{{order.totalAmount | currency:"&#8377;"}}</h5>
                     </div>
                     <div class="col-4">
 
                         <p>You order has been placed</p>
                         <div class="d-flex">
-                            <p>Tue,29th Dec 3:24pm</p>
-                            <p style="padding-left: 40px;">Payment Approved</p>
+                            <p>{{order.createdAt | date: 'EEE d MMM , y, h:mm a'}}</p>
+                            <!-- <p style="padding-left: 40px;">Payment Approved</p> -->
                         </div>
                     </div>
                     <div class="col-4">
-                        <h5 class="font-bold">Delivery expected by Jan 01, 2021</h5>
-                        <div class="d-flex">
-
-                            <i class="fa fa-times-circle-o pt-2 color-blue" aria-hidden="true"></i>
-                            <p class="pl-2 f-14 font-bold color-blue padding-top-5">CANCEL SERVICE</p>
+                        <h5 class="font-bold">Appoitment date is  {{order.appointmentTime | date:'MMM d, y'}}</h5>
+                        <div class="d-flex" (click)="acceptOrRejectReschedule('USER_REJECTED')">
+                            <div *ngIf="order.orderStatus == 'USER_REJECTED';else ableToCancel">
+                                <p class="pl-2 f-14 font-bold color-gray padding-top-5">CANCELLED</p>
+                            </div>
+                            <ng-template #ableToCancel>
+                                <i class="fa fa-times-circle-o pt-2 color-blue" aria-hidden="true"></i>
+                                <p class="pl-2 f-14 font-bold color-blue padding-top-5">CANCEL SERVICE</p>
+                            </ng-template>
                         </div>
                     </div>
                     <!-- <div class="col-4">
