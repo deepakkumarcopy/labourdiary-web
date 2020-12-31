@@ -41,5 +41,7 @@ export class JobsComponent implements OnInit {
         console.log('something went wrong')
     });
   }
-
+  jobDetails(job){
+    this.router.navigate(['service-provider/job-details', job.id])
+  }
 }
