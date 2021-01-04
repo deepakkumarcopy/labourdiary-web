@@ -1,61 +1,80 @@
 <div class="container">
 
-    <div class="row pt-5 pl-200 pr-200">
-        <div class="col-12">
-            
-            <div class="card box-shadow">
-                <div class="card-body"><h5 class="font-bold"><span class="color-gray"> Jobs: </span><span class="font-of-service">Appliances</span></h5></div>
-            </div>
-            <div class="card box-shadow mt-3">
-                <div class="card-body">
-                    <div class="d-flex">
-
-                        <h5 class="font-bold">
-                            <span class="color-gray"> Date/Time: </span>
-                        </h5>
-                        <span class="pl-2 pt-2px">2020-10-21-IT13:00.49ZZ</span>
-                    </div>
+    <div class="row pt-5 pl-200 pr-200"  *ngIf="order">
+        <!-- <div *ngIf="order"> -->
+            <div class="col-12">
+                
+                <div class="card box-shadow">
+                    <div class="card-body"><h5 class="font-bold"><span class="color-gray"> Jobs: </span><span class="font-of-service" *ngIf="order.service">{{ order.service.name }}</span></h5></div>
                 </div>
-            </div>
-            <div class="card box-shadow mt-3">
-                <div class="card-body">
-                    <div class="d-flex">
-                        <img src="assets/img/personImg.jpg" width="50px" height="50px">
-                        <br>
-                        <div>
-                            
-                            <h5 class="pt-2 pl-1 font-bold color-gray">Mack Tech</h5>
-                            <p class="pl-1 color-gray mt-in-negative">mark@gmail.com</p>
+                <div class="card box-shadow mt-3">
+                    <div class="card-body">
+                        <div class="d-flex">
+    
+                            <h5 class="font-bold">
+                                <span class="color-gray"> Date/Time: </span>
+                            </h5>
+                            <span class="pl-2 pt-2px">{{ order.appointmentTime | date: 'medium' }}</span>
                         </div>
                     </div>
-                    <div class="border-tops">
-                            
-                        <h5 class="pt-2 pl-1 font-bold color-gray">Address:Work</h5>
-                        <span class="pl-1 color-gray">15th St, Broadway Avenue, New York City</span>
-                        <br>
-                        <span class="pl-1 color-gray">New York-1101</span>
-                    </div>
-                    <!-- <div class="d-flex"">
-                            
-                        <img src="assets/img/personImg.jpg">
-                        <h5 class="pt-2 pl-1 font-bold">Mark Tech</h5>
-                    </div> -->
                 </div>
-            </div>
-            <div class="card box-shadow mt-3">
-                <div class="card-body"><h6 class="font-bold"><span class="color-gray"> Order status: </span><span class="pl-3">IN PROCESS</span></h6></div>
-            </div>
-            <div class="">
-                <input class="btn btn-primary input-border p-2 btn-theme-labour font-21 font-bold w-100 mt-4 " style="font-weight: 0" type="submit" value="Accept Order">
-            </div>
-            <div class="">
-                <input class="btn btn-primary input-border p-2 btn-theme-labour font-21 font-bold w-100 mt-2 " style="font-weight: 0" type="submit" value="Reject Order">
-            </div>
-            <div (click)="openModal('reschedule-time')">
-                <input class="btn btn-primary input-border p-2 btn-theme-labour font-21 font-bold w-100 mt-2 " style="font-weight: 0" type="submit" value="Reschedule Time">
-            </div>
+                <div class="card box-shadow mt-3">
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <img [src]="((order.user.imageUrl == '') || (order.user.imageUrl == 'null')) ? 'assets/img/personImg1.jpg' : order.user.imageUrl" alt="" width="50px" height="50px">
+                            <br>
+                            <div>
+                                
+                                <h5 class="pt-2 pl-1 font-bold color-gray">{{ order.user.firstName | titlecase}} {{ order.user.lastName }}</h5>
+                                <p class="pl-1 color-gray mt-in-negative">{{ order.user.email }}</p>
+                            </div>
+                        </div>
+                        <div class="border-tops">
+                                
+                            <h5 class="pt-2 pl-1 font-bold color-gray">Address:Work</h5>
+                            <span class="pl-1 color-gray">15th St, Broadway Avenue, New York City</span>
+                            <br>
+                            <span class="pl-1 color-gray">New York-1101</span>
+                        </div>
+                        <!-- <div class="d-flex"">
+                                
+                            <img src="assets/img/personImg.jpg">
+                            <h5 class="pt-2 pl-1 font-bold">Mark Tech</h5>
+                        </div> -->
+                    </div>
+                </div>
+                <div class="card box-shadow mt-3">
+                    <div class="card-body">
+                        <div class="d-flex">
 
-        </div>
+                            <h6 class="font-bold color-gray">Order status:</h6>
+                            <div class="pl-3 font-bold">
+
+                                <div class="orderStatus inprogress" *ngIf="order.orderStatus == 'IN PROCESS'">{{ 'IN PROCESS' | translate }}</div>
+                                <div class="orderStatus inprogress" *ngIf="order.orderStatus == 'USER_ACCEPT_RESCHEDULE'">{{ 'user accept reschedule' | translate }}</div>
+                                <div class="orderStatus inprogress" *ngIf="order.orderStatus == 'USER_REJECT_RESCHEDULE'">{{ 'user reject reschedule' | translate }}</div>
+                                <div class="orderStatus inprogress" *ngIf="order.orderStatus == 'ACCEPT'">{{ 'IN PROCCESS' | translate }}</div>
+                                <div class="orderStatus reject" *ngIf="order.orderStatus == 'REJECTED'">{{ 'REJECTED' | translate }}</div>
+                                <div class="orderStatus inprogress" *ngIf="order.orderStatus == 'WORKDONE'">{{ 'user Mark as Done' | translate }}</div>
+                                <div class="orderStatus complete" *ngIf="order.orderStatus == 'COMPLETED'">{{ 'COMPLETED' | translate }}</div>
+                                <div class="orderStatus inprogress" *ngIf="order.orderStatus == 'PROVIDER_RESCHEDULE'">{{ 'Service Provider Reschedule time' | translate }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    
+                <div class="">
+                    <input class="btn btn-primary input-border p-2 btn-theme-labour font-21 font-bold w-100 mt-4 " style="font-weight: 0" type="submit" value="Accept Order">
+                </div>
+                <div class="">
+                    <input class="btn btn-primary input-border p-2 btn-theme-labour font-21 font-bold w-100 mt-2 " style="font-weight: 0" type="submit" value="Reject Order">
+                </div>
+                <div (click)="openModal('reschedule-time')">
+                    <input class="btn btn-primary input-border p-2 btn-theme-labour font-21 font-bold w-100 mt-2 " style="font-weight: 0" type="submit" value="Reschedule Time">
+                </div>
+    
+            </div>
+        <!-- </div> -->
     
     </div>
 </div>
