@@ -32,7 +32,9 @@ export class EmergencyContactComponent implements OnInit {
 	isUpdate: boolean = false;
 	contactId: any;
 	selectedEmergencyContact: any;
-
+	countries:any;
+	selectedFlag:any;
+	selectedDialCode:any;
 	constructor(private modalService: ModalService,
 		private api: ApiService,
 		private route: ActivatedRoute,
@@ -44,14 +46,24 @@ export class EmergencyContactComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.setEmergencyContactForm();
-		this.getEmergencyContact()
+		this.getEmergencyContact();
+		this.getAllCountry();
 	}
 
 	resetPhoneNumber(e) {
 		this.selectedCountry = e.name;
 		this.countryDialCode = e.countryCode;
 	}
-
+	getAllCountry() {
+		this.api.getcountrycode().subscribe((response) => {
+		  if(!!response) {
+			console.log(response, 'response of countryyyy')
+			this.countries = response.countries
+			// this.countries = response.countries;
+			// this.formattedCountryList = this.api.formatCountryList(response.countries);
+		  }
+		});
+	  }
 	setEmergencyContactForm() {
 		this.emergencyContactForm = new FormGroup({
 			name: new FormControl('', [Validators.required]),
@@ -62,12 +74,15 @@ export class EmergencyContactComponent implements OnInit {
 	}
 
 	savedEmergencyContact() {
+		console.log(this.emergencyContactForm.value.phone, 'phoneee')
+		let phoneNumber = this.emergencyContactForm.value.phone.split('-')
+		console.log(phoneNumber, 'phonee')
 		let data = {
 			name: this.emergencyContactForm.value.name,
 			relation: this.emergencyContactForm.value.relation,
 			email: this.emergencyContactForm.value.email,
-			countryCode: this.countryDialCode,
-			phone: this.emergencyContactForm.value.phone,
+			countryCode: phoneNumber[0],
+			phone: phoneNumber[1],
 			user: this.user.id
 		}
 		this.api.emergencyContact(data).subscribe((res) => {
@@ -76,6 +91,9 @@ export class EmergencyContactComponent implements OnInit {
 				this.toastr.success(res.message);
 				this.emergencyContact.push(res.EmergencyInformation);
 				this.checkMark(res.EmergencyInformation);
+				this.setEmergencyContactForm();
+				this.selectedDialCode = '';
+				this.selectedFlag = '';
 				// this.router.navigate(['/work-information']);
 			} else {
 				this.toastr.info(res.message);
@@ -179,5 +197,19 @@ export class EmergencyContactComponent implements OnInit {
 
 	numberOnly(e) {
 		this.customValidation.preventFromAlphabet(e)
+		console.log(e, 'eeeeeeeeeeeeeeeeeeeeeeeeeee')
+		if(this.countries) {
+
+			const fltFlag = this.countries.find((country)=>country.dial_code == `+${e.target.value}`)
+			console.log(fltFlag, 'flt flaggggggggggg')
+			if(!!fltFlag) {
+				this.selectedDialCode = `${fltFlag.dial_code}-`;
+				this.selectedFlag =fltFlag.flag;
+			}
+			if(!e.target.value){
+				this.selectedDialCode = '';
+				this.selectedFlag = '';
+			}
+		}
 	}
 }

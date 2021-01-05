@@ -57,16 +57,20 @@
 						<input type="email" class="form-control" id="inputPassword4" placeholder="Enter email" formControlName="email">
 					</div>
 				</div>
-				<div class="form-row">
+				<!-- <div class="form-row">
 					<div class="form-group col-md-12 input-border">
 						<label for="inputAddress" class="font-700 text-muted">Phone Number</label>
 						<app-country-input [countryCode]="countryDialCode" (onCountryChange)="resetPhoneNumber($event)"></app-country-input>
 					</div>
-				</div>
+				</div> -->
 				<div class="form-row">
 					<div class="form-group col-md-12 input-border">
 						<label for="inputAddress" class="font-700 text-muted">Phone Number</label>
-						<input type="tel" class="form-control" id="inputAddress" placeholder="Phone Number" (keydown)="numberOnly($event)" formControlName="phone" maxLength="14">
+						<div class="d-flex">
+
+							<input type="tel" class="form-control" id="inputAddress" placeholder="Phone Number" (keydown)="numberOnly($event)" formControlName="phone" maxLength="14" [value]="selectedDialCode">
+							<div>{{selectedFlag}}</div>
+						</div>
 					</div>
 				</div>
 				<button *ngIf="!isUpdate" type="submit" class="w-100 btn btn-primary p-3 input-border font-24 btn-theme-labour" [disabled]="emergencyContactForm.status=='INVALID'" (click)="savedEmergencyContact()">Add</button>
