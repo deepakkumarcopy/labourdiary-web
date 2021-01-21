@@ -34,6 +34,9 @@ export class WorkInformationComponent implements OnInit {
 	latitude: any;
 	longitude: any;
 	providerStage: any = 'work-information';
+	subCategory:any;
+	categoryId:any;
+	count:number = 0;
 	constructor(private modalService: ModalService,
 		private api: ApiService,
 		private route: ActivatedRoute,
@@ -159,6 +162,28 @@ export class WorkInformationComponent implements OnInit {
 			});
 		}
 	}
+
+	addSubCategory() {
+		let data = {
+			name:this.subCategory,
+			category:this.categoryId
+
+		}
+		this.api.addSubCategory(data).subscribe((res) => {
+			if (res.success) {
+				this.subCategories.push(res.subCategory)
+				this.formattedSubCategoriesList = this.api.formatCategoryList(this.subCategories)
+				this.workInformationForm.controls['subCategory'].setValue([res.subCategory.id]);
+				this.closeModal('add-sub-category');
+
+			} else {
+				this.toastr.info(res.message);
+			}
+		}, (e) => {
+			this.toastr.error(e.message);
+			console.log('error')
+		});
+	}
 	selectedCategory(e) {
 		if (!!this.isWorkInfo) {
 			this.workInformationForm.controls['subCategory'].setValue('');
@@ -176,20 +201,35 @@ export class WorkInformationComponent implements OnInit {
 			this.workInformationForm.controls['category'].setValue(e);
 		}
 	}
-
+	
 	getSubCategory(id) {
+		this.categoryId = id
 		this.api.getSubCategory(id).subscribe((res) => {
+			this.count++
 			if (res.success) {
 				res.data.forEach((data) => {
 					this.subCategories.push(data);
-					// console.log('subCategories',this.subCategories)
 				});
+				// console.log('subCategories',this.subCategories)
+				if(this.count == 1) {
+
+					this.subCategories.push({category: "other",
+								createdAt: 1608227133287,
+								id: "other",
+								name: "Other"})
+				}
+
 				this.formattedSubCategoriesList = this.api.formatCategoryList(this.subCategories)
 			}
 		});
 	}
 
 	selectedSubCategory(cat) {
+		if(cat == 'other') {
+			this.workInformationForm.controls['subCategory'].setValue('');
+			this.openModal('add-sub-category');
+		}
+		console.log(cat, 'selectedCategory')
 		if (cat && cat.length > 8) {
 			cat = cat.slice(0, -1);
 			this.workInformationForm.controls['subCategory'].setValue(cat);
@@ -215,7 +255,7 @@ export class WorkInformationComponent implements OnInit {
 		this.workImages.splice(i, 1);
 		this.workImagesToUpload.splice(i, 1);
 	}
-
+	
 	loadMap() {
 		let self = this;
 		var pos = {
