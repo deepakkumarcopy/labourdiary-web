@@ -35,7 +35,8 @@ export class WorkInformationComponent implements OnInit {
 	longitude: any;
 	providerStage: any = 'work-information';
 	subCategory:any;
-	categoryId:any;
+	selectedCategoryOption:any = []
+	selectedCategoryId:any ="";
 	count:number = 0;
 	constructor(private modalService: ModalService,
 		private api: ApiService,
@@ -98,6 +99,8 @@ export class WorkInformationComponent implements OnInit {
 
 	openModal(id: string) {
 		this.modalService.open(id);
+		this.subCategory = ''
+
 	}
 	savedWorkInformation() {
 		if (this.workInformationForm.status == 'INVALID') {
@@ -166,8 +169,7 @@ export class WorkInformationComponent implements OnInit {
 	addSubCategory() {
 		let data = {
 			name:this.subCategory,
-			category:this.categoryId
-
+			category:this.selectedCategoryId
 		}
 		this.api.addSubCategory(data).subscribe((res) => {
 			if (res.success) {
@@ -181,7 +183,6 @@ export class WorkInformationComponent implements OnInit {
 			}
 		}, (e) => {
 			this.toastr.error(e.message);
-			console.log('error')
 		});
 	}
 	selectedCategory(e) {
@@ -195,6 +196,13 @@ export class WorkInformationComponent implements OnInit {
 
 		if (e && e.length <= 3) {
 			const categoryId = e[e.length - 1];
+			const cat = this.categories.find((category)=>category.id == categoryId);
+			if(cat) {
+				const isCategory = this.selectedCategoryOption.find((sc)=>sc.id == cat.id)
+				if(!isCategory) {
+					this.selectedCategoryOption.push(cat)
+				}
+			}
 			this.getSubCategory(categoryId);
 		} else {
 			e = e.slice(0, -1);
@@ -203,7 +211,11 @@ export class WorkInformationComponent implements OnInit {
 	}
 	
 	getSubCategory(id) {
-		this.categoryId = id
+		let otherData = {category: "other",
+						createdAt: 1608227133287,
+						id: "other",
+						name: "Other"
+		}
 		this.api.getSubCategory(id).subscribe((res) => {
 			this.count++
 			if (res.success) {
@@ -213,23 +225,33 @@ export class WorkInformationComponent implements OnInit {
 				// console.log('subCategories',this.subCategories)
 				if(this.count == 1) {
 
-					this.subCategories.push({category: "other",
-								createdAt: 1608227133287,
-								id: "other",
-								name: "Other"})
+					this.subCategories.push(otherData)
 				}
-
+				const getOther = this.subCategories.find((cat)=> cat.id == 'other')
+				if(!!getOther) {
+					const index: number = this.subCategories.indexOf(getOther);
+				    if (index !== -1) {
+				        this.subCategories.splice(index, 1);
+				        this.subCategories.push(otherData)
+				    }  
+				}
+				console.log('sub categoriesssssssssss',this.subCategories)
 				this.formattedSubCategoriesList = this.api.formatCategoryList(this.subCategories)
 			}
 		});
 	}
 
 	selectedSubCategory(cat) {
-		if(cat == 'other') {
-			this.workInformationForm.controls['subCategory'].setValue('');
-			this.openModal('add-sub-category');
+		if (cat){
+
+			console.log(cat, 'selectedCategory')
+			let getOther = cat.find((category)=> category == 'other')
+			console.log(getOther, 'get otherrr')
+			if(getOther) {
+				this.workInformationForm.controls['subCategory'].setValue('');
+				this.openModal('add-sub-category');
+			}
 		}
-		console.log(cat, 'selectedCategory')
 		if (cat && cat.length > 8) {
 			cat = cat.slice(0, -1);
 			this.workInformationForm.controls['subCategory'].setValue(cat);

@@ -133,7 +133,21 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<div class="form-row" style="padding: 40px;">
+			<div class="form-row pb-0" style="padding: 26px;">
+				<div class="form-group col-md-12">
+					<div class="input-border">
+						<label class="font-700 text-muted">Select Category</label>
+						<div *ngIf="selectedCategoryOption">
+							<select id="inputState" class="form-control" [(ngModel)]="selectedCategoryId">
+								<option selected disabled value="">Select Category</option>
+								<option *ngFor="let cat of selectedCategoryOption" [value]="cat.id">{{cat.name}}</option>
+								
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="form-row pt-0" style="padding: 26px;">
 				<div class="form-group col-md-12">
 					<div class="input-border">
 						<label class="font-700 text-muted">Add sub category</label>
@@ -141,6 +155,7 @@
 					</div>
 				</div>
 			</div>
+			
 		  	<div class="w-100" style="padding: 16px;">
 				<button  type="submit" class="btn btn-primary p-3 input-border btn-theme-labour w-100" (click)="addSubCategory()">Add Subcategory</button>
 			</div>
