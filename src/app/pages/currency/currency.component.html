@@ -1,0 +1,2 @@
+<ng-select2 *ngIf="currency" [ngClass]="{'readonly-select': readOnly}" [ngModelOptions]="{standalone: true}" (valueChanged)="valueChanged($event)" [(ngModel)]="currencyCode"  [options]="options" [data]="formattedCurrencyList" [placeholder]="'Choose your currency'">
+</ng-select2>

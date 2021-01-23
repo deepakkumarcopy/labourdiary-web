@@ -29,6 +29,7 @@ export class WorkInformationComponent implements OnInit {
 	workImagesToUpload: any = [];
 	selectedCategories: any = []
 	user: any = JSON.parse(localStorage.getItem('user'));
+
 	isWorkInfo: any = JSON.parse(localStorage.getItem('work'));
 	isWorkPhotos: any = JSON.parse(localStorage.getItem('work-photo'));
 	latitude: any;
@@ -38,6 +39,8 @@ export class WorkInformationComponent implements OnInit {
 	selectedCategoryOption:any = []
 	selectedCategoryId:any ="";
 	count:number = 0;
+  	currency: any = JSON.parse(localStorage.getItem('currency')) ? JSON.parse(localStorage.getItem('currency')): 0;
+
 	constructor(private modalService: ModalService,
 		private api: ApiService,
 		private route: ActivatedRoute,
@@ -46,6 +49,7 @@ export class WorkInformationComponent implements OnInit {
 	) { }
 
 	ngOnInit(): void {
+		// this.currency = this.user.currency ? this.user.currency : "0"
 		this.setWorkInformationForm();
 		this.api.getCategory().subscribe((res) => {
 			this.categories = res.category;
@@ -85,7 +89,7 @@ export class WorkInformationComponent implements OnInit {
 			location: new FormControl(this.isWorkInfo ? this.isWorkInfo.location : '', [Validators.required]),
 			category: new FormControl(this.isWorkInfo ? this.isWorkInfo.category : '', [Validators.required]),
 			subCategory: new FormControl(this.isWorkInfo ? this.isWorkInfo.subCategory : '', [Validators.required]),
-			fee: new FormControl(this.isWorkInfo ? this.isWorkInfo.fee : '', [Validators.required]),
+			fee: new FormControl(this.isWorkInfo ? this.isWorkInfo.fee + this.currency: '', [Validators.required]),
 			englishLevel: new FormControl(this.isWorkInfo ? this.isWorkInfo.englishLevel : '', [Validators.required]),
 			employeType: new FormControl(this.isWorkInfo ? this.isWorkInfo.employeType : '', [Validators.required]),
 			about: new FormControl(this.isWorkInfo ? this.isWorkInfo.about : '', [Validators.required]),
@@ -116,6 +120,7 @@ export class WorkInformationComponent implements OnInit {
 		form.append('about', this.workInformationForm.value.about);
 		form.append('employeeType', this.workInformationForm.value.employeType);
 		form.append('englishLevel', this.workInformationForm.value.englishLevel);
+		form.append('symbol',this.currency)
 		form.append('lat', this.latitude);
 		form.append('lng', this.longitude);
 		form.append('cityName', 'kanpur');
@@ -136,6 +141,7 @@ export class WorkInformationComponent implements OnInit {
 					this.toastr.success(res.message);
 					console.log(res.service)
 					localStorage.setItem('work', JSON.stringify(this.workInformationForm.value))
+					localStorage.setItem('currency',JSON.stringify(this.currency))
 					localStorage.setItem('work-photo', JSON.stringify(res.service.workPhotos))
 
 					this.router.navigate(['/business-information']);
@@ -154,6 +160,11 @@ export class WorkInformationComponent implements OnInit {
 		}
 	}
 
+	resetCurrency(currency) {
+		this.currency = currency.symbol;
+		console.log(this.currency, 'currencyyyyyyy')
+		console.log(currency, 'cureencyyyyyyy')
+	}
 	getSelectedCategory() {
 		if (!!this.workInformationForm.value.category) {
 			const category = this.workInformationForm.value.category;

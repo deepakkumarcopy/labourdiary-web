@@ -26,17 +26,18 @@
 			<div class="form-row">
 				<div class="form-group col-md-6">
 					<div class="input-border">
-						<label class="font-700 text-muted">Consultation Fee</label>
-						<input type="text" class="form-control" id="inputPassword4" placeholder="Enter consultation fee" formControlName="fee">
+						<label for="inputAddress" class="font-700 text-muted">Currency</label>
+						<app-currency [currencyCode]="currency" (onCurrencyChange)="resetCurrency($event)"></app-currency>
 					</div>
 				</div>
 				<div class="form-group col-md-6">
 					<div class="input-border">
-						<label class="font-700 text-muted">Location</label>
-						<input type="text" class="form-control" id="inputPassword4" placeholder="Please select service location" formControlName="location" (click)="openModal('google-map')" autocomplete="off">
+						<label class="font-700 text-muted">Consultation Fee</label>
+						<input type="text" class="form-control" id="inputPassword4" placeholder="Enter consultation fee" formControlName="fee">
 					</div>
 				</div>
 			</div>
+			
 			<div class="form-row">
 				<div class="form-group col-md-6">
 					<div class="input-border">
@@ -60,6 +61,21 @@
 						</select>
 					</div>
 				</div>
+			</div>
+			<div class="form-row">
+				<!-- <div class="form-group col-md-6">
+					<div class="input-border">
+						<label class="font-700 text-muted">Consultation Fee</label>
+						<input type="text" class="form-control" id="inputPassword4" placeholder="Enter consultation fee" formControlName="fee">
+					</div>
+				</div> -->
+				<div class="form-group col-md-12">
+					<div class="input-border">
+						<label class="font-700 text-muted">Location</label>
+						<input type="text" class="form-control" id="inputPassword4" placeholder="Please select service location" formControlName="location" (click)="openModal('google-map')" autocomplete="off">
+					</div>
+				</div>
+				
 			</div>
 			<div class="form-row">
 				<div class="form-group col-md-12">
