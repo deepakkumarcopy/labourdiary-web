@@ -29,7 +29,8 @@ import { EmergencyContactComponent } from './pages/service-provider/emergency-co
 import { WorkInformationComponent } from './pages/service-provider/work-information/work-information.component';
 import { BusinessInformationComponent } from './pages/service-provider/business-information/business-information.component';
 import { ProfileComponent } from './pages/profile/profile.component';
-
+import { OrderComponent } from './pages/user/order/order.component';
+import { JobDetailsComponent } from './pages/service-provider/job-details/job-details.component';
 const routes: Routes = [
 	{
 		path: 'user',
@@ -42,7 +43,8 @@ const routes: Routes = [
 			{ path: "payment/:serviceId/:orderId/:totalAmount", component: PaymentComponent },
 			{ path: 'order-confirmation/:serviceId/:reserveDate', component: OrderConfirmationComponent },
 			{ path: "service/:id", component: ServiceComponent },
-			{ path: "orders", component: MyOrderComponent }
+			{ path: "orders", component: MyOrderComponent },
+			{ path:"order/:orderId",component: OrderComponent}
 		]
 	},
 	{
@@ -55,6 +57,7 @@ const routes: Routes = [
 			{ path: 'calender', component: CalenderComponent },
 			{ path: 'jobs', component: JobsComponent },
 			{ path: "message", component: MessagesComponent },
+			{path:'job-details/:jobId', component:JobDetailsComponent},
 			{
 				path: 'performance',
 				component: PerformanceComponent,

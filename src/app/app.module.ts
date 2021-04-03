@@ -67,6 +67,8 @@ import { ConfirmationDialogComponent } from './shared/confirmation-dialog/confir
 import { VerifyComponent } from './pages/verify/verify.component';
 import { ForgetPasswordComponent } from './pages/forget-password/forget-password.component';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { OrderComponent } from './pages/user/order/order.component';
+import { JobDetailsComponent } from './pages/service-provider/job-details/job-details.component';
 
 var connectionOptions = {
 	"force new connection": true,
@@ -119,6 +121,8 @@ const config: SocketIoConfig = { url: `${environment.baseUrl}:3000`, options: co
 		ConfirmationDialogComponent,
 		VerifyComponent,
 		ForgetPasswordComponent,
+		OrderComponent,
+		JobDetailsComponent,
 	],
 	imports: [
 		BrowserModule,
