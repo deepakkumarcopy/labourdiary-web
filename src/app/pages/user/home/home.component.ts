@@ -70,10 +70,12 @@ export class HomeComponent implements OnInit {
 				if (!!res.success) {
 					this.resentServices = res.services;
 					this.isLoadingForService = false;
+				} else {
+					this.isLoadingForService = false;
 				}
 				console.log(res)
 			}, (error) => {
-				this.isLoadingForCategory = false;
+				this.isLoadingForService = false;
 			});
 	}
 

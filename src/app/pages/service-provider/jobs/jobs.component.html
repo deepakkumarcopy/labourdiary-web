@@ -10,7 +10,7 @@
             [scrollWindow]="true"
          >
 			<div *ngIf="!!jobs && jobs.length>0; else noDataFound">
-				<div class="card mb-3 box-shadow" *ngFor="let job of jobs;">
+				<div class="card mb-3 box-shadow" *ngFor="let job of jobs;" (click)="jobDetails(job)">
 					<div class="card-body">
 						<div class="row">
 							<div class="col-4">

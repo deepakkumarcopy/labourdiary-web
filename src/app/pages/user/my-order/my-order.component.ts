@@ -46,5 +46,7 @@ export class MyOrderComponent implements OnInit {
   goToChat(order) {
     this.router.navigate(['message', order.serviceCreateUser.id]);
   }
-  
+  orderDetails(order){
+    this.router.navigate(['user/order', order.id])
+  }
 }
