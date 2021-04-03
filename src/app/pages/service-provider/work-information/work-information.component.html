@@ -26,17 +26,18 @@
 			<div class="form-row">
 				<div class="form-group col-md-6">
 					<div class="input-border">
-						<label class="font-700 text-muted">Consultation Fee</label>
-						<input type="text" class="form-control" id="inputPassword4" placeholder="Enter consultation fee" formControlName="fee">
+						<label for="inputAddress" class="font-700 text-muted">Currency</label>
+						<app-currency [currencyCode]="currency" (onCurrencyChange)="resetCurrency($event)"></app-currency>
 					</div>
 				</div>
 				<div class="form-group col-md-6">
 					<div class="input-border">
-						<label class="font-700 text-muted">Location</label>
-						<input type="text" class="form-control" id="inputPassword4" placeholder="Please select service location" formControlName="location" (click)="openModal('google-map')" autocomplete="off">
+						<label class="font-700 text-muted">Consultation Fee</label>
+						<input type="text" class="form-control" id="inputPassword4" placeholder="Enter consultation fee" formControlName="fee">
 					</div>
 				</div>
 			</div>
+			
 			<div class="form-row">
 				<div class="form-group col-md-6">
 					<div class="input-border">
@@ -60,6 +61,21 @@
 						</select>
 					</div>
 				</div>
+			</div>
+			<div class="form-row">
+				<!-- <div class="form-group col-md-6">
+					<div class="input-border">
+						<label class="font-700 text-muted">Consultation Fee</label>
+						<input type="text" class="form-control" id="inputPassword4" placeholder="Enter consultation fee" formControlName="fee">
+					</div>
+				</div> -->
+				<div class="form-group col-md-12">
+					<div class="input-border">
+						<label class="font-700 text-muted">Location</label>
+						<input type="text" class="form-control" id="inputPassword4" placeholder="Please select service location" formControlName="location" (click)="openModal('google-map')" autocomplete="off">
+					</div>
+				</div>
+				
 			</div>
 			<div class="form-row">
 				<div class="form-group col-md-12">
@@ -119,6 +135,45 @@
 			</div>
 			<div class="modal-body mapCol">
 				<div #mapElement class="work-map"></div>
+			</div>
+		</div>
+	</div>
+</jw-modal>
+<jw-modal id="add-sub-category">
+	<!-- <div #mapElement class="map" (click)="serviceInfo($event)"></div> -->
+
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content" style="height: 500px;">
+			<div class="modal-header">
+				<button type="button" class="close" (click)="closeModal('add-sub-category')" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="form-row pb-0" style="padding: 26px;">
+				<div class="form-group col-md-12">
+					<div class="input-border">
+						<label class="font-700 text-muted">Select Category</label>
+						<div *ngIf="selectedCategoryOption">
+							<select id="inputState" class="form-control" [(ngModel)]="selectedCategoryId">
+								<option selected disabled value="">Select Category</option>
+								<option *ngFor="let cat of selectedCategoryOption" [value]="cat.id">{{cat.name}}</option>
+								
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="form-row pt-0" style="padding: 26px;">
+				<div class="form-group col-md-12">
+					<div class="input-border">
+						<label class="font-700 text-muted">Add sub category</label>
+						<input type="text" class="form-control" id="inputPassword4" placeholder="Enter Subcategory" [(ngModel)]="subCategory">
+					</div>
+				</div>
+			</div>
+			
+		  	<div class="w-100" style="padding: 16px;">
+				<button  type="submit" class="btn btn-primary p-3 input-border btn-theme-labour w-100" (click)="addSubCategory()">Add Subcategory</button>
 			</div>
 		</div>
 	</div>

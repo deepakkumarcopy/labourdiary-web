@@ -29,6 +29,15 @@ export class ApiService {
     })
 
   }
+  formatCurrencyList(currency){
+    return currency.map(function (item) {
+      return {
+        id: item.symbol,
+        text: item.code,
+      }
+    })
+
+  }
   formatCategoryList(category) {
     return category.map(function (item) {
       return {
@@ -84,6 +93,11 @@ export class ApiService {
 
   getcountrycode() {
     return this.http.get(`assets/js/country_codes.json`)
+      .pipe(map((res: any) => res),
+        catchError(error => throwError(error.error || 'Server Error')));
+  }
+  getCurrencyCode() {
+    return this.http.get(`assets/js/currency.json`)
       .pipe(map((res: any) => res),
         catchError(error => throwError(error.error || 'Server Error')));
   }

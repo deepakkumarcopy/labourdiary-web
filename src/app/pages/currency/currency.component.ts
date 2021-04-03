@@ -7,18 +7,18 @@ declare var jQuery:any;
 
 
 @Component({
-  selector: 'app-country-input',
-  templateUrl: './country-input.component.html',
-  styleUrls: ['./country-input.component.scss']
+  selector: 'app-currency',
+  templateUrl: './currency.component.html',
+  styleUrls: ['./currency.component.scss']
 })
-export class CountryInputComponent implements OnInit , OnDestroy{
-  @Output() onCountryChange = new EventEmitter<any>();
-  @Input() countryCode: any;
+export class CurrencyComponent implements OnInit , OnDestroy{
+  @Output() onCurrencyChange = new EventEmitter<any>();
+  @Input() currencyCode: any;
   @Input() readOnly: boolean;
   @Input() width: any;
 
-  countries: any;
-  formattedCountryList:Array<Select2OptionData>;
+  currency: any;
+  formattedCurrencyList:Array<Select2OptionData>;
   selectedCountry: any;
   public options: Options;
 
@@ -27,11 +27,11 @@ export class CountryInputComponent implements OnInit , OnDestroy{
   ) { }
 
   ngOnInit(): void {
-    this.getAllCountry();
+    // this.getAllCountry();
     this.getCurrencyCode();
-    if(this.readOnly) {
-      this.countryCode = `+${this.countryCode}`;
-    }
+    // if(this.readOnly) {
+    //   this.correncySymbol = `+${this.countryCode}`;
+    // }
     this.options = {
       width:this.width || "100%",
       templateResult: this.templateResult,
@@ -42,22 +42,26 @@ export class CountryInputComponent implements OnInit , OnDestroy{
     this.api.getCurrencyCode().subscribe((response) => {
       if(!!response) {
         console.log(response, 'response of currency code');
+        this.currency = response.currency;
+        this.formattedCurrencyList = this.api.formatCurrencyList(response.currency);
       }
     });
   }
-  getAllCountry() {
-    this.api.getcountrycode().subscribe((response) => {
-      if(!!response) {
-        this.countries = response.countries;
-        this.formattedCountryList = this.api.formatCountryList(response.countries);
-      }
-    });
-  }
+  // getAllCountry() {
+  //   this.api.getcountrycode().subscribe((response) => {
+  //     if(!!response) {
+  //       this.countries = response.countries;
+  //       this.formattedCountryList = this.api.formatCountryList(response.countries);
+  //     }
+  //   });
+  // }
   valueChanged(e) {
-    const fltCountry = this.countries.find((country) => country.dial_code === e);
-    if (!!fltCountry) {
-      this.onCountryChange.emit({name:fltCountry.name, countryCode: fltCountry.dial_code});
-    }
+  	console.log(e, 'value changeeee')
+     const fltCurrency = this.currency.find((cur) => cur.symbol === e);
+     console.log(fltCurrency, 'fltCurrencyyyyyyyyyyyyyy');
+     if (!!fltCurrency) {
+      this.onCurrencyChange.emit({symbol:fltCurrency.symbol, code: fltCurrency.code});
+     }
   }
 
   // function for result template
@@ -65,7 +69,7 @@ export class CountryInputComponent implements OnInit , OnDestroy{
     if (!state.id) {
       return state.text;
     }
-    return jQuery('<span>' + state.additional.flagUrl + ' ' + state.id + ' ' + state.text + '</span>');
+    return jQuery('<span>'+ state.text + '</span>');
   }
 
   // function for selection template
@@ -73,7 +77,7 @@ export class CountryInputComponent implements OnInit , OnDestroy{
     if (!state.id) {
       return state.text;
     }
-    return jQuery('<span>' + state.additional.flagUrl + ' ' + state.id + ' ' + state.text + '</span>');
+    return jQuery('<span>' +state.text + '</span>');
   }
 
   ngOnDestroy(): void {

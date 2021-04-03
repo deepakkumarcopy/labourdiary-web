@@ -29,11 +29,18 @@ export class WorkInformationComponent implements OnInit {
 	workImagesToUpload: any = [];
 	selectedCategories: any = []
 	user: any = JSON.parse(localStorage.getItem('user'));
+
 	isWorkInfo: any = JSON.parse(localStorage.getItem('work'));
 	isWorkPhotos: any = JSON.parse(localStorage.getItem('work-photo'));
 	latitude: any;
 	longitude: any;
 	providerStage: any = 'work-information';
+	subCategory:any;
+	selectedCategoryOption:any = []
+	selectedCategoryId:any ="";
+	count:number = 0;
+  	currency: any = JSON.parse(localStorage.getItem('currency')) ? JSON.parse(localStorage.getItem('currency')): 0;
+
 	constructor(private modalService: ModalService,
 		private api: ApiService,
 		private route: ActivatedRoute,
@@ -42,6 +49,7 @@ export class WorkInformationComponent implements OnInit {
 	) { }
 
 	ngOnInit(): void {
+		// this.currency = this.user.currency ? this.user.currency : "0"
 		this.setWorkInformationForm();
 		this.api.getCategory().subscribe((res) => {
 			this.categories = res.category;
@@ -81,7 +89,7 @@ export class WorkInformationComponent implements OnInit {
 			location: new FormControl(this.isWorkInfo ? this.isWorkInfo.location : '', [Validators.required]),
 			category: new FormControl(this.isWorkInfo ? this.isWorkInfo.category : '', [Validators.required]),
 			subCategory: new FormControl(this.isWorkInfo ? this.isWorkInfo.subCategory : '', [Validators.required]),
-			fee: new FormControl(this.isWorkInfo ? this.isWorkInfo.fee : '', [Validators.required]),
+			fee: new FormControl(this.isWorkInfo ? this.isWorkInfo.fee + this.currency: '', [Validators.required]),
 			englishLevel: new FormControl(this.isWorkInfo ? this.isWorkInfo.englishLevel : '', [Validators.required]),
 			employeType: new FormControl(this.isWorkInfo ? this.isWorkInfo.employeType : '', [Validators.required]),
 			about: new FormControl(this.isWorkInfo ? this.isWorkInfo.about : '', [Validators.required]),
@@ -95,6 +103,8 @@ export class WorkInformationComponent implements OnInit {
 
 	openModal(id: string) {
 		this.modalService.open(id);
+		this.subCategory = ''
+
 	}
 	savedWorkInformation() {
 		if (this.workInformationForm.status == 'INVALID') {
@@ -110,6 +120,7 @@ export class WorkInformationComponent implements OnInit {
 		form.append('about', this.workInformationForm.value.about);
 		form.append('employeeType', this.workInformationForm.value.employeType);
 		form.append('englishLevel', this.workInformationForm.value.englishLevel);
+		form.append('symbol',this.currency)
 		form.append('lat', this.latitude);
 		form.append('lng', this.longitude);
 		form.append('cityName', 'kanpur');
@@ -130,6 +141,7 @@ export class WorkInformationComponent implements OnInit {
 					this.toastr.success(res.message);
 					console.log(res.service)
 					localStorage.setItem('work', JSON.stringify(this.workInformationForm.value))
+					localStorage.setItem('currency',JSON.stringify(this.currency))
 					localStorage.setItem('work-photo', JSON.stringify(res.service.workPhotos))
 
 					this.router.navigate(['/business-information']);
@@ -148,6 +160,11 @@ export class WorkInformationComponent implements OnInit {
 		}
 	}
 
+	resetCurrency(currency) {
+		this.currency = currency.symbol;
+		console.log(this.currency, 'currencyyyyyyy')
+		console.log(currency, 'cureencyyyyyyy')
+	}
 	getSelectedCategory() {
 		if (!!this.workInformationForm.value.category) {
 			const category = this.workInformationForm.value.category;
@@ -158,6 +175,26 @@ export class WorkInformationComponent implements OnInit {
 				}
 			});
 		}
+	}
+
+	addSubCategory() {
+		let data = {
+			name:this.subCategory,
+			category:this.selectedCategoryId
+		}
+		this.api.addSubCategory(data).subscribe((res) => {
+			if (res.success) {
+				this.subCategories.push(res.subCategory)
+				this.formattedSubCategoriesList = this.api.formatCategoryList(this.subCategories)
+				this.workInformationForm.controls['subCategory'].setValue([res.subCategory.id]);
+				this.closeModal('add-sub-category');
+
+			} else {
+				this.toastr.info(res.message);
+			}
+		}, (e) => {
+			this.toastr.error(e.message);
+		});
 	}
 	selectedCategory(e) {
 		if (!!this.isWorkInfo) {
@@ -170,26 +207,62 @@ export class WorkInformationComponent implements OnInit {
 
 		if (e && e.length <= 3) {
 			const categoryId = e[e.length - 1];
+			const cat = this.categories.find((category)=>category.id == categoryId);
+			if(cat) {
+				const isCategory = this.selectedCategoryOption.find((sc)=>sc.id == cat.id)
+				if(!isCategory) {
+					this.selectedCategoryOption.push(cat)
+				}
+			}
 			this.getSubCategory(categoryId);
 		} else {
 			e = e.slice(0, -1);
 			this.workInformationForm.controls['category'].setValue(e);
 		}
 	}
-
+	
 	getSubCategory(id) {
+		let otherData = {category: "other",
+						createdAt: 1608227133287,
+						id: "other",
+						name: "Other"
+		}
 		this.api.getSubCategory(id).subscribe((res) => {
+			this.count++
 			if (res.success) {
 				res.data.forEach((data) => {
 					this.subCategories.push(data);
-					// console.log('subCategories',this.subCategories)
 				});
+				// console.log('subCategories',this.subCategories)
+				if(this.count == 1) {
+
+					this.subCategories.push(otherData)
+				}
+				const getOther = this.subCategories.find((cat)=> cat.id == 'other')
+				if(!!getOther) {
+					const index: number = this.subCategories.indexOf(getOther);
+				    if (index !== -1) {
+				        this.subCategories.splice(index, 1);
+				        this.subCategories.push(otherData)
+				    }  
+				}
+				console.log('sub categoriesssssssssss',this.subCategories)
 				this.formattedSubCategoriesList = this.api.formatCategoryList(this.subCategories)
 			}
 		});
 	}
 
 	selectedSubCategory(cat) {
+		if (cat){
+
+			console.log(cat, 'selectedCategory')
+			let getOther = cat.find((category)=> category == 'other')
+			console.log(getOther, 'get otherrr')
+			if(getOther) {
+				this.workInformationForm.controls['subCategory'].setValue('');
+				this.openModal('add-sub-category');
+			}
+		}
 		if (cat && cat.length > 8) {
 			cat = cat.slice(0, -1);
 			this.workInformationForm.controls['subCategory'].setValue(cat);
@@ -215,7 +288,7 @@ export class WorkInformationComponent implements OnInit {
 		this.workImages.splice(i, 1);
 		this.workImagesToUpload.splice(i, 1);
 	}
-
+	
 	loadMap() {
 		let self = this;
 		var pos = {
